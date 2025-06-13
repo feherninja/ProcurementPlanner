@@ -1,0 +1,65 @@
+﻿@page "/components"
+@using DeliveryManager.Interfaces
+@using DeliveryManager.Models
+@inject IComponentService ComponentService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>Components</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudPaper Class="pa-4">
+        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+            <MudText Typo="Typo.h4">Components</MudText>
+            <MudButton Color="Color.Primary"
+                       Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.Add"
+                       OnClick="OpenCreateDialog">
+                Add Component
+            </MudButton>
+        </MudStack>
+
+        <MudDataGrid @ref="dataGrid"
+                     T="Component"
+                     Items="@components"
+                     Filterable="true"
+                     FilterMode="DataGridFilterMode.Simple"
+                     SortMode="SortMode.Single"
+                     Groupable="false"
+                     Loading="@loading"
+                     Hover="true"
+                     Dense="true">
+
+            <Columns>
+                <PropertyColumn Property="x => x.Name" Title="Name"/>
+                <PropertyColumn Property="x => x.Description" Title="Description"/>
+                <PropertyColumn Property="x => x.Unit" Title="Unit"/>
+                <PropertyColumn Property="x => x.CostPerUnit" Title="Cost per Unit" Format="C2"/>
+                <PropertyColumn Property="x => x.CreatedAt" Title="Created" Format="yyyy-MM-dd"/>
+
+                <TemplateColumn Title="Actions" Sortable="false" Filterable="false">
+                    <CellTemplate>
+                        <MudStack Row Spacing="1">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                           Color="Color.Primary"
+                                           Size="Size.Small"
+                                           OnClick="@(() => OpenEditDialog(context.Item))"
+                                           Title="Edit"/>
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                           Color="Color.Error"
+                                           Size="Size.Small"
+                                           OnClick="@(() => OpenDeleteDialog(context.Item))"
+                                           Title="Delete"/>
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+
+            <NoRecordsContent>
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    No components found. Click "Add Component" to create your first one.
+                </MudText>
+            </NoRecordsContent>
+        </MudDataGrid>
+    </MudPaper>
+</MudContainer>

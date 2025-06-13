@@ -1,0 +1,124 @@
+﻿@page "/items"
+@using DeliveryManager.Models
+@inherits ItemsBase
+
+<PageTitle>Items</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudPaper Class="pa-4">
+        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+            <MudText Typo="Typo.h4">Items</MudText>
+            <MudButton Color="Color.Primary" 
+                       Variant="Variant.Filled" 
+                       StartIcon="@Icons.Material.Filled.Add"
+                       OnClick="OpenCreateDialog">
+                Add Item
+            </MudButton>
+        </MudStack>
+
+        <MudDataGrid @ref="dataGrid"
+                     T="Item"
+                     Items="@items"
+                     Filterable="true"
+                     FilterMode="DataGridFilterMode.Simple"
+                     SortMode="SortMode.Single"
+                     Groupable="false"
+                     Loading="@loading"
+                     Hover="true"
+                     Dense="true">
+            
+            <Columns>
+                <HierarchyColumn T="Item" />
+                <PropertyColumn Property="x => x.Name" Title="Name" />
+                <PropertyColumn Property="x => x.Description" Title="Description" />
+                
+                <TemplateColumn Title="Components" Sortable="false" Filterable="false">
+                    <CellTemplate>
+                        <MudText Typo="Typo.body2">
+                            @context.Item.ItemComponents.Count component(s)
+                        </MudText>
+                    </CellTemplate>
+                </TemplateColumn>
+                
+                <TemplateColumn Title="Actions" Sortable="false" Filterable="false">
+                    <CellTemplate>
+                        <MudStack Row Spacing="1">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                         Color="Color.Primary"
+                                         Size="Size.Small"
+                                         OnClick="@(() => OpenEditDialog(context.Item))"
+                                         Title="Edit" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                         Color="Color.Error"
+                                         Size="Size.Small"
+                                         OnClick="@(() => OpenDeleteDialog(context.Item))"
+                                         Title="Delete" />
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+            
+            <ChildRowContent>
+                <MudCard Class="ma-2" Elevation="0" Style="border: 1px solid var(--mud-palette-lines-default);">
+                    <MudCardContent>
+                        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-3">
+                            <MudText Typo="Typo.h6">Components in @context.Item.Name</MudText>
+                            <MudButton Color="Color.Secondary" 
+                                       Variant="Variant.Filled" 
+                                       Size="Size.Small"
+                                       StartIcon="@Icons.Material.Filled.Add"
+                                       OnClick="@(() => OpenAddComponentDialog(context.Item))">
+                                Add Component
+                            </MudButton>
+                        </MudStack>
+                        
+                        @if (context.Item.ItemComponents.Any())
+                        {
+                            <MudSimpleTable Style="overflow-x: auto;" Dense="true">
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Unit</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var itemComponent in context.Item.ItemComponents)
+                                    {
+                                        <tr>
+                                            <td>@itemComponent.Component.Name</td>
+                                            <td>@itemComponent.Component.Description</td>
+                                            <td>@itemComponent.Quantity</td>
+                                            <td>@itemComponent.Component.Unit</td>
+                                            <td>
+                                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                             Color="Color.Error"
+                                                             Size="Size.Small"
+                                                             OnClick="@(() => RemoveComponentFromItem(context.Item, itemComponent.Component))"
+                                                             Title="Remove" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </MudSimpleTable>
+                        }
+                        else
+                        {
+                            <MudAlert Severity="Severity.Info" Dense="true">
+                                No components added yet. Click "Add Component" to get started.
+                            </MudAlert>
+                        }
+                    </MudCardContent>
+                </MudCard>
+            </ChildRowContent>
+            
+            <NoRecordsContent>
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    No items found. Click "Add Item" to create your first one.
+                </MudText>
+            </NoRecordsContent>
+        </MudDataGrid>
+    </MudPaper>
+</MudContainer>

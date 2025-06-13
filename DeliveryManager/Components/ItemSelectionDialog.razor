@@ -1,0 +1,83 @@
+﻿@using DeliveryManager.Models
+@inherits ItemSelectionDialogBase
+
+<MudDialog>
+    <DialogContent>
+        <MudStack Spacing="4">
+            <MudText Typo="Typo.h6">Select Items for Delivery</MudText>
+            
+            @if (availableItems.Any())
+            {
+                <MudDataGrid @ref="dataGrid"
+                             T="Item"
+                             Items="@availableItems"
+                             MultiSelection="true"
+                             @bind-SelectedItems="selectedItems"
+                             Filterable="true"
+                             FilterMode="DataGridFilterMode.Simple"
+                             Dense="true"
+                             Height="400px"
+                             SelectOnRowClick="false">
+                    
+                    <Columns>
+                        <SelectColumn T="Item" />
+                        <PropertyColumn Property="x => x.Name" Title="Item" />
+                        <PropertyColumn Property="x => x.Description" Title="Description" />
+                        
+                        <TemplateColumn Title="Components" Sortable="false" Filterable="false">
+                            <CellTemplate>
+                                <MudText Typo="Typo.body2">
+                                    @context.Item.ItemComponents.Count component(s)
+                                </MudText>
+                            </CellTemplate>
+                        </TemplateColumn>
+                        
+                        <TemplateColumn Title="Quantity" Sortable="false" Filterable="false">
+                            <CellTemplate>
+                                @if (selectedItems.Contains(context.Item))
+                                {
+                                    <MudNumericField Value="@itemQuantities[context.Item.Id]"
+                                                     ValueChanged="@((int value) => itemQuantities[context.Item.Id] = value)"
+                                                     Min="1"
+                                                     Step="1"
+                                                     Variant="Variant.Outlined"
+                                                     Margin="Margin.Dense"
+                                                     HideSpinButtons="true"
+                                                     Style="max-width: 100px;"
+                                                     onclick="event.stopPropagation();" />
+                                }
+                                else
+                                {
+                                    <MudText Typo="Typo.body2" Class="text-muted">-</MudText>
+                                }
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Columns>
+                </MudDataGrid>
+                
+                @if (selectedItems.Any())
+                {
+                    <MudAlert Severity="Severity.Info" Dense="true">
+                        @selectedItems.Count item(s) selected. Set quantities in the grid above.
+                    </MudAlert>
+                }
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Warning">
+                    No items available. Please create some items first.
+                </MudAlert>
+            }
+        </MudStack>
+    </DialogContent>
+    
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" 
+                   Variant="Variant.Filled" 
+                   OnClick="AddSelectedItems"
+                   Disabled="@(!selectedItems.Any() || loading)">
+            Add @selectedItems.Count Item(s)
+        </MudButton>
+    </DialogActions>
+</MudDialog>

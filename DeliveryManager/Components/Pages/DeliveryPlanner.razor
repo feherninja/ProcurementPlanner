@@ -1,0 +1,108 @@
+﻿@page "/delivery-planner"
+@inherits DeliveryPlannerBase
+
+<PageTitle>Delivery Planner</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Delivery Planner</MudText>
+    
+    <!-- Selected Items List -->
+    <MudPaper Class="pa-4 mb-4">
+        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+            <MudText Typo="Typo.h5">Selected Items</MudText>
+            <MudButton Color="Color.Primary" 
+                       Variant="Variant.Filled" 
+                       StartIcon="@Icons.Material.Filled.Add"
+                       OnClick="OpenAddItemDialog">
+                Add Items
+            </MudButton>
+        </MudStack>
+
+        @if (selectedItems.Any())
+        {
+            <MudSimpleTable Dense="true" Hover="true">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var selectedItem in selectedItems)
+                    {
+                        <tr>
+                            <td>@selectedItem.Item.Name</td>
+                            <td>@selectedItem.Item.Description</td>
+                            <td>
+                                <MudNumericField Value="@selectedItem.Quantity"
+                                                 ValueChanged="@((int value) => { selectedItem.Quantity = value; CalculateComponents(); })"
+                                                 Min="1"
+                                                 Step="1"
+                                                 Variant="Variant.Outlined"
+                                                 Margin="Margin.Dense"
+                                                 HideSpinButtons="true"
+                                                 Style="max-width: 100px;" />
+                            </td>
+                            <td>
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                             Color="Color.Error"
+                                             Size="Size.Small"
+                                             OnClick="@(() => RemoveItem(selectedItem))"
+                                             Title="Remove" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </MudSimpleTable>
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">
+                No items selected. Click "Add Items" to start planning your delivery.
+            </MudAlert>
+        }
+    </MudPaper>
+
+    <!-- Required Components List -->
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h5" Class="mb-4">Required Components</MudText>
+        
+        @if (requiredComponents.Any())
+        {
+            <MudSimpleTable Dense="true" Hover="true">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Description</th>
+                        <th>Total Quantity</th>
+                        <th>Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var component in requiredComponents.OrderBy(c => c.Component.Name))
+                    {
+                        <tr>
+                            <td><strong>@component.Component.Name</strong></td>
+                            <td>@component.Component.Description</td>
+                            <td><strong>@component.TotalQuantity.ToString("F2")</strong></td>
+                            <td>@component.Component.Unit</td>
+                        </tr>
+                    }
+                </tbody>
+            </MudSimpleTable>
+            
+            <MudDivider Class="my-4" />
+            <MudText Typo="Typo.h6">
+                Summary: @requiredComponents.Count unique component(s) required
+            </MudText>
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">
+                Component requirements will appear here when you add items above.
+            </MudAlert>
+        }
+    </MudPaper>
+</MudContainer>

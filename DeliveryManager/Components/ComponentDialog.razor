@@ -1,0 +1,46 @@
+﻿@inherits ComponentDialogBase
+
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="form" Model="@model" ValidationDelay="0">
+            <MudStack Spacing="4">
+                <MudTextField @bind-Value="model.Name"
+                              Label="Name"
+                              Required="true"
+                              RequiredError="Name is required"
+                              For="@(() => model.Name)"/>
+
+                <MudTextField @bind-Value="model.Description"
+                              Label="Description"
+                              Lines="3"
+                              For="@(() => model.Description)"/>
+
+                <MudTextField @bind-Value="model.Unit"
+                              Label="Unit"
+                              Required="true"
+                              RequiredError="Unit is required"
+                              Placeholder="e.g., kg, pieces, meters"
+                              For="@(() => model.Unit)"/>
+
+                <MudNumericField @bind-Value="model.CostPerUnit"
+                                 Label="Cost per Unit"
+                                 Required="true"
+                                 RequiredError="Cost is required"
+                                 Min="0"
+                                 Step="0.01m"
+                                 Format="F2"
+                                 For="@(() => model.CostPerUnit)"/>
+            </MudStack>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   OnClick="Save"
+                   Disabled="@(!form?.IsValid ?? true)">
+            @(IsEditMode ? "Update" : "Create")
+        </MudButton>
+    </DialogActions>
+</MudDialog>

@@ -1,0 +1,77 @@
+﻿@using DeliveryManager.Models
+@inherits ComponentSelectionDialogBase
+
+<MudDialog>
+    <DialogContent>
+        <MudStack Spacing="4">
+            <MudText Typo="Typo.h6">Add Components to @ItemName</MudText>
+            
+            @if (availableComponents.Any())
+            {
+                <MudDataGrid @ref="dataGrid"
+                             T="Component"
+                             Items="@availableComponents"
+                             MultiSelection="true"
+                             @bind-SelectedItems="selectedComponents"
+                             Filterable="true"
+                             FilterMode="DataGridFilterMode.Simple"
+                             Dense="true"
+                             Height="400px"
+                             SelectOnRowClick="false">
+                    
+                    <Columns>
+                        <SelectColumn T="Component" />
+                        <PropertyColumn Property="x => x.Name" Title="Component" />
+                        <PropertyColumn Property="x => x.Description" Title="Description" />
+                        <PropertyColumn Property="x => x.Unit" Title="Unit" />
+                        <PropertyColumn Property="x => x.CostPerUnit" Title="Cost" Format="C2" />
+                        
+                        <TemplateColumn Title="Quantity" Sortable="false" Filterable="false">
+                            <CellTemplate>
+                                @if (selectedComponents.Contains(context.Item))
+                                {
+                                    <MudNumericField @bind-Value="componentQuantities[context.Item.Id]"
+                                                     Min="0.01m"
+                                                     Step="0.01m"
+                                                     Format="F2"
+                                                     Variant="Variant.Outlined"
+                                                     Margin="Margin.Dense"
+                                                     HideSpinButtons="true"
+                                                     Style="max-width: 100px;"
+                                                     onclick="event.stopPropagation();" />
+                                }
+                                else
+                                {
+                                    <MudText Typo="Typo.body2" Class="text-muted">-</MudText>
+                                }
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Columns>
+                </MudDataGrid>
+                
+                @if (selectedComponents.Any())
+                {
+                    <MudAlert Severity="Severity.Info" Dense="true">
+                        @selectedComponents.Count component(s) selected. Set quantities in the grid above.
+                    </MudAlert>
+                }
+            }
+            else
+            {
+                <MudAlert Severity="Severity.Info">
+                    All available components are already added to this item.
+                </MudAlert>
+            }
+        </MudStack>
+    </DialogContent>
+    
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" 
+                   Variant="Variant.Filled" 
+                   OnClick="AddSelectedComponents"
+                   Disabled="@(!selectedComponents.Any() || loading)">
+            Add @selectedComponents.Count Component(s)
+        </MudButton>
+    </DialogActions>
+</MudDialog>
