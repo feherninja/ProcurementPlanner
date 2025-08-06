@@ -19,7 +19,7 @@ public class ItemComponentConfiguration : IEntityTypeConfiguration<ItemComponent
 		builder.HasOne(e => e.Component)
 		       .WithMany(c => c.ItemComponents)
 		       .HasForeignKey(e => e.ComponentId)
-		       .OnDelete(DeleteBehavior.Restrict);
+		       .OnDelete(DeleteBehavior.Cascade);
 
 		// Prevent duplicate Item-Component combinations
 		builder.HasIndex(e => new { e.ItemId, e.ComponentId }).IsUnique();

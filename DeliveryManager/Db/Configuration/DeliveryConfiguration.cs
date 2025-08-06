@@ -13,6 +13,5 @@ public class DeliveryConfiguration : IEntityTypeConfiguration<Delivery>
 		builder.Property(e => e.CustomerAddress).HasMaxLength(500);
 		builder.Property(e => e.Status).HasConversion<string>();
 		builder.HasIndex(e => e.DeliveryDate);
-		builder.Ignore(e => e.TotalCost); // Calculated property
 	}
 }

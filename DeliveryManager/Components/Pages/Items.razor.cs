@@ -29,7 +29,7 @@ public partial class ItemsBase : ComponentBase
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error loading items: {ex.Message}", Severity.Error);
+            Snackbar.Add($"Betöltési hiba: {ex.Message}", Severity.Error);
         }
         finally
         {
@@ -47,13 +47,12 @@ public partial class ItemsBase : ComponentBase
             FullWidth = true
         };
 
-        var dialog = await DialogService.ShowAsync<ItemDialog>("Create Item", parameters, options);
+        var dialog = await DialogService.ShowAsync<ItemDialog>("Cikk létrehozása", parameters, options);
         var result = await dialog.Result;
 
         if (!result.Canceled)
-        {
             await LoadItems(); // Refresh the grid
-        }
+        
     }
 
     public async Task OpenAddComponentDialog(Item item)
@@ -70,34 +69,33 @@ public partial class ItemsBase : ComponentBase
             FullWidth = true
         };
 
-        var dialog = await DialogService.ShowAsync<ComponentSelectionDialog>("Add Components", parameters, options);
+        var dialog = await DialogService.ShowAsync<ComponentSelectionDialog>("Komponens hozzáadása", parameters, options);
         var result = await dialog.Result;
 
         if (!result.Canceled)
-        {
             await LoadItems(); // Refresh to show new components
-        }
+        
     }
 
     public async Task RemoveComponentFromItem(Item item, Component component)
     {
         var confirmed = await DialogService.ShowMessageBox(
-            "Remove Component",
-            $"Remove '{component.Name}' from '{item.Name}'?",
-            yesText: "Remove", 
-            cancelText: "Cancel");
+            "Komponens eltávolítása",
+            $"'{component.Name}' komponens eltávolítása '{item.Name}' cikkből?",
+            yesText: "Törlés", 
+            cancelText: "Mégse");
 
         if (confirmed == true)
         {
             try
             {
                 await ItemService.RemoveComponentFromItemAsync(item.Id, component.Id);
-                Snackbar.Add($"Component '{component.Name}' removed from '{item.Name}'", Severity.Success);
+                Snackbar.Add($"'{component.Name}' komponens eltávolítva '{item.Name}' cikkből", Severity.Success);
                 await LoadItems(); // Refresh to show updated component list
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"Error removing component: {ex.Message}", Severity.Error);
+                Snackbar.Add($"Törlési hiba: {ex.Message}", Severity.Error);
             }
         }
     }
@@ -116,34 +114,33 @@ public partial class ItemsBase : ComponentBase
             FullWidth = true
         };
 
-        var dialog = await DialogService.ShowAsync<ItemDialog>("Edit Item", parameters, options);
+        var dialog = await DialogService.ShowAsync<ItemDialog>("Cikk szerkesztése", parameters, options);
         var result = await dialog.Result;
 
         if (!result.Canceled)
-        {
             await LoadItems(); // Refresh the grid
-        }
+        
     }
 
     public async Task OpenDeleteDialog(Item item)
     {
         var confirmed = await DialogService.ShowMessageBox(
-            "Delete Item",
-            $"Are you sure you want to delete '{item.Name}'? This will also remove all its components. This action cannot be undone.",
-            yesText: "Delete", 
-            cancelText: "Cancel");
+            "Cikk törlése",
+            $"Biztosan törölni szeretnéd ezt a cikket: '{item.Name}'?",
+            yesText: "Törlés", 
+            cancelText: "Mégse");
 
         if (confirmed == true)
         {
             try
             {
                 await ItemService.DeleteAsync(item.Id);
-                Snackbar.Add($"Item '{item.Name}' deleted successfully", Severity.Success);
+                Snackbar.Add($"Cikk '{item.Name}' sikeresen törölve", Severity.Success);
                 await LoadItems();
             }
             catch (Exception ex)
             {
-                Snackbar.Add($"Error deleting item: {ex.Message}", Severity.Error);
+                Snackbar.Add($"Törlési hiba: {ex.Message}", Severity.Error);
             }
         }
     }

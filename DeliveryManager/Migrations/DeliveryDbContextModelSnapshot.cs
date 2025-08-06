@@ -23,10 +23,6 @@ namespace DeliveryManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("CostPerUnit")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -38,10 +34,11 @@ namespace DeliveryManager.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("OrderPackageSize")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
@@ -127,9 +124,17 @@ namespace DeliveryManager.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DrawingNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PartNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -154,9 +159,9 @@ namespace DeliveryManager.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasPrecision(18, 3)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -192,7 +197,7 @@ namespace DeliveryManager.Migrations
                     b.HasOne("DeliveryManager.Models.Component", "Component")
                         .WithMany("ItemComponents")
                         .HasForeignKey("ComponentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DeliveryManager.Models.Item", "Item")

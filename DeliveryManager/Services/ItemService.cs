@@ -53,7 +53,7 @@ public class ItemService(DeliveryDbContext context) : IItemService
 		return await context.Items.AnyAsync(i => i.Id == id);
 	}
 
-	public async Task AddComponentToItemAsync(int itemId, int componentId, decimal quantity)
+	public async Task AddComponentToItemAsync(int itemId, int componentId, int quantity)
 	{
 		// Check if relationship already exists
 		var existing = await context.ItemComponents
@@ -92,7 +92,7 @@ public class ItemService(DeliveryDbContext context) : IItemService
 		}
 	}
 
-	public async Task UpdateComponentQuantityAsync(int itemId, int componentId, decimal quantity)
+	public async Task UpdateComponentQuantityAsync(int itemId, int componentId, int quantity)
 	{
 		var itemComponent = await context.ItemComponents
 		                                 .FirstOrDefaultAsync(ic => ic.ItemId == itemId && ic.ComponentId == componentId);

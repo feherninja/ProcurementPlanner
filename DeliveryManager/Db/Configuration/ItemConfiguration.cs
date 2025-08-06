@@ -11,6 +11,5 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
 		builder.HasKey(e => e.Id);
 		builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
 		builder.HasIndex(e => e.Name);
-		builder.Ignore(e => e.TotalCost); // Calculated property
 	}
 }

@@ -15,5 +15,5 @@ public class Delivery
 	public ICollection<DeliveryItem> DeliveryItems { get; set; } = new List<DeliveryItem>();
 
 	// Calculated properties
-	public decimal TotalCost => DeliveryItems.Sum(di => di.Quantity * di.Item.TotalCost);
+	//public decimal TotalCost => DeliveryItems.Sum(di => di.Quantity * di.Item.TotalCost);
 }

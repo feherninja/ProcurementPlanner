@@ -10,7 +10,7 @@ public interface IItemService
 	Task<Item> UpdateAsync(Item item);
 	Task DeleteAsync(int id);
 	Task<bool> ExistsAsync(int id);
-	Task AddComponentToItemAsync(int itemId, int componentId, decimal quantity);
+	Task AddComponentToItemAsync(int itemId, int componentId, int quantity);
 	Task RemoveComponentFromItemAsync(int itemId, int componentId);
-	Task UpdateComponentQuantityAsync(int itemId, int componentId, decimal quantity);
+	Task UpdateComponentQuantityAsync(int itemId, int componentId, int quantity);
 }

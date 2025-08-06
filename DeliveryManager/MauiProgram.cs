@@ -1,4 +1,5 @@
-﻿using DeliveryManager.Db;
+﻿using CommunityToolkit.Maui;
+using DeliveryManager.Db;
 using DeliveryManager.Interfaces;
 using DeliveryManager.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,8 @@ public static class MauiProgram
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-			});
+			})
+			.UseMauiCommunityToolkit();
 
 		builder.Services.AddMauiBlazorWebView();
 		builder.Services.AddMudServices();
@@ -37,6 +39,8 @@ public static class MauiProgram
 		// Register Services 
 		builder.Services.AddScoped<IComponentService, ComponentService>();
 		builder.Services.AddScoped<IItemService, ItemService>();
+		builder.Services.AddScoped<DeliveryPlanningService>();
+		builder.Services.AddScoped<IDeliveryDocumentService, DeliveryDocumentService>();
 
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();

@@ -5,42 +5,38 @@
         <MudForm @ref="form" Model="@model" ValidationDelay="0">
             <MudStack Spacing="4">
                 <MudTextField @bind-Value="model.Name"
-                              Label="Name"
+                              Label="Név"
                               Required="true"
-                              RequiredError="Name is required"
+                              RequiredError="Név megadása kötelező"
                               For="@(() => model.Name)"/>
 
                 <MudTextField @bind-Value="model.Description"
-                              Label="Description"
+                              Label="Leírás"
                               Lines="3"
                               For="@(() => model.Description)"/>
 
-                <MudTextField @bind-Value="model.Unit"
-                              Label="Unit"
+                <MudNumericField @bind-Value="model.Stock"
+                              Label="Raktármennyiség"
                               Required="true"
-                              RequiredError="Unit is required"
-                              Placeholder="e.g., kg, pieces, meters"
-                              For="@(() => model.Unit)"/>
+                              RequiredError="Raktármennyiség megadása kötelező"
+                              For="@(() => model.Stock)"/>
 
-                <MudNumericField @bind-Value="model.CostPerUnit"
-                                 Label="Cost per Unit"
+                <MudNumericField @bind-Value="model.OrderPackageSize"
+                                 Label="Rendelési kötegszám"
                                  Required="true"
-                                 RequiredError="Cost is required"
-                                 Min="0"
-                                 Step="0.01m"
-                                 Format="F2"
-                                 For="@(() => model.CostPerUnit)"/>
+                                 RequiredError="Rendelési kötegszám megadása kötelező"
+                                 For="@(() => model.OrderPackageSize)"/>
             </MudStack>
         </MudForm>
     </DialogContent>
 
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Cancel">Mégse</MudButton>
         <MudButton Color="Color.Primary"
                    Variant="Variant.Filled"
                    OnClick="Save"
                    Disabled="@(!form?.IsValid ?? true)">
-            @(IsEditMode ? "Update" : "Create")
+            @(IsEditMode ? "Mentés" : "Létrehozás")
         </MudButton>
     </DialogActions>
 </MudDialog>

@@ -63,6 +63,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -77,6 +78,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
         <PackageReference Include="MudBlazor" Version="8.7.0" />
         <PackageReference Include="MudBlazor.ThemeManager" Version="3.0.0" />
+        <PackageReference Include="QuestPDF" Version="2025.7.0" />
     </ItemGroup>
 
 </Project>

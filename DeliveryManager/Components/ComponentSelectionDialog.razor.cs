@@ -17,10 +17,10 @@ public partial class ComponentSelectionDialogBase : ComponentBase
     public MudDataGrid<Component> dataGrid = null!;
     public List<Component> availableComponents = new();
     public HashSet<Component> selectedComponents = new();
-    public Dictionary<int, decimal> componentQuantities = new();
+    public Dictionary<int, int> componentQuantities = new();
     public bool loading = false;
 
-    protected string ItemName => Item?.Name ?? "Item";
+    protected string ItemName => Item?.Name ?? "Cikk";
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,7 +45,7 @@ public partial class ComponentSelectionDialogBase : ComponentBase
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error loading components: {ex.Message}", Severity.Error);
+            Snackbar.Add($"Betöltési hiba: {ex.Message}", Severity.Error);
         }
         finally
         {
@@ -60,7 +60,7 @@ public partial class ComponentSelectionDialogBase : ComponentBase
             // Initialize quantities for all components (default to 1)
             foreach (var component in availableComponents)
             {
-                componentQuantities[component.Id] = 1.0m;
+                componentQuantities[component.Id] = 1;
             }
             StateHasChanged();
         }
@@ -75,7 +75,7 @@ public partial class ComponentSelectionDialogBase : ComponentBase
     {
         if (!selectedComponents.Any())
         {
-            Snackbar.Add("Please select at least one component", Severity.Warning);
+            Snackbar.Add("Válassz ki legalább egy komponenst", Severity.Warning);
             return;
         }
 
@@ -85,7 +85,7 @@ public partial class ComponentSelectionDialogBase : ComponentBase
             var addedCount = 0;
             foreach (var component in selectedComponents)
             {
-                var quantity = componentQuantities.GetValueOrDefault(component.Id, 1.0m);
+                var quantity = componentQuantities.GetValueOrDefault(component.Id, 1);
                 
                 if (quantity > 0)
                 {
@@ -94,12 +94,12 @@ public partial class ComponentSelectionDialogBase : ComponentBase
                 }
             }
 
-            Snackbar.Add($"Added {addedCount} component(s) to {Item.Name}", Severity.Success);
+            Snackbar.Add($"{addedCount} komponens hozzáadva ehhez {Item.Name}", Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error adding components: {ex.Message}", Severity.Error);
+            Snackbar.Add($"Hozzáadás közbeni hiba: {ex.Message}", Severity.Error);
         }
         finally
         {

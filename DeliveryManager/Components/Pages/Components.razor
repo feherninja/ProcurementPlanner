@@ -10,12 +10,12 @@
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudPaper Class="pa-4">
         <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
-            <MudText Typo="Typo.h4">Components</MudText>
+            <MudText Typo="Typo.h4">Komponensek</MudText>
             <MudButton Color="Color.Primary"
                        Variant="Variant.Filled"
                        StartIcon="@Icons.Material.Filled.Add"
                        OnClick="OpenCreateDialog">
-                Add Component
+                Komponens hozzáadása
             </MudButton>
         </MudStack>
 
@@ -31,13 +31,13 @@
                      Dense="true">
 
             <Columns>
-                <PropertyColumn Property="x => x.Name" Title="Name"/>
-                <PropertyColumn Property="x => x.Description" Title="Description"/>
-                <PropertyColumn Property="x => x.Unit" Title="Unit"/>
-                <PropertyColumn Property="x => x.CostPerUnit" Title="Cost per Unit" Format="C2"/>
-                <PropertyColumn Property="x => x.CreatedAt" Title="Created" Format="yyyy-MM-dd"/>
+                <PropertyColumn Property="x => x.Name" Title="Név"/>
+                <PropertyColumn Property="x => x.Description" Title="Leírás"/>
+                <PropertyColumn Property="x => x.Stock" Title="Raktármennyiség"/>
+                <PropertyColumn Property="x => x.OrderPackageSize" Title="Rendelési kötegszám"/>
+                <PropertyColumn Property="x => x.CreatedAt" Title="Létrehozva" Format="yyyy-MM-dd"/>
 
-                <TemplateColumn Title="Actions" Sortable="false" Filterable="false">
+                <TemplateColumn Title="Funkciók" Sortable="false" Filterable="false">
                     <CellTemplate>
                         <MudStack Row Spacing="1">
                             <MudIconButton Icon="@Icons.Material.Filled.Edit"
@@ -57,7 +57,7 @@
 
             <NoRecordsContent>
                 <MudText Typo="Typo.body1" Align="Align.Center">
-                    No components found. Click "Add Component" to create your first one.
+                    Nem található komponens, kattints a "Komponens hozzáadása" gombra.
                 </MudText>
             </NoRecordsContent>
         </MudDataGrid>

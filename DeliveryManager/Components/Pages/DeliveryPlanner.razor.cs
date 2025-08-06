@@ -1,91 +1,169 @@
-﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
+﻿using CommunityToolkit.Maui.Storage;
+using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using DeliveryManager.Services;
+using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace DeliveryManager.Components.Pages;
 
 public partial class DeliveryPlannerBase : ComponentBase
 {
-    [Inject] private IItemService ItemService { get; set; } = null!;
-    [Inject] private ISnackbar Snackbar { get; set; } = null!;
-    [Inject] private IDialogService DialogService { get; set; } = null!;
+	[Inject]
+	private IItemService ItemService { get; set; } = null!;
 
-    public List<SelectedItem> selectedItems = new();
-    public List<RequiredComponent> requiredComponents = new();
+	[Inject]
+	private ISnackbar Snackbar { get; set; } = null!;
 
-    protected override void OnInitialized()
-    {
-        CalculateComponents();
-    }
+	[Inject]
+	private IDialogService DialogService { get; set; } = null!;
 
-    public async Task OpenAddItemDialog()
-    {
-        var parameters = new DialogParameters<ItemSelectionDialog>
-        {
-            { x => x.ExistingItems, selectedItems }
-        };
-        
-        var options = new DialogOptions 
-        { 
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Medium,
-            FullWidth = true
-        };
+	[Inject]
+	public DeliveryPlanningService PlanningService { get; set; } = null!;
 
-        var dialog = await DialogService.ShowAsync<ItemSelectionDialog>("Select Items", parameters, options);
-        var result = await dialog.Result;
+	[Inject]
+	public IComponentService ComponentService { get; set; } = null!;
 
-        if (!result.Canceled && result.Data != null)
-        {
-            var itemsToAdd = (List<SelectedItem>)result.Data;
-            selectedItems.AddRange(itemsToAdd);
-            CalculateComponents();
-            StateHasChanged();
-        }
-    }
+	[Inject]
+	private IDeliveryDocumentService DocumentService { get; set; } = null!;
 
-    public void RemoveItem(SelectedItem selectedItem)
-    {
-        selectedItems.Remove(selectedItem);
-        CalculateComponents();
-        StateHasChanged();
-    }
+	public List<SelectedItem> selectedItems => PlanningService.SelectedItems;
+	public List<RequiredComponent> requiredComponents => PlanningService.RequiredComponents;
 
-    public void CalculateComponents()
-    {
-        // Clear previous calculations
-        requiredComponents.Clear();
+	public DateTime? DateOfDelivery => PlanningService.DateOfDelivery;
+	public string DeliveryNumber => PlanningService.DeliveryNumber;
 
-        // Group all components by ComponentId and sum quantities
-        var componentGroups = selectedItems
-            .SelectMany(si => si.Item.ItemComponents.Select(ic => new
-            {
-                Component = ic.Component,
-                TotalQuantity = ic.Quantity * si.Quantity
-            }))
-            .GroupBy(x => x.Component.Id)
-            .Select(g => new RequiredComponent
-            {
-                Component = g.First().Component,
-                TotalQuantity = g.Sum(x => x.TotalQuantity)
-            })
-            .ToList();
+	protected override void OnInitialized()
+	{
+		CalculateComponents();
+	}
 
-        requiredComponents.AddRange(componentGroups);
-        StateHasChanged();
-    }
+	public async Task OpenAddItemDialog()
+	{
+		var parameters = new DialogParameters<ItemSelectionDialog>
+		{
+			{x => x.ExistingItems, selectedItems}
+		};
 
-    // Helper classes
-    public class SelectedItem
-    {
-        public Item Item { get; set; } = null!;
-        public int Quantity { get; set; } = 1;
-    }
+		var options = new DialogOptions
+		{
+			CloseOnEscapeKey = true,
+			MaxWidth = MaxWidth.Medium,
+			FullWidth = true
+		};
 
-    public class RequiredComponent
-    {
-        public Component Component { get; set; } = null!;
-        public decimal TotalQuantity { get; set; }
-    }
+		var dialog = await DialogService.ShowAsync<ItemSelectionDialog>("Kiválasztott cikkek", parameters, options);
+		var result = await dialog.Result;
+
+		if (!result.Canceled && result.Data != null)
+		{
+			var itemsToAdd = (List<SelectedItem>) result.Data;
+			selectedItems.AddRange(itemsToAdd);
+			CalculateComponents();
+			StateHasChanged();
+		}
+	}
+
+	public void ResetDelivery()
+	{
+		PlanningService.ClearPlanning();
+		CalculateComponents();
+		StateHasChanged();
+	}
+
+	public async Task PrintDeliveryPlan()
+	{
+		try
+		{
+			var pdfBytes = DocumentService.GenerateDeliveryDocument(PlanningService);
+
+			var fileName = $@"Delivery_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
+
+			using var stream = new MemoryStream(pdfBytes);
+			var fileSaverResult = await FileSaver.Default.SaveAsync(fileName, stream, CancellationToken.None);
+
+			if (fileSaverResult.IsSuccessful)
+			{
+				Snackbar.Add($"PDF sikeresen mentve!", Severity.Success);
+				await ApplyDelivery();
+			}
+			else
+			{
+				Snackbar.Add($"Mentés közbeni hiba: {fileSaverResult.Exception?.Message}", Severity.Error);
+			}
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Generálás közbeni hiba: {ex.Message}", Severity.Error);
+		}
+	}
+
+	private async Task ApplyDelivery()
+	{
+		await ComponentService.UpdateStockLevelsAsync(requiredComponents.ToList());
+		ResetDelivery();
+	}
+
+	public void RemoveItem(SelectedItem selectedItem)
+	{
+		selectedItems.Remove(selectedItem);
+		CalculateComponents();
+		StateHasChanged();
+	}
+
+	public void CalculateComponents()
+	{
+		// Clear previous calculations
+		requiredComponents.Clear();
+
+		// Group all components by ComponentId and sum quantities
+		var componentGroups = selectedItems
+		                      .SelectMany(si => si.Item.ItemComponents.Select(ic => new
+		                      {
+			                      Component = ic.Component,
+			                      TotalQuantity = ic.Quantity * si.Quantity
+		                      }))
+		                      .GroupBy(x => x.Component.Id)
+		                      .Select(g => new RequiredComponent
+		                      {
+			                      Component = g.First().Component,
+			                      TotalQuantity = g.Sum(x => (int) x.TotalQuantity)
+		                      })
+		                      .ToList();
+
+		requiredComponents.AddRange(componentGroups);
+		StateHasChanged();
+	}
+
+	// Helper classes
+	public class SelectedItem
+	{
+		public Item Item { get; set; } = null!;
+		public int Quantity { get; set; } = 1;
+	}
+
+	public class RequiredComponent
+	{
+		public Component Component { get; set; } = null!;
+		public int TotalQuantity { get; set; }
+
+		public int CalculateRequiredOrderQuantity()
+		{
+			if (Component.Stock - TotalQuantity >= 0)
+				return 0;
+
+			int result = (TotalQuantity - Component.Stock) / Component.OrderPackageSize + 1;
+			Console.WriteLine(result);
+			return result;
+		}
+
+		public int CalculateNewStock()
+		{
+			var calc = CalculateRequiredOrderQuantity();
+			if (calc > 0)
+				return Component.OrderPackageSize * calc + Component.Stock - TotalQuantity;
+
+			return Component.Stock - TotalQuantity;
+		}
+	}
 }

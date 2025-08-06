@@ -50,7 +50,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 		}
 		catch (Exception ex)
 		{
-			Snackbar.Add($"Error loading items: {ex.Message}", Severity.Error);
+			Snackbar.Add($"Betöltési hiba: {ex.Message}", Severity.Error);
 		}
 		finally
 		{
@@ -81,7 +81,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 	{
 		if (!selectedItems.Any())
 		{
-			Snackbar.Add("Please select at least one item", Severity.Warning);
+			Snackbar.Add("Válasszon ki legalább egy cikket", Severity.Warning);
 			return;
 		}
 
@@ -97,7 +97,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 		}
 		catch (Exception ex)
 		{
-			Snackbar.Add($"Error adding items: {ex.Message}", Severity.Error);
+			Snackbar.Add($"Hozzáadás közbeni hiba: {ex.Message}", Severity.Error);
 		}
 	}
 }

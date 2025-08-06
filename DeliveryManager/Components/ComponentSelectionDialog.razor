@@ -4,7 +4,7 @@
 <MudDialog>
     <DialogContent>
         <MudStack Spacing="4">
-            <MudText Typo="Typo.h6">Add Components to @ItemName</MudText>
+            <MudText Typo="Typo.h6">Komponens hozzáadása ehhez: @ItemName</MudText>
             
             @if (availableComponents.Any())
             {
@@ -21,19 +21,11 @@
                     
                     <Columns>
                         <SelectColumn T="Component" />
-                        <PropertyColumn Property="x => x.Name" Title="Component" />
-                        <PropertyColumn Property="x => x.Description" Title="Description" />
-                        <PropertyColumn Property="x => x.Unit" Title="Unit" />
-                        <PropertyColumn Property="x => x.CostPerUnit" Title="Cost" Format="C2" />
-                        
-                        <TemplateColumn Title="Quantity" Sortable="false" Filterable="false">
+                        <TemplateColumn Title="Mennyiség" Sortable="false" Filterable="false">
                             <CellTemplate>
                                 @if (selectedComponents.Contains(context.Item))
                                 {
                                     <MudNumericField @bind-Value="componentQuantities[context.Item.Id]"
-                                                     Min="0.01m"
-                                                     Step="0.01m"
-                                                     Format="F2"
                                                      Variant="Variant.Outlined"
                                                      Margin="Margin.Dense"
                                                      HideSpinButtons="true"
@@ -46,32 +38,38 @@
                                 }
                             </CellTemplate>
                         </TemplateColumn>
+                        <PropertyColumn Property="x => x.Name" Title="Komponens" />
+                        <PropertyColumn Property="x => x.Description" Title="Leírás" />
+                        <PropertyColumn Property="x => x.Stock" Title="Raktármennyiség" />
+                        <PropertyColumn Property="x => x.OrderPackageSize" Title="rendelési kötegszám" />
+                        
+
                     </Columns>
                 </MudDataGrid>
                 
                 @if (selectedComponents.Any())
                 {
                     <MudAlert Severity="Severity.Info" Dense="true">
-                        @selectedComponents.Count component(s) selected. Set quantities in the grid above.
+                        @selectedComponents.Count komponens kiválasztva.
                     </MudAlert>
                 }
             }
             else
             {
                 <MudAlert Severity="Severity.Info">
-                    All available components are already added to this item.
+                    Minden rendelkezésre álló komponens hozzá lett adva a cikkhez.
                 </MudAlert>
             }
         </MudStack>
     </DialogContent>
     
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Cancel">Mégse</MudButton>
         <MudButton Color="Color.Primary" 
                    Variant="Variant.Filled" 
                    OnClick="AddSelectedComponents"
                    Disabled="@(!selectedComponents.Any() || loading)">
-            Add @selectedComponents.Count Component(s)
+            @selectedComponents.Count Komponens hozzáadása
         </MudButton>
     </DialogActions>
 </MudDialog>

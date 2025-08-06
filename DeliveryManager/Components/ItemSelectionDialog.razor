@@ -4,7 +4,7 @@
 <MudDialog>
     <DialogContent>
         <MudStack Spacing="4">
-            <MudText Typo="Typo.h6">Select Items for Delivery</MudText>
+            <MudText Typo="Typo.h6">Válassza ki a cikkeket a rendeléshez</MudText>
             
             @if (availableItems.Any())
             {
@@ -21,17 +21,6 @@
                     
                     <Columns>
                         <SelectColumn T="Item" />
-                        <PropertyColumn Property="x => x.Name" Title="Item" />
-                        <PropertyColumn Property="x => x.Description" Title="Description" />
-                        
-                        <TemplateColumn Title="Components" Sortable="false" Filterable="false">
-                            <CellTemplate>
-                                <MudText Typo="Typo.body2">
-                                    @context.Item.ItemComponents.Count component(s)
-                                </MudText>
-                            </CellTemplate>
-                        </TemplateColumn>
-                        
                         <TemplateColumn Title="Quantity" Sortable="false" Filterable="false">
                             <CellTemplate>
                                 @if (selectedItems.Contains(context.Item))
@@ -52,32 +41,44 @@
                                 }
                             </CellTemplate>
                         </TemplateColumn>
+                        <PropertyColumn Property="x => x.Name" Title="Cikk" />
+                        <PropertyColumn Property="x => x.Description" Title="Leírás" />
+                        
+                        <TemplateColumn Title="Cikkek" Sortable="false" Filterable="false">
+                            <CellTemplate>
+                                <MudText Typo="Typo.body2">
+                                    @context.Item.ItemComponents.Count komponens
+                                </MudText>
+                            </CellTemplate>
+                        </TemplateColumn>
+                        
+                        
                     </Columns>
                 </MudDataGrid>
                 
                 @if (selectedItems.Any())
                 {
                     <MudAlert Severity="Severity.Info" Dense="true">
-                        @selectedItems.Count item(s) selected. Set quantities in the grid above.
+                        @selectedItems.Count cikk kiválasztva.
                     </MudAlert>
                 }
             }
             else
             {
                 <MudAlert Severity="Severity.Warning">
-                    No items available. Please create some items first.
+                    Nincs rendelkezésre álló cikk, hozz létre egyet a hozzáadáshoz.
                 </MudAlert>
             }
         </MudStack>
     </DialogContent>
     
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Cancel">Mégse</MudButton>
         <MudButton Color="Color.Primary" 
                    Variant="Variant.Filled" 
                    OnClick="AddSelectedItems"
                    Disabled="@(!selectedItems.Any() || loading)">
-            Add @selectedItems.Count Item(s)
+            @selectedItems.Count cikk hozzáadása
         </MudButton>
     </DialogActions>
 </MudDialog>

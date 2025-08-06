@@ -25,7 +25,7 @@ public partial class Components : ComponentBase
 		}
 		catch (Exception ex)
 		{
-			Snackbar.Add($"Error loading components: {ex.Message}", Severity.Error);
+			Snackbar.Add($"Hiba: {ex.Message}", Severity.Error);
 		}
 		finally
 		{
@@ -43,7 +43,7 @@ public partial class Components : ComponentBase
 			FullWidth = true
 		};
 
-		var dialog = await DialogService.ShowAsync<ComponentDialog>("Create Component", parameters, options);
+		var dialog = await DialogService.ShowAsync<ComponentDialog>("Komponens létrehozása", parameters, options);
 		var result = await dialog.Result;
 
 		if (!result.Canceled)
@@ -66,7 +66,7 @@ public partial class Components : ComponentBase
 			FullWidth = true
 		};
 
-		var dialog = await DialogService.ShowAsync<ComponentDialog>("Edit Component", parameters, options);
+		var dialog = await DialogService.ShowAsync<ComponentDialog>("Komponens szerkesztése", parameters, options);
 		var result = await dialog.Result;
 
 		if (!result.Canceled)
@@ -78,22 +78,22 @@ public partial class Components : ComponentBase
 	private async Task OpenDeleteDialog(Component component)
 	{
 		var confirmed = await DialogService.ShowMessageBox(
-		                                                   "Delete Component",
-		                                                   $"Are you sure you want to delete '{component.Name}'? This action cannot be undone.",
-		                                                   yesText: "Delete",
-		                                                   cancelText: "Cancel");
+		                                                   "Komponens törlése",
+		                                                   $"Biztosan törölni szeretnéd ezt a komponenst: '{component.Name}'?",
+		                                                   yesText: "Törlés",
+		                                                   cancelText: "Mégse");
 
 		if (confirmed == true)
 		{
 			try
 			{
 				await ComponentService.DeleteAsync(component.Id);
-				Snackbar.Add($"Component '{component.Name}' deleted successfully", Severity.Success);
+				Snackbar.Add($"Komponens '{component.Name}' törölve", Severity.Success);
 				await LoadComponents(); // Refresh the grid
 			}
 			catch (Exception ex)
 			{
-				Snackbar.Add($"Error deleting component: {ex.Message}", Severity.Error);
+				Snackbar.Add($"Törlési hiba: {ex.Message}", Severity.Error);
 			}
 		}
 	}

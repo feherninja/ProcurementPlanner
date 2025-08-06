@@ -10,8 +10,8 @@ public class ComponentConfiguration : IEntityTypeConfiguration<Component>
 	{
 		builder.HasKey(e => e.Id);
 		builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
-		builder.Property(e => e.Unit).IsRequired().HasMaxLength(50);
-		builder.Property(e => e.CostPerUnit).HasPrecision(18, 2);
+		builder.Property(e => e.Stock).IsRequired();
+		builder.Property(e => e.OrderPackageSize).IsRequired();
 		builder.HasIndex(e => e.Name);
 	}
 }

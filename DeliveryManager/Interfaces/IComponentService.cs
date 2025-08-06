@@ -1,4 +1,5 @@
-﻿using DeliveryManager.Models;
+﻿using DeliveryManager.Components.Pages;
+using DeliveryManager.Models;
 
 namespace DeliveryManager.Interfaces;
 
@@ -10,4 +11,5 @@ public interface IComponentService
 	Task<Component> UpdateAsync(Component component);
 	Task DeleteAsync(int id);
 	Task<bool> ExistsAsync(int id);
+	Task UpdateStockLevelsAsync(List<DeliveryPlannerBase.RequiredComponent> requiredComponents);
 }
