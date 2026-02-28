@@ -12,9 +12,10 @@ namespace DeliveryManager.Services;
 
 public class ComponentService(DeliveryDbContext context) : IComponentService
 {
-	public async Task<List<Component>> GetAllAsync()
+	public async Task<List<Component>> GetAllAsync(int companyId)
 	{
 		return await context.Components
+		                    .Where(c => c.CompanyId == companyId)
 		                    .OrderBy(c => c.Name)
 		                    .ToListAsync();
 	}
@@ -53,24 +54,25 @@ public class ComponentService(DeliveryDbContext context) : IComponentService
 	{
 		return await context.Components.AnyAsync(c => c.Id == id);
 	}
-	
+
 	public async Task UpdateStockLevelsAsync(List<DeliveryPlannerBase.RequiredComponent> requiredComponents)
 	{
 		foreach (var requiredComponent in requiredComponents)
 		{
 			var component = await context.Components.FindAsync(requiredComponent.Component.Id);
+
 			if (component != null)
 			{
 				// Calculate how much we ordered (based on package size)
 				int orderedQuantity = requiredComponent.CalculateRequiredOrderQuantity() * component.OrderPackageSize;
-            
+
 				// New stock = current stock + what we ordered - what we're shipping
 				component.Stock = component.Stock + orderedQuantity - requiredComponent.TotalQuantity;
-            
+
 				context.Components.Update(component);
 			}
 		}
-    
+
 		await context.SaveChangesAsync();
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using DeliveryManager.Components.Pages;
+using DeliveryManager.Models;
 
 namespace DeliveryManager.Services;
 
@@ -6,6 +7,9 @@ public class DeliveryPlanningService
 {
 	public List<DeliveryPlannerBase.SelectedItem> SelectedItems { get; set; } = new();
 	public List<DeliveryPlannerBase.RequiredComponent> RequiredComponents { get; set; } = new();
+
+	public Company? SelectedCompany { get; set; }
+	public int? SelectedCompanyId { get; set; } = 1; // optional, useful for binding
 
 	public DateTime? DateOfDelivery { get; set; } = DateTime.Now;
 

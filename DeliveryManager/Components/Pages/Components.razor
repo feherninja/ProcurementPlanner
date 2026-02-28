@@ -7,17 +7,35 @@
 
 <PageTitle>Components</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
     <MudPaper Class="pa-4">
         <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
             <MudText Typo="Typo.h4">Komponensek</MudText>
-            <MudButton Color="Color.Primary"
-                       Variant="Variant.Filled"
-                       StartIcon="@Icons.Material.Filled.Add"
-                       OnClick="OpenCreateDialog">
-                Komponens hozzáadása
-            </MudButton>
+
+            <MudStack Row Spacing="2" AlignItems="AlignItems.Center">
+                <MudSelect T="int"
+                           Label="Cég"
+                           Value="CompanyContext.ActiveCompanyId"
+                           ValueChanged="OnCompanyChanged"
+                           Dense="true"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           Style="min-width: 280px;">
+                    @foreach (var c in companies)
+                    {
+                        <MudSelectItem T="int" Value="@c.Id">@c.Name</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudButton Color="Color.Primary"
+                           Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="OpenCreateDialog">
+                    Komponens hozzáadása
+                </MudButton>
+            </MudStack>
         </MudStack>
+
 
         <MudDataGrid @ref="dataGrid"
                      T="Component"
@@ -33,6 +51,8 @@
             <Columns>
                 <PropertyColumn Property="x => x.Name" Title="Név"/>
                 <PropertyColumn Property="x => x.Description" Title="Leírás"/>
+                <PropertyColumn Property="x => x.PartNumber" Title="Cikkszám"/>
+                <PropertyColumn Property="x => x.DrawingNumber" Title="Rajzszám"/>
                 <PropertyColumn Property="x => x.Stock" Title="Raktármennyiség"/>
                 <PropertyColumn Property="x => x.OrderPackageSize" Title="Rendelési kötegszám"/>
                 <PropertyColumn Property="x => x.CreatedAt" Title="Létrehozva" Format="yyyy-MM-dd"/>

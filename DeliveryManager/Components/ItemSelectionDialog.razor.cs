@@ -1,4 +1,5 @@
 ﻿using DeliveryManager.Components.Pages;
+using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using DeliveryManager.Services;
 using Microsoft.AspNetCore.Components;
@@ -20,6 +21,9 @@ public partial class ItemSelectionDialogBase : ComponentBase
 	[Inject]
 	private ISnackbar Snackbar { get; set; } = null!;
 
+	[Inject]
+	private CompanyContext CompanyContext { get; set; } = null!;
+
 	public MudDataGrid<Item> dataGrid = null!;
 	public List<Item> availableItems = new();
 	public HashSet<Item> selectedItems = new();
@@ -38,7 +42,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 		try
 		{
 			// Get all items
-			var allItems = await ItemService.GetAllAsync();
+			var allItems = await ItemService.GetAllAsync(CompanyContext.ActiveCompanyId);
 
 			// Get IDs of items already in the delivery planner
 			var existingItemIds = ExistingItems.Select(si => si.Item.Id).ToHashSet();

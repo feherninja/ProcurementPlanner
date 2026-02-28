@@ -1,4 +1,5 @@
 ﻿using DeliveryManager.Db;
+using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,9 +7,10 @@ namespace DeliveryManager.Services;
 
 public class ItemService(DeliveryDbContext context) : IItemService
 {
-	public async Task<List<Item>> GetAllAsync()
+	public async Task<List<Item>> GetAllAsync(int companyId)
 	{
 		return await context.Items
+		                    .Where(i => i.CompanyId == companyId)
 		                    .Include(i => i.ItemComponents)
 		                    .ThenInclude(ic => ic.Component)
 		                    .OrderBy(i => i.Name)

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
+using DeliveryManager.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -19,6 +20,9 @@ public partial class ComponentDialogBase : ComponentBase
 
 	[Inject]
 	private ISnackbar Snackbar { get; set; } = null!;
+
+	[Inject]
+	public CompanyContext CompanyContext { get; set; } = null!;
 
 	public MudForm form = null!;
 	public ComponentModel model = new();
@@ -64,6 +68,9 @@ public partial class ComponentDialogBase : ComponentBase
 				Component.Description = model.Description;
 				Component.Stock = model.Stock;
 				Component.OrderPackageSize = model.OrderPackageSize;
+				Component.PartNumber = model.PartNumber;
+				Component.DrawingNumber = model.DrawingNumber;
+				Component.CompanyId = CompanyContext.ActiveCompanyId;
 
 				await ComponentService.UpdateAsync(Component);
 				Snackbar.Add("Komponens sikeresen mentve", Severity.Success);
@@ -76,7 +83,10 @@ public partial class ComponentDialogBase : ComponentBase
 					Name = model.Name,
 					Description = model.Description,
 					Stock = model.Stock,
-					OrderPackageSize = model.OrderPackageSize
+					OrderPackageSize = model.OrderPackageSize,
+					PartNumber = model.PartNumber,
+					DrawingNumber = model.DrawingNumber,
+					CompanyId = CompanyContext.ActiveCompanyId
 				};
 
 				await ComponentService.CreateAsync(newComponent);
@@ -106,5 +116,11 @@ public partial class ComponentDialogBase : ComponentBase
 
 		[Required(ErrorMessage = "Rendelési kötegszám megadása kötelező")]
 		public int OrderPackageSize { get; set; }
+
+		[Required(ErrorMessage = "Cikkszám megadása kötelező")]
+		public string? PartNumber { get; set; }
+
+		[Required(ErrorMessage = "Rajzszám megadása kötelező")]
+		public string? DrawingNumber { get; set; }
 	}
 }

@@ -1,4 +1,6 @@
-﻿using DeliveryManager.Models;
+﻿using DeliveryManager.Interfaces;
+using DeliveryManager.Models;
+using DeliveryManager.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -10,8 +12,22 @@ public partial class Components : ComponentBase
 	private List<Component> components = new();
 	private bool loading = true;
 
+	[Inject]
+	private CompanyContext CompanyContext { get; set; } = null!;
+
+	[Inject]
+	public ICompanyService CompanyService { get; set; } = null!;
+
+	private List<Company> companies = new();
+
 	protected override async Task OnInitializedAsync()
 	{
+		companies = await CompanyService.GetAllAsync();
+
+		// ensure active company is valid
+		if (!companies.Any(c => c.Id == CompanyContext.ActiveCompanyId))
+			CompanyContext.ActiveCompanyId = companies.FirstOrDefault()?.Id ?? 1;
+
 		await LoadComponents();
 	}
 
@@ -21,7 +37,7 @@ public partial class Components : ComponentBase
 
 		try
 		{
-			components = await ComponentService.GetAllAsync();
+			components = await ComponentService.GetAllAsync(CompanyContext.ActiveCompanyId);
 		}
 		catch (Exception ex)
 		{
@@ -50,6 +66,13 @@ public partial class Components : ComponentBase
 		{
 			await LoadComponents(); // Refresh the grid
 		}
+	}
+
+	private async Task OnCompanyChanged(int companyId)
+	{
+		CompanyContext.ActiveCompanyId = companyId;
+		await LoadComponents();
+		StateHasChanged();
 	}
 
 	private async Task OpenEditDialog(Component component)

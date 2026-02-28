@@ -1,0 +1,38 @@
+﻿@inherits CompanyDialogBase
+
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="form" Model="@model" ValidationDelay="0">
+            <MudStack Spacing="4">
+                <MudTextField @bind-Value="model.Name"
+                              Label="Név"
+                              Required="true"
+                              RequiredError="Név megadása kötelező"
+                              For="@(() => model.Name)" />
+
+                <MudTextField @bind-Value="model.ShortName"
+                              Label="Rövid név"
+                              For="@(() => model.ShortName)" />
+
+                <MudTextField @bind-Value="model.Address"
+                              Label="Cím"
+                              Lines="3"
+                              For="@(() => model.Address)" />
+
+                <MudTextField @bind-Value="model.Email"
+                              Label="Email"
+                              For="@(() => model.Email)" />
+            </MudStack>
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Mégse</MudButton>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   OnClick="Save"
+                   Disabled="@(!form?.IsValid ?? true)">
+            @(IsEditMode ? "Mentés" : "Létrehozás")
+        </MudButton>
+    </DialogActions>
+</MudDialog>

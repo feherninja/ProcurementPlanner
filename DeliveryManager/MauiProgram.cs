@@ -30,7 +30,7 @@ public static class MauiProgram
 		var dbPath = Path.Combine(appFolder, "delivery.db");
 
 		//TODO remove static path
-		dbPath = @"f:\_databases\DeliveryManager\delivery.db";
+		//dbPath = @"f:\_databases\DeliveryManager\delivery.db";
 		var connectionString = $"Data Source={dbPath}";
 
 		builder.Services.AddDbContext<DeliveryDbContext>(options => options.UseSqlite(connectionString));
@@ -41,6 +41,9 @@ public static class MauiProgram
 		builder.Services.AddScoped<IItemService, ItemService>();
 		builder.Services.AddScoped<DeliveryPlanningService>();
 		builder.Services.AddScoped<IDeliveryDocumentService, DeliveryDocumentService>();
+		builder.Services.AddScoped<ICompanyService, CompanyService>();
+		builder.Services.AddScoped<IPurchaseOrderDocumentService, PurchaseOrderDocumentService>();
+		builder.Services.AddScoped<CompanyContext>();
 
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();

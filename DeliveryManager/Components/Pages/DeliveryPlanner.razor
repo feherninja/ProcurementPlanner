@@ -4,8 +4,8 @@
 
 <PageTitle>Delivery Planner</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
-    <MudText Typo="Typo.h4" Class="mb-4">Szállítólevél készítés</MudText>
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Rendelés készítés</MudText>
 
     <!-- Selected Items List -->
     <MudButton Color="Color.Success"
@@ -20,13 +20,13 @@
                Variant="Variant.Filled"
                StartIcon="@Icons.Material.Filled.DeleteSweep"
                OnClick="ResetDelivery">
-        Szállítólevél törlése
+        Rendelés törlése
     </MudButton>
 
 
     <MudPaper Class="pa-4 mb-4">
         <MudStack Row Spacing="3" Class="mb-4">
-            <MudTextField Label="Szállítólevél száma"
+            <MudTextField Label="Rendelési száma"
                           @bind-Value="PlanningService.DeliveryNumber"
                           Variant="Variant.Outlined"
                           Margin="Margin.Dense"
@@ -44,6 +44,18 @@
             />
         </MudStack>
 
+        <MudSelect T="int?" Label="Cég"
+                   Value="CompanyContext.ActiveCompanyId"
+                   ValueChanged="OnCompanyChanged"
+                   Variant="Variant.Outlined"
+                   Margin="Margin.Dense">
+            @foreach (var c in companies)
+            {
+                <MudSelectItem T="int?" Value="@c.Id">
+                    @c.Name
+                </MudSelectItem>
+            }
+        </MudSelect>
 
         <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
             <MudText Typo="Typo.h5">Kiválasztott cikkek</MudText>

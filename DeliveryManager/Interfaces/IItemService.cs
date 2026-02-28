@@ -1,10 +1,10 @@
 ﻿using DeliveryManager.Models;
 
-namespace DeliveryManager.Services;
+namespace DeliveryManager.Interfaces;
 
 public interface IItemService
 {
-	Task<List<Item>> GetAllAsync();
+	Task<List<Item>> GetAllAsync(int companyId);
 	Task<Item?> GetByIdAsync(int id);
 	Task<Item> CreateAsync(Item item);
 	Task<Item> UpdateAsync(Item item);

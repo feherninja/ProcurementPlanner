@@ -14,6 +14,14 @@
                               Label="Leírás"
                               Lines="3"
                               For="@(() => model.Description)"/>
+                
+                <MudTextField @bind-Value="model.PartNumber"
+                              Label="Cikkszám"
+                              For="@(() => model.PartNumber)" />
+
+                <MudTextField @bind-Value="model.DrawingNumber"
+                              Label="Rajzszám"
+                              For="@(() => model.DrawingNumber)" />
 
                 <MudNumericField @bind-Value="model.Stock"
                               Label="Raktármennyiség"

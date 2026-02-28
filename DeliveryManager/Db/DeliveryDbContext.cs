@@ -14,6 +14,7 @@ public class DeliveryDbContext : DbContext
 	public DbSet<ItemComponent> ItemComponents => Set<ItemComponent>();
 	public DbSet<Delivery> Deliveries => Set<Delivery>();
 	public DbSet<DeliveryItem> DeliveryItems => Set<DeliveryItem>();
+	public DbSet<Company> Companies => Set<Company>();
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
@@ -48,6 +49,7 @@ public class DeliveryDbContext : DbContext
 				{
 					// Check if the entity has a CreatedAt property
 					var createdAtProperty = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreatedAt");
+
 					if (createdAtProperty != null && createdAtProperty.CurrentValue == null)
 					{
 						createdAtProperty.CurrentValue = DateTime.UtcNow;
@@ -59,6 +61,7 @@ public class DeliveryDbContext : DbContext
 				{
 					// Check if the entity has an UpdatedAt property
 					var updatedAtProperty = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "UpdatedAt");
+
 					if (updatedAtProperty != null)
 					{
 						updatedAtProperty.CurrentValue = DateTime.UtcNow;

@@ -5,7 +5,7 @@ namespace DeliveryManager.Interfaces;
 
 public interface IComponentService
 {
-	Task<List<Component>> GetAllAsync();
+	Task<List<Component>> GetAllAsync(int companyId);
 	Task<Component?> GetByIdAsync(int id);
 	Task<Component> CreateAsync(Component component);
 	Task<Component> UpdateAsync(Component component);

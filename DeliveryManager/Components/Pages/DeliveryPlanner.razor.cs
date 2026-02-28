@@ -25,7 +25,18 @@ public partial class DeliveryPlannerBase : ComponentBase
 	public IComponentService ComponentService { get; set; } = null!;
 
 	[Inject]
-	private IDeliveryDocumentService DocumentService { get; set; } = null!;
+	public IDeliveryDocumentService DocumentService { get; set; } = null!;
+
+	[Inject]
+	public ICompanyService CompanyService { get; set; } = null!;
+
+	[Inject]
+	public IPurchaseOrderDocumentService PurchaseOrderDocumentService { get; set; } = null!;
+
+	[Inject]
+	public CompanyContext CompanyContext { get; set; } = null!;
+
+	public List<Company> companies = new();
 
 	public List<SelectedItem> selectedItems => PlanningService.SelectedItems;
 	public List<RequiredComponent> requiredComponents => PlanningService.RequiredComponents;
@@ -33,9 +44,31 @@ public partial class DeliveryPlannerBase : ComponentBase
 	public DateTime? DateOfDelivery => PlanningService.DateOfDelivery;
 	public string DeliveryNumber => PlanningService.DeliveryNumber;
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
+		companies = await CompanyService.GetAllAsync();
+
+		CompanyContext.ActiveCompanyId = companies.FirstOrDefault(c => c.Id == CompanyContext.ActiveCompanyId)?.Id ?? 1;
+		
+		PlanningService.SelectedCompanyId = CompanyContext.ActiveCompanyId;
+		PlanningService.SelectedCompany = companies.FirstOrDefault(c => c.Id == CompanyContext.ActiveCompanyId);
+		PlanningService.ClearPlanning(); // important when switching company
+
 		CalculateComponents();
+	}
+
+	public void OnCompanyChanged(int? companyId)
+	{
+		if (companyId is null) return;
+
+		CompanyContext.ActiveCompanyId = companyId.Value;
+
+		PlanningService.SelectedCompanyId = companyId;
+		PlanningService.SelectedCompany = companies.FirstOrDefault(c => c.Id == companyId);
+
+		PlanningService.ClearPlanning(); // prevents mixing items/components across companies
+		CalculateComponents();
+		StateHasChanged();
 	}
 
 	public async Task OpenAddItemDialog()
@@ -73,11 +106,23 @@ public partial class DeliveryPlannerBase : ComponentBase
 
 	public async Task PrintDeliveryPlan()
 	{
+		var toOrder = PlanningService.RequiredComponents
+		                             .Where(rc => rc.CalculateRequiredOrderQuantity() > 0)
+		                             .ToList();
+
+		if (toOrder.Count == 0)
+		{
+			Snackbar.Add("Nincs mit rendelni (minden komponensből van elég raktáron).", Severity.Info);
+			return;
+		}
+
 		try
 		{
-			var pdfBytes = DocumentService.GenerateDeliveryDocument(PlanningService);
+			// var pdfBytes = DocumentService.GenerateDeliveryDocument(PlanningService);
+			// var fileName = $@"Delivery_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
 
-			var fileName = $@"Delivery_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
+			var pdfBytes = PurchaseOrderDocumentService.GeneratePurchaseOrderDocument(PlanningService);
+			var fileName = $@"Order_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
 
 			using var stream = new MemoryStream(pdfBytes);
 			var fileSaverResult = await FileSaver.Default.SaveAsync(fileName, stream, CancellationToken.None);

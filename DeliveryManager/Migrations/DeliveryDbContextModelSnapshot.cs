@@ -17,16 +17,71 @@ namespace DeliveryManager.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
 
+            modelBuilder.Entity("DeliveryManager.Models.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "4722 Peuerbach, Enzing 4",
+                            CreatedAt = new DateTime(2026, 1, 3, 20, 39, 53, 810, DateTimeKind.Utc),
+                            Email = "order@aspoeck.com",
+                            Name = "Aspöck Systems GmbH",
+                            ShortName = "Aspöck"
+                        });
+                });
+
             modelBuilder.Entity("DeliveryManager.Models.Component", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CompanyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(1);
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DrawingNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -37,6 +92,10 @@ namespace DeliveryManager.Migrations
                     b.Property<int>("OrderPackageSize")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PartNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
 
@@ -44,6 +103,8 @@ namespace DeliveryManager.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("Name");
 
@@ -118,6 +179,11 @@ namespace DeliveryManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CompanyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(1);
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -141,6 +207,8 @@ namespace DeliveryManager.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("Name");
 
@@ -173,6 +241,17 @@ namespace DeliveryManager.Migrations
                     b.ToTable("ItemComponents");
                 });
 
+            modelBuilder.Entity("DeliveryManager.Models.Component", b =>
+                {
+                    b.HasOne("DeliveryManager.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("DeliveryManager.Models.DeliveryItem", b =>
                 {
                     b.HasOne("DeliveryManager.Models.Delivery", "Delivery")
@@ -190,6 +269,17 @@ namespace DeliveryManager.Migrations
                     b.Navigation("Delivery");
 
                     b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("DeliveryManager.Models.Item", b =>
+                {
+                    b.HasOne("DeliveryManager.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("DeliveryManager.Models.ItemComponent", b =>

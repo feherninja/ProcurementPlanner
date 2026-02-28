@@ -11,5 +11,15 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
 		builder.HasKey(e => e.Id);
 		builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
 		builder.HasIndex(e => e.Name);
+		
+		builder.Property(x => x.CompanyId)
+		       .HasDefaultValue(1)
+		       .IsRequired();
+		
+		builder.HasOne(c => c.Company)
+		       .WithMany()
+		       .HasForeignKey(c => c.CompanyId)
+		       .OnDelete(DeleteBehavior.Restrict);
+		
 	}
 }

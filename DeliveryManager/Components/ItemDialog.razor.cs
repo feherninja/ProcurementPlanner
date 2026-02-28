@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using DeliveryManager.Services;
 using Microsoft.AspNetCore.Components;
@@ -19,6 +20,9 @@ public partial class ItemDialogBase : ComponentBase
 
 	[Inject]
 	private ISnackbar Snackbar { get; set; } = null!;
+
+	[Inject]
+	private CompanyContext CompanyContext { get; set; } = null!;
 
 	public MudForm form = null!;
 	public ItemModel model = new();
@@ -64,6 +68,7 @@ public partial class ItemDialogBase : ComponentBase
 				Item.Description = model.Description;
 				Item.PartNumber = model.PartNumber;
 				Item.DrawingNumber = model.DrawingNumber;
+				Item.CompanyId = CompanyContext.ActiveCompanyId;
 
 				await ItemService.UpdateAsync(Item);
 				Snackbar.Add("Cikk sikeresen mentve", Severity.Success);
@@ -76,7 +81,8 @@ public partial class ItemDialogBase : ComponentBase
 					Name = model.Name,
 					Description = model.Description,
 					PartNumber = model.PartNumber,
-					DrawingNumber = model.DrawingNumber
+					DrawingNumber = model.DrawingNumber,
+					CompanyId = CompanyContext.ActiveCompanyId
 				};
 
 				await ItemService.CreateAsync(newItem);
