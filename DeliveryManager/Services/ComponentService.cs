@@ -75,4 +75,9 @@ public class ComponentService(DeliveryDbContext context) : IComponentService
 
 		await context.SaveChangesAsync();
 	}
+
+	public async Task<int> CountByCompanyAsync(int companyId)
+	{
+		return context.Components.Count(c => c.CompanyId == companyId);
+	}
 }

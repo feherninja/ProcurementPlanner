@@ -13,4 +13,5 @@ public interface IItemService
 	Task AddComponentToItemAsync(int itemId, int componentId, int quantity);
 	Task RemoveComponentFromItemAsync(int itemId, int componentId);
 	Task UpdateComponentQuantityAsync(int itemId, int componentId, int quantity);
+	Task<int> CountByCompanyAsync(int companyId);
 }

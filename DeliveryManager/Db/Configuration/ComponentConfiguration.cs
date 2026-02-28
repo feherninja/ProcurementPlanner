@@ -21,7 +21,7 @@ public class ComponentConfiguration : IEntityTypeConfiguration<Component>
 		builder.HasOne(c => c.Company)
 		       .WithMany()
 		       .HasForeignKey(c => c.CompanyId)
-		       .OnDelete(DeleteBehavior.Restrict);
+		       .OnDelete(DeleteBehavior.Cascade);
 		
 		
 		

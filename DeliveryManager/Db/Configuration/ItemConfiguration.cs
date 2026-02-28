@@ -19,7 +19,7 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
 		builder.HasOne(c => c.Company)
 		       .WithMany()
 		       .HasForeignKey(c => c.CompanyId)
-		       .OnDelete(DeleteBehavior.Restrict);
+		       .OnDelete(DeleteBehavior.Cascade);
 		
 	}
 }

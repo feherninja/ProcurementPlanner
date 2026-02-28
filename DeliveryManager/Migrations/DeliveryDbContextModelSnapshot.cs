@@ -246,7 +246,7 @@ namespace DeliveryManager.Migrations
                     b.HasOne("DeliveryManager.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -276,7 +276,7 @@ namespace DeliveryManager.Migrations
                     b.HasOne("DeliveryManager.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");

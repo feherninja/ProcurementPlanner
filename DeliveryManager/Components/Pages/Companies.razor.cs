@@ -1,5 +1,6 @@
 ﻿using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
+using DeliveryManager.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -11,6 +12,9 @@ public partial class Companies : ComponentBase
 	private List<Company> companies = new();
 	private bool loading = true;
 
+	[Inject] public IItemService ItemService { get; set; }
+	[Inject] public IComponentService ComponentService { get; set; }
+	
 	protected override async Task OnInitializedAsync() => await LoadCompanies();
 
 	private async Task LoadCompanies()
@@ -53,16 +57,23 @@ public partial class Companies : ComponentBase
 
 	private async Task OpenDeleteDialog(Company company)
 	{
-		var confirmed = await DialogService.ShowMessageBox(
-		                                                   "Cég törlése",
-		                                                   $"Biztosan törölni szeretnéd ezt a céget: '{company.Name}'?",
-		                                                   yesText: "Törlés",
-		                                                   cancelText: "Mégse");
-
-		if (confirmed != true) return;
-
 		try
 		{
+			var items = await ItemService.CountByCompanyAsync(company.Id);
+			var components = await ComponentService.CountByCompanyAsync(company.Id);
+
+			var confirmed = await DialogService.ShowMessageBox(
+			                                                   "Cég törlése",
+			                                                   $"Biztosan törölni szeretnéd ezt a céget: '{company.Name}'?\n\n" +
+			                                                   $"Ez a művelet törölni fog mindent ami ehhez tartozik:\n"        +
+			                                                   $"- Cikkek: {items}\n"                                           +
+			                                                   $"- Komponensek: {components}\n\n"                               +
+			                                                   "A művelet nem visszavonható.",
+			                                                   yesText: "Törlés",
+			                                                   cancelText: "Mégse");
+
+			if (confirmed != true) return;
+
 			await CompanyService.DeleteAsync(company.Id);
 			Snackbar.Add($"Cég '{company.Name}' törölve", Severity.Success);
 			await LoadCompanies();

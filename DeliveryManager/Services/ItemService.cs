@@ -105,4 +105,9 @@ public class ItemService(DeliveryDbContext context) : IItemService
 			await context.SaveChangesAsync();
 		}
 	}
+
+	public async Task<int> CountByCompanyAsync(int companyId)
+	{
+		return context.Items.Count(i => i.CompanyId == companyId);
+	}
 }
