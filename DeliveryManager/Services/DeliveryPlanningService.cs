@@ -5,8 +5,8 @@ namespace DeliveryManager.Services;
 
 public class DeliveryPlanningService
 {
-	public List<DeliveryPlannerBase.SelectedItem> SelectedItems { get; set; } = new();
-	public List<DeliveryPlannerBase.RequiredComponent> RequiredComponents { get; set; } = new();
+	public List<OrderPlannerBase.SelectedItem> SelectedItems { get; set; } = new();
+	public List<OrderPlannerBase.RequiredComponent> RequiredComponents { get; set; } = new();
 
 	public Company? SelectedCompany { get; set; }
 	public int? SelectedCompanyId { get; set; } = 1; // optional, useful for binding
@@ -21,7 +21,7 @@ public class DeliveryPlanningService
 	{
 		SelectedItems.Clear();
 		RequiredComponents.Clear();
-		DateOfDelivery = null;
+		DateOfDelivery = DateTime.Now;
 		DeliveryNumber = String.Empty;
 		WeekOfDelivery = String.Empty;
 	}

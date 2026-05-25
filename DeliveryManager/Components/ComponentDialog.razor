@@ -16,12 +16,12 @@
                               For="@(() => model.Description)"/>
                 
                 <MudTextField @bind-Value="model.PartNumber"
-                              Label="Cikkszám"
+                              Label="Céges termékszám"
                               For="@(() => model.PartNumber)" />
 
-                <MudTextField @bind-Value="model.DrawingNumber"
-                              Label="Rajzszám"
-                              For="@(() => model.DrawingNumber)" />
+                <MudTextField @bind-Value="model.ExternalNumber"
+                              Label="Schwarzmüller termékszám"
+                              For="@(() => model.ExternalNumber)" />
 
                 <MudNumericField @bind-Value="model.Stock"
                               Label="Raktármennyiség"
@@ -34,6 +34,10 @@
                                  Required="true"
                                  RequiredError="Rendelési kötegszám megadása kötelező"
                                  For="@(() => model.OrderPackageSize)"/>
+
+                <MudNumericField @bind-Value="model.Price"
+                                 Label="Ár"
+                                 For="@(() => model.Price)"/>
             </MudStack>
         </MudForm>
     </DialogContent>

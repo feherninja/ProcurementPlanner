@@ -34,6 +34,7 @@ public class ItemService(DeliveryDbContext context) : IItemService
 
 	public async Task<Item> UpdateAsync(Item item)
 	{
+		item.UpdatedAt = DateTime.UtcNow;
 		context.Items.Update(item);
 		await context.SaveChangesAsync();
 		return item;

@@ -13,7 +13,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 	public IMudDialogInstance MudDialog { get; set; } = null!;
 
 	[Parameter]
-	public List<DeliveryPlannerBase.SelectedItem> ExistingItems { get; set; } = new();
+	public List<OrderPlannerBase.SelectedItem> ExistingItems { get; set; } = new();
 
 	[Inject]
 	private IItemService ItemService { get; set; } = null!;
@@ -91,7 +91,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 
 		try
 		{
-			var itemsToAdd = selectedItems.Select(item => new DeliveryPlannerBase.SelectedItem
+			var itemsToAdd = selectedItems.Select(item => new OrderPlannerBase.SelectedItem
 			{
 				Item = item,
 				Quantity = itemQuantities.GetValueOrDefault(item.Id, 1)

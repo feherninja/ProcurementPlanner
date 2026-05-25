@@ -1,4 +1,4 @@
-Ôªøusing System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using DeliveryManager.Services;
@@ -39,7 +39,8 @@ public partial class ItemDialogBase : ComponentBase
 				Name = Item.Name,
 				Description = Item.Description,
 				PartNumber = Item.PartNumber,
-				DrawingNumber = Item.DrawingNumber
+				DrawingNumber = Item.DrawingNumber,
+				Price = Item.Price
 			};
 		}
 	}
@@ -55,7 +56,7 @@ public partial class ItemDialogBase : ComponentBase
 
 		if (!form.IsValid)
 		{
-			Snackbar.Add("Valid√°ci√≥s hib√°k l√©ptek fel", Severity.Error);
+			Snackbar.Add("Valid·ciÛs hib·k lÈptek fel", Severity.Error);
 			return;
 		}
 
@@ -68,10 +69,11 @@ public partial class ItemDialogBase : ComponentBase
 				Item.Description = model.Description;
 				Item.PartNumber = model.PartNumber;
 				Item.DrawingNumber = model.DrawingNumber;
+				Item.Price = model.Price;
 				Item.CompanyId = CompanyContext.ActiveCompanyId;
 
 				await ItemService.UpdateAsync(Item);
-				Snackbar.Add("Term√©k sikeresen mentve", Severity.Success);
+				Snackbar.Add("TermÈk sikeresen mentve", Severity.Success);
 			}
 			else
 			{
@@ -82,33 +84,36 @@ public partial class ItemDialogBase : ComponentBase
 					Description = model.Description,
 					PartNumber = model.PartNumber,
 					DrawingNumber = model.DrawingNumber,
+					Price = model.Price,
 					CompanyId = CompanyContext.ActiveCompanyId
 				};
 
 				await ItemService.CreateAsync(newItem);
-				Snackbar.Add("Term√©k sikeresen l√©trehozva", Severity.Success);
+				Snackbar.Add("TermÈk sikeresen lÈtrehozva", Severity.Success);
 			}
 
 			MudDialog.Close(DialogResult.Ok(true));
 		}
 		catch (Exception ex)
 		{
-			Snackbar.Add($"Ment√©s k√∂zbeni hiba: {ex.Message}", Severity.Error);
+			Snackbar.Add($"MentÈs kˆzbeni hiba: {ex.Message}", Severity.Error);
 		}
 	}
 
 	// Form model for binding and validation
 	public class ItemModel
 	{
-		[Required(ErrorMessage = "N√©v megad√°sa k√∂telez≈ë")]
-		[StringLength(200, ErrorMessage = "N√©v nem lehet 200 karaktern√©l hosszabb")]
+		[Required(ErrorMessage = "NÈv megad·sa kˆtelezo")]
+		[StringLength(200, ErrorMessage = "NÈv nem lehet 200 karakternÈl hosszabb")]
 		public string Name { get; set; } = string.Empty;
 
-		[StringLength(500, ErrorMessage = "le√≠r√°s nem lehet 500 karaktern√©l hosszabb")]
+		[StringLength(500, ErrorMessage = "leÌr·s nem lehet 500 karakternÈl hosszabb")]
 		public string? Description { get; set; }
 
 		public string? PartNumber { get; set; }
 
 		public string? DrawingNumber { get; set; }
+
+		public int Price { get; set; }
 	}
 }

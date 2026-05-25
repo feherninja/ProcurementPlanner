@@ -15,12 +15,23 @@
                               For="@(() => model.Description)"/>
 
                 <MudTextField @bind-Value="model.PartNumber"
-                              Label="Cikkszám"
+                              Label="Termékszám"
                               For="@(() => model.PartNumber)"/>
 
                 <MudTextField @bind-Value="model.DrawingNumber"
                               Label="Rajzszám"
                               For="@(() => model.DrawingNumber)"/>
+
+                <MudNumericField @bind-Value="model.Price"
+                                 Label="Ár"
+                                 For="@(() => model.Price)"/>
+
+                @if (IsEditMode && Item != null && Item.ItemComponents.Any())
+                {
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">
+                        Komponensek összértéke: @Item.ItemComponents.Sum(ic => ic.Component.Price * ic.Quantity)
+                    </MudText>
+                }
             </MudStack>
         </MudForm>
     </DialogContent>

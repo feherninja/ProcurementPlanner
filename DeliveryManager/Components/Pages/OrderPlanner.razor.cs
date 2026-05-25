@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui.Storage;
+using CommunityToolkit.Maui.Storage;
 using DeliveryManager.Interfaces;
 using DeliveryManager.Models;
 using DeliveryManager.Services;
@@ -7,7 +7,7 @@ using MudBlazor;
 
 namespace DeliveryManager.Components.Pages;
 
-public partial class DeliveryPlannerBase : ComponentBase
+public partial class OrderPlannerBase : ComponentBase
 {
 	[Inject]
 	private IItemService ItemService { get; set; } = null!;
@@ -49,10 +49,10 @@ public partial class DeliveryPlannerBase : ComponentBase
 		companies = await CompanyService.GetAllAsync();
 
 		CompanyContext.ActiveCompanyId = companies.FirstOrDefault(c => c.Id == CompanyContext.ActiveCompanyId)?.Id ?? 1;
-		
+
 		PlanningService.SelectedCompanyId = CompanyContext.ActiveCompanyId;
 		PlanningService.SelectedCompany = companies.FirstOrDefault(c => c.Id == CompanyContext.ActiveCompanyId);
-		PlanningService.ClearPlanning(); // important when switching company
+		PlanningService.ClearPlanning();
 
 		CalculateComponents();
 	}
@@ -66,7 +66,7 @@ public partial class DeliveryPlannerBase : ComponentBase
 		PlanningService.SelectedCompanyId = companyId;
 		PlanningService.SelectedCompany = companies.FirstOrDefault(c => c.Id == companyId);
 
-		PlanningService.ClearPlanning(); // prevents mixing items/components across companies
+		PlanningService.ClearPlanning();
 		CalculateComponents();
 		StateHasChanged();
 	}
@@ -118,9 +118,6 @@ public partial class DeliveryPlannerBase : ComponentBase
 
 		try
 		{
-			// var pdfBytes = DocumentService.GenerateDeliveryDocument(PlanningService);
-			// var fileName = $@"Delivery_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
-
 			var pdfBytes = PurchaseOrderDocumentService.GeneratePurchaseOrderDocument(PlanningService);
 			var fileName = $@"Order_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
 
@@ -158,10 +155,8 @@ public partial class DeliveryPlannerBase : ComponentBase
 
 	public void CalculateComponents()
 	{
-		// Clear previous calculations
 		requiredComponents.Clear();
 
-		// Group all components by ComponentId and sum quantities
 		var componentGroups = selectedItems
 		                      .SelectMany(si => si.Item.ItemComponents.Select(ic => new
 		                      {
@@ -180,7 +175,6 @@ public partial class DeliveryPlannerBase : ComponentBase
 		StateHasChanged();
 	}
 
-	// Helper classes
 	public class SelectedItem
 	{
 		public Item Item { get; set; } = null!;
@@ -197,9 +191,8 @@ public partial class DeliveryPlannerBase : ComponentBase
 			if (Component.Stock - TotalQuantity >= 0)
 				return 0;
 
-			int result = (TotalQuantity - Component.Stock) / Component.OrderPackageSize + 1;
-			Console.WriteLine(result);
-			return result;
+			int deficit = TotalQuantity - Component.Stock;
+			return (deficit + Component.OrderPackageSize - 1) / Component.OrderPackageSize;
 		}
 
 		public int CalculateNewStock()

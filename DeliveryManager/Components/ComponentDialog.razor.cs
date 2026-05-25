@@ -39,7 +39,10 @@ public partial class ComponentDialogBase : ComponentBase
 				Name = Component.Name,
 				Description = Component.Description,
 				Stock = Component.Stock,
-				OrderPackageSize = Component.OrderPackageSize
+				OrderPackageSize = Component.OrderPackageSize,
+				PartNumber = Component.PartNumber,
+				ExternalNumber = Component.ExternalNumber,
+				Price = Component.Price
 			};
 		}
 	}
@@ -69,7 +72,8 @@ public partial class ComponentDialogBase : ComponentBase
 				Component.Stock = model.Stock;
 				Component.OrderPackageSize = model.OrderPackageSize;
 				Component.PartNumber = model.PartNumber;
-				Component.DrawingNumber = model.DrawingNumber;
+				Component.ExternalNumber = model.ExternalNumber;
+				Component.Price = model.Price;
 				Component.CompanyId = CompanyContext.ActiveCompanyId;
 
 				await ComponentService.UpdateAsync(Component);
@@ -85,7 +89,8 @@ public partial class ComponentDialogBase : ComponentBase
 					Stock = model.Stock,
 					OrderPackageSize = model.OrderPackageSize,
 					PartNumber = model.PartNumber,
-					DrawingNumber = model.DrawingNumber,
+					ExternalNumber = model.ExternalNumber,
+					Price = model.Price,
 					CompanyId = CompanyContext.ActiveCompanyId
 				};
 
@@ -117,10 +122,12 @@ public partial class ComponentDialogBase : ComponentBase
 		[Required(ErrorMessage = "Rendelési kötegszám megadása kötelező")]
 		public int OrderPackageSize { get; set; }
 
-		[Required(ErrorMessage = "Cikkszám megadása kötelező")]
+		public int Price { get; set; }
+
+		[Required(ErrorMessage = "Céges termékszám megadása kötelező")]
 		public string? PartNumber { get; set; }
 
-		[Required(ErrorMessage = "Rajzszám megadása kötelező")]
-		public string? DrawingNumber { get; set; }
+		[Required(ErrorMessage = "Schwarzmüller termékszám megadása kötelező")]
+		public string? ExternalNumber { get; set; }
 	}
 }

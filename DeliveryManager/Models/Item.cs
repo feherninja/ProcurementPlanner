@@ -6,11 +6,13 @@ public class Item
 	public string Name { get; set; } = string.Empty;
 	public string? Description { get; set; }
 
-	// cikkszám
+	// termékszám
 	public string PartNumber { get; set; } = string.Empty;
 
 	// rajzszám
 	public string DrawingNumber { get; set; } = string.Empty;
+
+	public int Price { get; set; }
 
 	public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 	public DateTime? UpdatedAt { get; set; }

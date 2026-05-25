@@ -80,7 +80,7 @@ namespace DeliveryManager.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DrawingNumber")
+                    b.Property<string>("ExternalNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -95,6 +95,9 @@ namespace DeliveryManager.Migrations
                     b.Property<string>("PartNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
@@ -202,6 +205,9 @@ namespace DeliveryManager.Migrations
                     b.Property<string>("PartNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");

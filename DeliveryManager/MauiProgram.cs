@@ -4,6 +4,7 @@ using DeliveryManager.Interfaces;
 using DeliveryManager.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using MudBlazor.Services;
 
 namespace DeliveryManager;
@@ -20,6 +21,23 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 			})
 			.UseMauiCommunityToolkit();
+
+		builder.ConfigureLifecycleEvents(events =>
+		{
+#if WINDOWS
+			events.AddWindows(windows =>
+			{
+				windows.OnWindowCreated(window =>
+				{
+					var handle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+					var id = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(handle);
+					var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(id);
+					if (appWindow.Presenter is Microsoft.UI.Windowing.OverlappedPresenter presenter)
+						presenter.Maximize();
+				});
+			});
+#endif
+		});
 
 		builder.Services.AddMauiBlazorWebView();
 		builder.Services.AddMudServices();

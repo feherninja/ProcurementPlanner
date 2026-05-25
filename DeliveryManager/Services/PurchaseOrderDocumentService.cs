@@ -37,7 +37,7 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
             {
                 row.RelativeItem().AlignCenter().Column(col =>
                 {
-                    col.Item().PaddingBottom(5).Text("PIRÓTH & TÁRSA IPARI ÉS KERESKEDELMI BETÉTI TÁRSASÁG")
+                    col.Item().PaddingBottom(5).Text("PIRÓTH ÉS TÁRSA IPARI ÉS KERESKEDELMI BETÉTI TÁRSASÁG")
                        .AlignCenter()
                        .FontSize(11)
                        .Bold()
@@ -94,57 +94,62 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
 
     private void ComposeTable(QuestPDFContainer container, DeliveryPlanningService planningService)
     {
-        var shortName = planningService.SelectedCompany?.ShortName;
-        var artNoHeader = string.IsNullOrWhiteSpace(shortName) ? "Art.no." : $"{shortName} {Environment.NewLine} Art.no.";
-
         var componentsToOrder = planningService.RequiredComponents
             .Where(rc => rc.CalculateRequiredOrderQuantity() > 0)
             .OrderBy(rc => rc.Component.Name)
             .ToList();
 
+        var lieferdatum = planningService.DateOfDelivery?.ToString("dd.MM.yyyy") ?? "";
+
         container.Table(table =>
         {
             table.ColumnsDefinition(columns =>
             {
-                columns.RelativeColumn(4);    // Komponentenbezeichnung
-                columns.RelativeColumn(2);    // {Company.ShortName} Art.no.
-                columns.RelativeColumn(2);    // Zeichnungsnummer
-                columns.RelativeColumn(1.5f); // Bestellte Menge (packages)
-                columns.RelativeColumn(1);    // ME
-                columns.RelativeColumn(1.5f); // Lieferzeit
+                columns.ConstantColumn(20);   // Nr.
+                columns.RelativeColumn(4);    // Bezeichnung
+                columns.RelativeColumn(2);    // Artikel-Nr.
+                columns.RelativeColumn(2);    // Schwarzmüller-Nr.
+                columns.RelativeColumn(1.5f); // Menge
+                columns.RelativeColumn(1);    // Einheit
+                columns.RelativeColumn(1.5f); // Lieferdatum
             });
 
             table.Header(header =>
             {
-                header.Cell().Border(1).Padding(3).Text("Komponentenbezeichnung")
+                header.Cell().Border(1).Padding(3).Text("Nr.")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text(artNoHeader)
+                header.Cell().Border(1).Padding(3).Text("Bezeichnung")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("Zeichnungsnummer")
+                header.Cell().Border(1).Padding(3).Text("Artikel-Nr.")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("Bestellte Menge")
+                header.Cell().Border(1).Padding(3).Text("Schwarzmüller-Nr.")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("ME")
+                header.Cell().Border(1).Padding(3).Text("Menge")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("Lieferzeit")
+                header.Cell().Border(1).Padding(3).Text("Einheit")
+                      .FontSize(9).Bold().AlignCenter();
+
+                header.Cell().Border(1).Padding(3).Text("Lieferdatum")
                       .FontSize(9).Bold().AlignCenter();
             });
 
+            int rowNumber = 1;
             foreach (var rc in componentsToOrder)
             {
                 var c = rc.Component;
 
+                table.Cell().Border(1).Padding(3).AlignCenter().Text(rowNumber++.ToString()).FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(c.Name).FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(c.PartNumber ?? "").FontSize(8);
-                table.Cell().Border(1).Padding(3).AlignCenter().Text(c.DrawingNumber ?? "").FontSize(8);
-                table.Cell().Border(1).Padding(3).AlignCenter().Text(rc.CalculateRequiredOrderQuantity().ToString()).FontSize(8);
+                table.Cell().Border(1).Padding(3).AlignCenter().Text(c.ExternalNumber ?? "").FontSize(8);
+                table.Cell().Border(1).Padding(3).AlignCenter().Text(Math.Max(0, rc.TotalQuantity - rc.Component.Stock).ToString()).FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text("St.").FontSize(8);
-                table.Cell().Border(1).Padding(3).AlignCenter().Text($"Woche {planningService.WeekOfDelivery}").FontSize(8);
+                table.Cell().Border(1).Padding(3).AlignCenter().Text(lieferdatum).FontSize(8);
             }
         });
     }

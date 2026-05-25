@@ -49,13 +49,16 @@
                      Dense="true">
 
             <Columns>
+                <HierarchyColumn T="Component"/>
                 <PropertyColumn Property="x => x.Name" Title="Név"/>
                 <PropertyColumn Property="x => x.Description" Title="Leírás"/>
-                <PropertyColumn Property="x => x.PartNumber" Title="Cikkszám"/>
-                <PropertyColumn Property="x => x.DrawingNumber" Title="Rajzszám"/>
+                <PropertyColumn Property="x => x.PartNumber" Title="Céges termékszám"/>
+                <PropertyColumn Property="x => x.ExternalNumber" Title="Schwarzmüller termékszám"/>
                 <PropertyColumn Property="x => x.Stock" Title="Raktármennyiség"/>
                 <PropertyColumn Property="x => x.OrderPackageSize" Title="Rendelési kötegszám"/>
+                <PropertyColumn Property="x => x.Price" Title="Ár"/>
                 <PropertyColumn Property="x => x.CreatedAt" Title="Létrehozva" Format="yyyy-MM-dd"/>
+                <PropertyColumn Property="x => x.UpdatedAt" Title="Módosítva" Format="yyyy-MM-dd"/>
 
                 <TemplateColumn Title="Funkciók" Sortable="false" Filterable="false">
                     <CellTemplate>
@@ -74,6 +77,43 @@
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>
+
+            <ChildRowContent>
+                <MudCard Class="ma-2" Elevation="0" Style="border: 1px solid var(--mud-palette-lines-default);">
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6" Class="mb-3">@context.Item.Name — termékek listája</MudText>
+
+                        @if (context.Item.ItemComponents.Any())
+                        {
+                            <MudSimpleTable Style="overflow-x: auto;" Dense="true">
+                                <thead>
+                                <tr>
+                                    <th>Termék neve</th>
+                                    <th>Leírás</th>
+                                    <th>Mennyiség</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var itemComponent in context.Item.ItemComponents)
+                                {
+                                    <tr>
+                                        <td>@itemComponent.Item.Name</td>
+                                        <td>@itemComponent.Item.Description</td>
+                                        <td>@itemComponent.Quantity</td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </MudSimpleTable>
+                        }
+                        else
+                        {
+                            <MudAlert Severity="Severity.Info" Dense="true">
+                                Ez a komponens egyetlen termékhez sincs hozzárendelve.
+                            </MudAlert>
+                        }
+                    </MudCardContent>
+                </MudCard>
+            </ChildRowContent>
 
             <NoRecordsContent>
                 <MudText Typo="Typo.body1" Align="Align.Center">

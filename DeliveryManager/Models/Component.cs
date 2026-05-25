@@ -6,14 +6,15 @@ public class Component
 	public string Name { get; set; } = string.Empty;
 	public string? Description { get; set; }
 
-	public string PartNumber { get; set; } = string.Empty;    // cikkszám
-	public string DrawingNumber { get; set; } = string.Empty; // rajzszám
+	public string PartNumber { get; set; } = string.Empty;    // termékszám
+	public string ExternalNumber { get; set; } = string.Empty; // külső alkatrészszám
 	
 	public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 	public DateTime? UpdatedAt { get; set; }
 	
 	public int Stock { get; set; }
 	public int OrderPackageSize { get; set; }
+	public int Price { get; set; }
 	
 	public int CompanyId { get; set; }
 	public Company Company { get; set; } = null!;

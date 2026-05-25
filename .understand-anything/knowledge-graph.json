@@ -1,0 +1,4614 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "DeliveryManager",
+    "languages": [
+      "csharp",
+      "razor",
+      "xaml",
+      "css",
+      "html",
+      "xml",
+      "json"
+    ],
+    "frameworks": [
+      ".NET MAUI",
+      "Blazor",
+      "Entity Framework Core",
+      "MudBlazor",
+      "QuestPDF"
+    ],
+    "description": "A .NET MAUI Blazor hybrid Windows desktop application for managing deliveries, items (products), components (parts), and supplier companies.",
+    "analyzedAt": "2026-05-25T14:14:24.557Z",
+    "gitCommitHash": "d4c57541b0c3f82dbd14707acd4de22ba4a08385"
+  },
+  "nodes": [
+    {
+      "id": "config:.claude/settings.local.json",
+      "type": "config",
+      "name": "settings.local.json",
+      "filePath": ".claude/settings.local.json",
+      "summary": "Claude Code local settings granting allowed tool permissions for the project, including bash and file-system operations.",
+      "tags": [
+        "configuration",
+        "development",
+        "permissions"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.understand-anything/.understandignore",
+      "type": "config",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore rules for the understand-anything knowledge graph tool, excluding build artifacts, packages, and generated files from analysis.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "ignore-rules"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager.sln",
+      "type": "config",
+      "name": "DeliveryManager.sln",
+      "filePath": "DeliveryManager.sln",
+      "summary": "Visual Studio solution file defining the DeliveryManager project structure and build configurations.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dotnet"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager.sln.DotSettings.user",
+      "type": "config",
+      "name": "DeliveryManager.sln.DotSettings.user",
+      "filePath": "DeliveryManager.sln.DotSettings.user",
+      "summary": "ReSharper or Rider per-user solution settings storing personal IDE preferences and code style overrides.",
+      "tags": [
+        "configuration",
+        "development",
+        "ide"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/App.xaml",
+      "type": "file",
+      "name": "App.xaml",
+      "filePath": "DeliveryManager/App.xaml",
+      "summary": "MAUI application XAML root defining global resource dictionaries including the MauiBlazorWebView style resources.",
+      "tags": [
+        "entry-point",
+        "configuration",
+        "maui",
+        "xaml"
+      ],
+      "complexity": "simple",
+      "languageNotes": "XAML Application resource dictionary is the global style root for the MAUI app shell."
+    },
+    {
+      "id": "file:DeliveryManager/App.xaml.cs",
+      "type": "file",
+      "name": "App.xaml.cs",
+      "filePath": "DeliveryManager/App.xaml.cs",
+      "summary": "MAUI App code-behind that bootstraps the application window and hosts the Blazor MainPage as the root content.",
+      "tags": [
+        "entry-point",
+        "maui",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/App.xaml.cs:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "DeliveryManager/App.xaml.cs",
+      "lineRange": [
+        3,
+        14
+      ],
+      "summary": "MAUI Application subclass that overrides CreateWindow to initialize the app with a Blazor-hosted MainPage.",
+      "tags": [
+        "entry-point",
+        "maui",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/_Imports.razor",
+      "type": "file",
+      "name": "_Imports.razor",
+      "filePath": "DeliveryManager/Components/_Imports.razor",
+      "summary": "Razor global imports file that makes common namespaces and MudBlazor components available to all Razor files in the Components folder.",
+      "tags": [
+        "barrel",
+        "entry-point",
+        "razor",
+        "imports"
+      ],
+      "complexity": "simple",
+      "languageNotes": "In Blazor, _Imports.razor acts as a barrel for using directives applied to the entire folder subtree."
+    },
+    {
+      "id": "file:DeliveryManager/Components/CompanyDialog.razor",
+      "type": "file",
+      "name": "CompanyDialog.razor",
+      "filePath": "DeliveryManager/Components/CompanyDialog.razor",
+      "summary": "Blazor dialog component for creating and editing supplier company records, using MudBlazor form fields with validation.",
+      "tags": [
+        "component",
+        "dialog",
+        "ui",
+        "crud"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/CompanyDialog.razor.cs",
+      "type": "file",
+      "name": "CompanyDialog.razor.cs",
+      "filePath": "DeliveryManager/Components/CompanyDialog.razor.cs",
+      "summary": "Code-behind for CompanyDialog that handles create/edit logic, form validation, and calls CompanyService to persist changes.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "crud"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DeliveryManager/Components/CompanyDialog.razor.cs:CompanyDialogBase",
+      "type": "class",
+      "name": "CompanyDialogBase",
+      "filePath": "DeliveryManager/Components/CompanyDialog.razor.cs",
+      "lineRange": [
+        9,
+        97
+      ],
+      "summary": "Base class for the company create/edit dialog; manages form model initialization, validation, and async save/update via CompanyService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Components/CompanyDialog.razor.cs:Save",
+      "type": "function",
+      "name": "Save",
+      "filePath": "DeliveryManager/Components/CompanyDialog.razor.cs",
+      "lineRange": [
+        38,
+        79
+      ],
+      "summary": "Validates the form and either creates a new Company or updates an existing one via CompanyService, showing snackbar feedback and closing the dialog on success.",
+      "tags": [
+        "crud",
+        "validation",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ComponentDialog.razor",
+      "type": "file",
+      "name": "ComponentDialog.razor",
+      "filePath": "DeliveryManager/Components/ComponentDialog.razor",
+      "summary": "Blazor dialog component for creating and editing component (part) records, including fields for article number and associated company.",
+      "tags": [
+        "component",
+        "dialog",
+        "ui",
+        "crud"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ComponentDialog.razor.cs",
+      "type": "file",
+      "name": "ComponentDialog.razor.cs",
+      "filePath": "DeliveryManager/Components/ComponentDialog.razor.cs",
+      "summary": "Code-behind for ComponentDialog that manages create/edit form lifecycle and delegates persistence to ComponentService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "crud"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/ComponentDialog.razor.cs:ComponentDialogBase",
+      "type": "class",
+      "name": "ComponentDialogBase",
+      "filePath": "DeliveryManager/Components/ComponentDialog.razor.cs",
+      "lineRange": [
+        10,
+        126
+      ],
+      "summary": "Base class for the component create/edit dialog; initializes form model with company context, validates input, and calls ComponentService for create or update operations.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ComponentDialog.razor.cs:Save",
+      "type": "function",
+      "name": "Save",
+      "filePath": "DeliveryManager/Components/ComponentDialog.razor.cs",
+      "lineRange": [
+        52,
+        102
+      ],
+      "summary": "Validates the form and either creates a new Component or updates an existing one via ComponentService, providing snackbar feedback.",
+      "tags": [
+        "crud",
+        "validation",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ComponentSelectionDialog.razor",
+      "type": "file",
+      "name": "ComponentSelectionDialog.razor",
+      "filePath": "DeliveryManager/Components/ComponentSelectionDialog.razor",
+      "summary": "Blazor dialog for selecting components to add to an item, presenting an interactive data grid with quantity inputs.",
+      "tags": [
+        "component",
+        "dialog",
+        "ui",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "type": "file",
+      "name": "ComponentSelectionDialog.razor.cs",
+      "filePath": "DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "summary": "Code-behind for ComponentSelectionDialog that loads available components, filters out already-linked ones, and adds selections to the item via ItemService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "selection"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:ComponentSelectionDialogBase",
+      "type": "class",
+      "name": "ComponentSelectionDialogBase",
+      "filePath": "DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "lineRange": [
+        9,
+        125
+      ],
+      "summary": "Base class for the component selection dialog; loads all components, filters out those already linked to the item, supports multi-select with per-component quantity tracking, and commits selections via ItemService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "selection"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:LoadAvailableComponents",
+      "type": "function",
+      "name": "LoadAvailableComponents",
+      "filePath": "DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "lineRange": [
+        42,
+        67
+      ],
+      "summary": "Fetches all components via ComponentService and filters out IDs already associated with the current item, populating the available list for selection.",
+      "tags": [
+        "data-loading",
+        "service",
+        "filter"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:AddSelectedComponents",
+      "type": "function",
+      "name": "AddSelectedComponents",
+      "filePath": "DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "lineRange": [
+        88,
+        124
+      ],
+      "summary": "Iterates selected components, reads per-component quantities, calls ItemService.AddComponentToItemAsync for each, and closes the dialog with success result.",
+      "tags": [
+        "crud",
+        "service",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ItemDialog.razor",
+      "type": "file",
+      "name": "ItemDialog.razor",
+      "filePath": "DeliveryManager/Components/ItemDialog.razor",
+      "summary": "Blazor dialog component for creating and editing product (item) records with fields for name, article number, and associated company.",
+      "tags": [
+        "component",
+        "dialog",
+        "ui",
+        "crud"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ItemDialog.razor.cs",
+      "type": "file",
+      "name": "ItemDialog.razor.cs",
+      "filePath": "DeliveryManager/Components/ItemDialog.razor.cs",
+      "summary": "Code-behind for ItemDialog that manages create/edit form lifecycle and delegates persistence to ItemService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "crud"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/ItemDialog.razor.cs:ItemDialogBase",
+      "type": "class",
+      "name": "ItemDialogBase",
+      "filePath": "DeliveryManager/Components/ItemDialog.razor.cs",
+      "lineRange": [
+        10,
+        114
+      ],
+      "summary": "Base class for the item create/edit dialog; handles form model initialization with company context, validation, and delegates create or update to ItemService.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ItemDialog.razor.cs:Save",
+      "type": "function",
+      "name": "Save",
+      "filePath": "DeliveryManager/Components/ItemDialog.razor.cs",
+      "lineRange": [
+        52,
+        98
+      ],
+      "summary": "Validates the form and either creates a new Item or updates an existing one via ItemService, providing snackbar feedback and closing the dialog.",
+      "tags": [
+        "crud",
+        "validation",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ItemSelectionDialog.razor",
+      "type": "file",
+      "name": "ItemSelectionDialog.razor",
+      "filePath": "DeliveryManager/Components/ItemSelectionDialog.razor",
+      "summary": "Blazor dialog for selecting items (products) to add to a delivery plan, presenting a data grid with per-item quantity inputs.",
+      "tags": [
+        "component",
+        "dialog",
+        "ui",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "type": "file",
+      "name": "ItemSelectionDialog.razor.cs",
+      "filePath": "DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "summary": "Code-behind for ItemSelectionDialog that loads available items, filters already-selected ones, tracks quantities, and returns selections to the caller.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "selection"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/ItemSelectionDialog.razor.cs:ItemSelectionDialogBase",
+      "type": "class",
+      "name": "ItemSelectionDialogBase",
+      "filePath": "DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "lineRange": [
+        10,
+        107
+      ],
+      "summary": "Base class for the item selection dialog; loads all items, filters out already-existing selections, supports multi-select with per-item quantity tracking, and returns SelectedItem result objects to the caller.",
+      "tags": [
+        "component",
+        "dialog",
+        "service",
+        "selection"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ItemSelectionDialog.razor.cs:LoadAvailableItems",
+      "type": "function",
+      "name": "LoadAvailableItems",
+      "filePath": "DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "lineRange": [
+        38,
+        63
+      ],
+      "summary": "Fetches all items via ItemService and filters out IDs already in the ExistingItems set, populating the available selection list.",
+      "tags": [
+        "data-loading",
+        "service",
+        "filter"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Components/ItemSelectionDialog.razor.cs:AddSelectedItems",
+      "type": "function",
+      "name": "AddSelectedItems",
+      "filePath": "DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "lineRange": [
+        84,
+        106
+      ],
+      "summary": "Maps selected items to SelectedItem result objects with their quantities and closes the dialog with a success result containing the selection list.",
+      "tags": [
+        "crud",
+        "service",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Layout/MainLayout.razor",
+      "type": "file",
+      "name": "MainLayout.razor",
+      "filePath": "DeliveryManager/Components/Layout/MainLayout.razor",
+      "summary": "Top-level Blazor layout component that sets up the MudBlazor ThemeProvider, DialogProvider, SnackbarProvider, and renders the NavMenu sidebar alongside the main body.",
+      "tags": [
+        "component",
+        "layout",
+        "ui",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Layout/MainLayout.razor.css",
+      "type": "file",
+      "name": "MainLayout.razor.css",
+      "filePath": "DeliveryManager/Components/Layout/MainLayout.razor.css",
+      "summary": "Scoped CSS for the main layout component defining sidebar, content area, and navigation strip sizing and positioning.",
+      "tags": [
+        "layout",
+        "css",
+        "styling"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Layout/NavMenu.razor",
+      "type": "file",
+      "name": "NavMenu.razor",
+      "filePath": "DeliveryManager/Components/Layout/NavMenu.razor",
+      "summary": "Blazor navigation menu component rendering a MudBlazor drawer with nav links to all major pages of the application.",
+      "tags": [
+        "component",
+        "navigation",
+        "ui",
+        "layout"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Layout/NavMenu.razor.css",
+      "type": "file",
+      "name": "NavMenu.razor.css",
+      "filePath": "DeliveryManager/Components/Layout/NavMenu.razor.css",
+      "summary": "Scoped CSS for the navigation menu component controlling drawer item styles, active link highlighting, and icon sizing.",
+      "tags": [
+        "navigation",
+        "css",
+        "styling"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Companies.razor",
+      "type": "file",
+      "name": "Companies.razor",
+      "filePath": "DeliveryManager/Components/Pages/Companies.razor",
+      "summary": "Blazor page component for the Companies list view, rendering a MudBlazor data grid with create, edit, and delete action buttons.",
+      "tags": [
+        "component",
+        "page",
+        "ui",
+        "crud"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+      "type": "file",
+      "name": "Companies.razor.cs",
+      "filePath": "DeliveryManager/Components/Pages/Companies.razor.cs",
+      "summary": "Code-behind for the Companies page that loads company data, opens create/edit/delete dialogs, and delegates persistence to CompanyService.",
+      "tags": [
+        "page",
+        "service",
+        "crud",
+        "dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DeliveryManager/Components/Pages/Companies.razor.cs:Companies",
+      "type": "class",
+      "name": "Companies",
+      "filePath": "DeliveryManager/Components/Pages/Companies.razor.cs",
+      "lineRange": [
+        9,
+        86
+      ],
+      "summary": "Page code-behind class managing the Companies list; loads records from CompanyService, coordinates CompanyDialog for create/edit, and handles deletion with linked-data count confirmation.",
+      "tags": [
+        "page",
+        "service",
+        "crud",
+        "dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/Companies.razor.cs:OpenDeleteDialog",
+      "type": "function",
+      "name": "OpenDeleteDialog",
+      "filePath": "DeliveryManager/Components/Pages/Companies.razor.cs",
+      "lineRange": [
+        58,
+        85
+      ],
+      "summary": "Shows a confirmation dialog that includes counts of linked items and components before calling CompanyService.DeleteAsync to remove the company.",
+      "tags": [
+        "crud",
+        "dialog",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Components.razor",
+      "type": "file",
+      "name": "Components.razor",
+      "filePath": "DeliveryManager/Components/Pages/Components.razor",
+      "summary": "Blazor page component for the Components list view, featuring a company filter dropdown and a data grid with create, edit, and delete actions.",
+      "tags": [
+        "component",
+        "page",
+        "ui",
+        "crud"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Components.razor.cs",
+      "type": "file",
+      "name": "Components.razor.cs",
+      "filePath": "DeliveryManager/Components/Pages/Components.razor.cs",
+      "summary": "Code-behind for the Components page that loads components filtered by company context and orchestrates create/edit/delete dialogs.",
+      "tags": [
+        "page",
+        "service",
+        "crud",
+        "dialog"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/Pages/Components.razor.cs:Components",
+      "type": "class",
+      "name": "Components",
+      "filePath": "DeliveryManager/Components/Pages/Components.razor.cs",
+      "lineRange": [
+        9,
+        123
+      ],
+      "summary": "Page code-behind managing the Components list; initializes with company list, filters component records by selected company, and opens ComponentDialog for CRUD operations.",
+      "tags": [
+        "page",
+        "service",
+        "crud",
+        "dialog"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/Components.razor.cs:LoadComponents",
+      "type": "function",
+      "name": "LoadComponents",
+      "filePath": "DeliveryManager/Components/Pages/Components.razor.cs",
+      "lineRange": [
+        34,
+        50
+      ],
+      "summary": "Fetches components from ComponentService filtered by the currently selected company context and handles error feedback via Snackbar.",
+      "tags": [
+        "data-loading",
+        "service",
+        "filter"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/Components.razor.cs:OpenDeleteDialog",
+      "type": "function",
+      "name": "OpenDeleteDialog",
+      "filePath": "DeliveryManager/Components/Pages/Components.razor.cs",
+      "lineRange": [
+        101,
+        122
+      ],
+      "summary": "Shows a confirmation dialog and calls ComponentService.DeleteAsync on confirmation, then reloads the component list.",
+      "tags": [
+        "crud",
+        "dialog",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor",
+      "type": "file",
+      "name": "DeliveryPlanner.razor",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor",
+      "summary": "Blazor page component for the delivery planning workflow, rendering selected products, required components, and controls for adding items, printing the delivery plan, and resetting the order. Binds to DeliveryPlannerBase and uses MudBlazor tables, selects, and buttons.",
+      "tags": [
+        "component",
+        "api-handler",
+        "delivery",
+        "ui-page"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "type": "file",
+      "name": "DeliveryPlanner.razor.cs",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "summary": "Code-behind for the DeliveryPlanner Razor page; contains the DeliveryPlannerBase class that orchestrates delivery planning by injecting services, managing component calculations, handling item selection via dialogs, and generating purchase order PDFs.",
+      "tags": [
+        "api-handler",
+        "service",
+        "component",
+        "delivery"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "type": "class",
+      "name": "DeliveryPlannerBase",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "lineRange": [
+        10,
+        214
+      ],
+      "summary": "Base class for the DeliveryPlanner Razor component; injects all delivery-related services, maintains selected items and required components state, and provides lifecycle and action methods for planning, printing, and applying deliveries.",
+      "tags": [
+        "component",
+        "service",
+        "delivery",
+        "state-management"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:OpenAddItemDialog",
+      "type": "function",
+      "name": "OpenAddItemDialog",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "lineRange": [
+        74,
+        98
+      ],
+      "summary": "Opens the ItemSelectionDialog modal, collects user-selected items and their quantities, appends them to the selected items list, and triggers a component recalculation.",
+      "tags": [
+        "event-handler",
+        "dialog",
+        "delivery"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:PrintDeliveryPlan",
+      "type": "function",
+      "name": "PrintDeliveryPlan",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "lineRange": [
+        107,
+        144
+      ],
+      "summary": "Generates a purchase order PDF document using PurchaseOrderDocumentService, saves it to disk via FileSaver, applies the delivery to update stock levels, then resets the planning state.",
+      "tags": [
+        "service",
+        "document-generation",
+        "delivery"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:CalculateComponents",
+      "type": "function",
+      "name": "CalculateComponents",
+      "filePath": "DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "lineRange": [
+        159,
+        181
+      ],
+      "summary": "Aggregates required components across all selected items by flattening item-component relationships, grouping by component ID, summing total quantities, and refreshing the UI state.",
+      "tags": [
+        "utility",
+        "calculation",
+        "delivery"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Home.razor",
+      "type": "file",
+      "name": "Home.razor",
+      "filePath": "DeliveryManager/Components/Pages/Home.razor",
+      "summary": "Placeholder home/test page at the /test route that demonstrates basic MudBlazor interactivity with a snackbar, dialog, and date picker; not used as the actual application home screen.",
+      "tags": [
+        "component",
+        "ui-page",
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Items.razor",
+      "type": "file",
+      "name": "Items.razor",
+      "filePath": "DeliveryManager/Components/Pages/Items.razor",
+      "summary": "Blazor page for managing product items at the /items route; displays a hierarchical MudDataGrid with filtering, sorting, inline component lists, and action buttons for create, edit, delete, and add-component operations.",
+      "tags": [
+        "component",
+        "api-handler",
+        "ui-page",
+        "data-grid"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "type": "file",
+      "name": "Items.razor.cs",
+      "filePath": "DeliveryManager/Components/Pages/Items.razor.cs",
+      "summary": "Code-behind for the Items Razor page; provides ItemsBase class with full CRUD operations for products, company filtering, and dialog management for create, edit, delete, and component-linking workflows.",
+      "tags": [
+        "api-handler",
+        "service",
+        "component",
+        "crud"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Components/Pages/Items.razor.cs:ItemsBase",
+      "type": "class",
+      "name": "ItemsBase",
+      "filePath": "DeliveryManager/Components/Pages/Items.razor.cs",
+      "lineRange": [
+        9,
+        171
+      ],
+      "summary": "Base class for the Items Razor component; injects ItemService, CompanyService, and dialog services, manages item collection state per company, and exposes CRUD and component-linking dialog handlers.",
+      "tags": [
+        "component",
+        "service",
+        "crud",
+        "state-management"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/Items.razor.cs:LoadItems",
+      "type": "function",
+      "name": "LoadItems",
+      "filePath": "DeliveryManager/Components/Pages/Items.razor.cs",
+      "lineRange": [
+        42,
+        58
+      ],
+      "summary": "Loads all items for the currently active company from ItemService and populates the data grid, showing a snackbar notification on error.",
+      "tags": [
+        "data-model",
+        "service",
+        "crud"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Components/Pages/Items.razor.cs:RemoveComponentFromItem",
+      "type": "function",
+      "name": "RemoveComponentFromItem",
+      "filePath": "DeliveryManager/Components/Pages/Items.razor.cs",
+      "lineRange": [
+        105,
+        126
+      ],
+      "summary": "Prompts the user for confirmation then removes a component association from an item via ItemService, refreshing the data grid and providing feedback via snackbar.",
+      "tags": [
+        "event-handler",
+        "crud",
+        "dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Components/Routes.razor",
+      "type": "file",
+      "name": "Routes.razor",
+      "filePath": "DeliveryManager/Components/Routes.razor",
+      "summary": "Root Blazor router component that resolves page routes and applies the MainLayout; registered as the root component in the MAUI BlazorWebView.",
+      "tags": [
+        "entry-point",
+        "component",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "type": "file",
+      "name": "CompanyConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the Company entity; sets key, property constraints (Name required/maxlength, Email maxlength, ShortName maxlength, CreatedAt default SQL), and seeds an initial company record.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/CompanyConfiguration.cs:CompanyConfiguration",
+      "type": "class",
+      "name": "CompanyConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "lineRange": [
+        7,
+        37
+      ],
+      "summary": "IEntityTypeConfiguration implementation for Company that applies property constraints and seeds initial company data via EF Core Fluent API.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "type": "file",
+      "name": "ComponentConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the Component entity; enforces property constraints, a unique name index, a default CompanyId value of 1, and a cascade-delete foreign key to Company.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/ComponentConfiguration.cs:ComponentConfiguration",
+      "type": "class",
+      "name": "ComponentConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "lineRange": [
+        7,
+        29
+      ],
+      "summary": "IEntityTypeConfiguration implementation for Component that sets property rules and the Company foreign key relationship with cascade delete.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "type": "file",
+      "name": "DeliveryConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the Delivery entity; sets maxlength constraints on CustomerName and CustomerAddress, stores the Status enum as a string, and adds a delivery number index.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs:DeliveryConfiguration",
+      "type": "class",
+      "name": "DeliveryConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "lineRange": [
+        7,
+        17
+      ],
+      "summary": "IEntityTypeConfiguration implementation for Delivery that configures string-based status conversion and column constraints.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "type": "file",
+      "name": "DeliveryItemConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the DeliveryItem join entity; sets a composite primary key, cascade-delete relationships to both Delivery and Item, and a unique composite index on (DeliveryId, ItemId).",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs:DeliveryItemConfiguration",
+      "type": "class",
+      "name": "DeliveryItemConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "lineRange": [
+        7,
+        26
+      ],
+      "summary": "IEntityTypeConfiguration implementation for DeliveryItem join table with composite key and bidirectional cascade delete foreign keys.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "type": "file",
+      "name": "ItemComponentConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the ItemComponent join entity; sets composite primary key, decimal precision on Quantity, cascade-delete relationships to Item and Component, and a unique composite index on (ItemId, ComponentId).",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs:ItemComponentConfiguration",
+      "type": "class",
+      "name": "ItemComponentConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "lineRange": [
+        7,
+        27
+      ],
+      "summary": "IEntityTypeConfiguration implementation for ItemComponent join table linking items to their component parts with quantity precision and cascade delete.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "type": "file",
+      "name": "ItemConfiguration.cs",
+      "filePath": "DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "summary": "EF Core Fluent API configuration for the Item entity; enforces Name uniqueness, sets a default CompanyId of 1, and defines a cascade-delete foreign key relationship to Company.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/Configuration/ItemConfiguration.cs:ItemConfiguration",
+      "type": "class",
+      "name": "ItemConfiguration",
+      "filePath": "DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "lineRange": [
+        7,
+        25
+      ],
+      "summary": "IEntityTypeConfiguration implementation for Item that enforces a unique name index and Company cascade-delete relationship.",
+      "tags": [
+        "configuration",
+        "database",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "type": "file",
+      "name": "DeliveryDbContext.cs",
+      "filePath": "DeliveryManager/Db/DeliveryDbContext.cs",
+      "summary": "Entity Framework Core DbContext for the application; exposes DbSets for all entities (Companies, Items, Components, ItemComponents, Deliveries, DeliveryItems), applies Fluent API configurations from assembly, and automatically maintains CreatedAt/UpdatedAt timestamps on save.",
+      "tags": [
+        "database",
+        "data-model",
+        "service"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses ApplyConfigurationsFromAssembly to auto-discover all IEntityTypeConfiguration implementations, and overrides both SaveChanges and SaveChangesAsync to hook the UpdateTimestamps logic."
+    },
+    {
+      "id": "class:DeliveryManager/Db/DeliveryDbContext.cs:DeliveryDbContext",
+      "type": "class",
+      "name": "DeliveryDbContext",
+      "filePath": "DeliveryManager/Db/DeliveryDbContext.cs",
+      "lineRange": [
+        6,
+        75
+      ],
+      "summary": "Central EF Core DbContext providing DbSet properties for all domain entities and automatic timestamp maintenance via overridden save methods.",
+      "tags": [
+        "database",
+        "data-model",
+        "singleton"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Db/DeliveryDbContext.cs:UpdateTimestamps",
+      "type": "function",
+      "name": "UpdateTimestamps",
+      "filePath": "DeliveryManager/Db/DeliveryDbContext.cs",
+      "lineRange": [
+        39,
+        74
+      ],
+      "summary": "Iterates tracked entity entries to automatically set CreatedAt on add and UpdatedAt on add-or-modify, ensuring audit timestamps are always maintained without manual assignment.",
+      "tags": [
+        "utility",
+        "database",
+        "audit"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "type": "file",
+      "name": "DeliveryDbContextFactory.cs",
+      "filePath": "DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "summary": "Design-time IDesignTimeDbContextFactory implementation for DeliveryDbContext; constructs a SQLite connection string pointing to the executing assembly's directory, enabling EF Core migration tooling to work outside the MAUI host.",
+      "tags": [
+        "database",
+        "factory",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Db/DeliveryDbContextFactory.cs:DeliveryDbContextFactory",
+      "type": "class",
+      "name": "DeliveryDbContextFactory",
+      "filePath": "DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "lineRange": [
+        6,
+        19
+      ],
+      "summary": "Design-time factory used by EF Core CLI tooling to instantiate DeliveryDbContext with a SQLite connection without running the full MAUI application.",
+      "tags": [
+        "factory",
+        "database",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DeliveryManager/Db/dump.txt",
+      "type": "document",
+      "name": "dump.txt",
+      "filePath": "DeliveryManager/Db/dump.txt",
+      "summary": "Auto-generated dump of all C# source files in the project, produced by export.ps1; serves as a portable, single-file snapshot of the codebase for reference or external tooling.",
+      "tags": [
+        "documentation",
+        "snapshot",
+        "development"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Db/export.ps1",
+      "type": "file",
+      "name": "export.ps1",
+      "filePath": "DeliveryManager/Db/export.ps1",
+      "summary": "PowerShell utility script that recursively finds all .cs files in the current directory, concatenates them with file path headers, and writes the result to a single dump.txt output file.",
+      "tags": [
+        "script",
+        "utility",
+        "development"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/DeliveryManager.csproj",
+      "type": "config",
+      "name": "DeliveryManager.csproj",
+      "filePath": "DeliveryManager/DeliveryManager.csproj",
+      "summary": "MSBuild project file configuring the .NET MAUI Blazor hybrid Windows desktop application; references MAUI, MudBlazor, Entity Framework Core SQLite, QuestPDF, CommunityToolkit, and FileSaver NuGet packages with Windows-specific target framework settings.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "infrastructure"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Targets net9.0-windows10.0.19041.0 only; includes MAUI workload with WindowsAppSDK and uses nullable reference types with implicit usings."
+    },
+    {
+      "id": "file:DeliveryManager/Enums/DeliveryStatus.cs",
+      "type": "file",
+      "name": "DeliveryStatus.cs",
+      "filePath": "DeliveryManager/Enums/DeliveryStatus.cs",
+      "summary": "Defines the DeliveryStatus enum with values representing the lifecycle states of a delivery (e.g., Planned, InProgress, Completed, Cancelled).",
+      "tags": [
+        "type-definition",
+        "data-model",
+        "enum"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "type": "file",
+      "name": "ICompanyService.cs",
+      "filePath": "DeliveryManager/Interfaces/ICompanyService.cs",
+      "summary": "Service interface for company CRUD operations; defines async methods for GetAll, GetById, Create, Update, Delete, and Exists, serving as the DI abstraction registered in MauiProgram.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Interfaces/ICompanyService.cs:ICompanyService",
+      "type": "class",
+      "name": "ICompanyService",
+      "filePath": "DeliveryManager/Interfaces/ICompanyService.cs",
+      "lineRange": [
+        5,
+        13
+      ],
+      "summary": "Interface contract for the company service layer; consumed by Razor page code-behinds and the delivery planner to retrieve and manage company records.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Interfaces/IComponentService.cs",
+      "type": "file",
+      "name": "IComponentService.cs",
+      "filePath": "DeliveryManager/Interfaces/IComponentService.cs",
+      "summary": "Service interface for component CRUD operations plus UpdateStockLevelsAsync and CountByCompanyAsync; the DI abstraction used by the delivery planner to update component stock after a delivery is applied.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Interfaces/IComponentService.cs:IComponentService",
+      "type": "class",
+      "name": "IComponentService",
+      "filePath": "DeliveryManager/Interfaces/IComponentService.cs",
+      "lineRange": [
+        6,
+        16
+      ],
+      "summary": "Interface contract for the component service layer; extends standard CRUD with stock update and company-scoped count operations.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Interfaces/IItemService.cs",
+      "type": "file",
+      "name": "IItemService.cs",
+      "filePath": "DeliveryManager/Interfaces/IItemService.cs",
+      "summary": "Service interface for product item CRUD operations and component-linking; defines async methods for standard CRUD plus AddComponentToItem, RemoveComponentFromItem, UpdateComponentQuantity, and CountByCompany.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Interfaces/IItemService.cs:IItemService",
+      "type": "class",
+      "name": "IItemService",
+      "filePath": "DeliveryManager/Interfaces/IItemService.cs",
+      "lineRange": [
+        5,
+        17
+      ],
+      "summary": "Interface contract for the item service layer; extends standard CRUD with component relationship management and company-scoped count.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "type": "file",
+      "name": "IPurchaseOrderDocumentService.cs",
+      "filePath": "DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "summary": "Service interface for purchase order document generation; exposes a single GeneratePurchaseOrderDocument method consumed by the DeliveryPlanner to produce PDF output.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs:IPurchaseOrderDocumentService",
+      "type": "class",
+      "name": "IPurchaseOrderDocumentService",
+      "filePath": "DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "lineRange": [
+        5,
+        8
+      ],
+      "summary": "Minimal interface contract for purchase order PDF generation, used as the DI abstraction registered in MauiProgram.",
+      "tags": [
+        "type-definition",
+        "service",
+        "interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/MainPage.xaml",
+      "type": "file",
+      "name": "MainPage.xaml",
+      "filePath": "DeliveryManager/MainPage.xaml",
+      "summary": "MAUI ContentPage XAML layout that hosts the BlazorWebView pointing to wwwroot/index.html, with the Routes Blazor component registered as the root component, bridging the MAUI shell to the Blazor UI.",
+      "tags": [
+        "entry-point",
+        "component",
+        "markup"
+      ],
+      "complexity": "simple",
+      "languageNotes": "The BlazorWebView/RootComponent pattern is the standard MAUI Blazor hybrid integration point."
+    },
+    {
+      "id": "file:DeliveryManager/MainPage.xaml.cs",
+      "type": "file",
+      "name": "MainPage.xaml.cs",
+      "filePath": "DeliveryManager/MainPage.xaml.cs",
+      "summary": "XAML code-behind for MainPage; contains a minimal constructor that calls InitializeComponent to wire up the XAML layout.",
+      "tags": [
+        "entry-point",
+        "component",
+        "markup"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/MauiProgram.cs",
+      "type": "file",
+      "name": "MauiProgram.cs",
+      "filePath": "DeliveryManager/MauiProgram.cs",
+      "summary": "Application entry point for the .NET MAUI Blazor hybrid app; configures the MAUI app builder with Blazor Web View, MudBlazor, SQLite EF Core context, all scoped services (CompanyService, ItemService, ComponentService, DeliveryDocumentService, PurchaseOrderDocumentService, DeliveryPlanningService, CompanyContext), and runs EF Core migrations on startup.",
+      "tags": [
+        "entry-point",
+        "service",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Registers both AddDbContext and AddDbContextFactory for DeliveryDbContext to support both scoped injection and factory-based context creation in Blazor components."
+    },
+    {
+      "id": "class:DeliveryManager/MauiProgram.cs:MauiProgram",
+      "type": "class",
+      "name": "MauiProgram",
+      "filePath": "DeliveryManager/MauiProgram.cs",
+      "lineRange": [
+        11,
+        63
+      ],
+      "summary": "Static entry-point class with a single CreateMauiApp method that wires all application services, middleware, and database setup.",
+      "tags": [
+        "entry-point",
+        "factory",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/MauiProgram.cs:CreateMauiApp",
+      "type": "function",
+      "name": "CreateMauiApp",
+      "filePath": "DeliveryManager/MauiProgram.cs",
+      "lineRange": [
+        13,
+        62
+      ],
+      "summary": "Builds and configures the MauiApp by registering fonts, Blazor WebView, MudBlazor services, SQLite DbContext, all domain service interfaces with their implementations, and triggers database migration on first run.",
+      "tags": [
+        "entry-point",
+        "service",
+        "factory"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "type": "file",
+      "name": "20250603203953_Initial.cs",
+      "filePath": "DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "summary": "Initial EF Core migration that creates the Component, Item, Delivery, DeliveryItem, and ItemComponent tables with primary keys, columns, and foreign key constraints for the DeliveryManager SQLite database.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "complex",
+      "languageNotes": "EF Core migration class inheriting from Migration; Up() creates all five core tables while Down() drops them in reverse dependency order."
+    },
+    {
+      "id": "class:DeliveryManager/Migrations/20250603203953_Initial.cs:Initial",
+      "type": "class",
+      "name": "Initial",
+      "filePath": "DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "lineRange": [
+        9,
+        177
+      ],
+      "summary": "EF Core migration class implementing the initial schema creation and rollback for all five core database tables.",
+      "tags": [
+        "database",
+        "migration",
+        "schema-definition"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250603203953_Initial.Designer.cs",
+      "type": "file",
+      "name": "20250603203953_Initial.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250603203953_Initial.Designer.cs",
+      "summary": "Auto-generated EF Core migration designer file containing the full model snapshot as of the Initial migration, used by EF tooling to compute incremental schema diffs.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Decorated with [DbContext] and [Migration] attributes; BuildTargetModel encodes the complete ORM model at this migration point."
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+      "type": "file",
+      "name": "20250612162031_ItemCreatedAtOptional.cs",
+      "filePath": "DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+      "summary": "EF Core migration that makes the Item.CreatedAt column nullable, allowing items to be created without an explicit creation timestamp.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses AlterColumn to change nullability; Down() restores the column to non-nullable."
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.Designer.cs",
+      "type": "file",
+      "name": "20250612162031_ItemCreatedAtOptional.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ItemCreatedAtOptional migration, recording the model state with Item.CreatedAt as a nullable DateTime.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+      "type": "file",
+      "name": "20250806151728_ComponentChanges.cs",
+      "filePath": "DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+      "summary": "EF Core migration that adds DrawingNumber and ArtikelNumber columns to the Component table to support technical drawing and article number tracking.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses AddColumn for the new fields; Down() removes them with DropColumn."
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.Designer.cs",
+      "type": "file",
+      "name": "20250806151728_ComponentChanges.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250806151728_ComponentChanges.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ComponentChanges migration, reflecting the Component table with its new DrawingNumber and ArtikelNumber columns.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+      "type": "file",
+      "name": "20250806153508_ItemChanges.cs",
+      "filePath": "DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+      "summary": "EF Core migration that adds a DrawingNumber column to the Item table, enabling items (deliverable products) to reference technical drawings.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.Designer.cs",
+      "type": "file",
+      "name": "20250806153508_ItemChanges.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250806153508_ItemChanges.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ItemChanges migration, reflecting the Item table with its new DrawingNumber column.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+      "type": "file",
+      "name": "20250806162331_ItemComponentSimplify.cs",
+      "filePath": "DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+      "summary": "EF Core migration that simplifies the ItemComponent junction table, adjusting its schema to streamline the many-to-many relationship between items and components.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.Designer.cs",
+      "type": "file",
+      "name": "20250806162331_ItemComponentSimplify.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ItemComponentSimplify migration, recording the simplified ItemComponent table structure.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "type": "file",
+      "name": "20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "filePath": "DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "summary": "EF Core migration that configures cascade delete behavior on the Item-to-ItemComponent foreign key relationship, ensuring components are cleaned up when items are deleted.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.Designer.cs",
+      "type": "file",
+      "name": "20250806202720_ItemItemcomponentCascadeSetting.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ItemItemcomponentCascadeSetting migration, capturing the cascade delete constraint configuration.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "type": "file",
+      "name": "20260228141755_AddCompanies.cs",
+      "filePath": "DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "summary": "EF Core migration that introduces the Companies table with Id, Name, ShortName, Address, Email, and CreatedAt columns to support supplier and manufacturer tracking.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.Designer.cs",
+      "type": "file",
+      "name": "20260228141755_AddCompanies.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20260228141755_AddCompanies.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the AddCompanies migration, recording the full model state including the new Companies table.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "type": "file",
+      "name": "20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "filePath": "DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "summary": "EF Core migration adding DrawingNumber and ArtikelNumber columns to the Components table, enabling proper technical part number tracking on components.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.Designer.cs",
+      "type": "file",
+      "name": "20260228151644_ComponentDrawingandArtikelNumber.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the ComponentDrawingandArtikelNumber migration, reflecting component drawing and article number additions.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "type": "file",
+      "name": "20260228200444_AddCompanyToItemAndComponent.cs",
+      "filePath": "DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "summary": "EF Core migration that adds nullable CompanyId foreign key columns to both the Items and Components tables, linking each to a supplier company.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Adds foreign keys with AddForeignKey referencing Companies(Id) on both Items and Components tables; Down() removes the columns and constraints."
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.Designer.cs",
+      "type": "file",
+      "name": "20260228200444_AddCompanyToItemAndComponent.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the AddCompanyToItemAndComponent migration, capturing the full model with company FK relationships on Items and Components.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "type": "file",
+      "name": "20260228212345_CompanyCascadeDelete.cs",
+      "filePath": "DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "summary": "EF Core migration that reconfigures the Company foreign keys on Items and Components to use cascade delete, so deleting a Company also removes its associated items and components.",
+      "tags": [
+        "database",
+        "migration",
+        "infrastructure",
+        "entity-framework"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Drops and recreates foreign keys with deleteBehavior: ReferentialAction.Cascade on both Items and Components; Down() reverts to Restrict behavior."
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.Designer.cs",
+      "type": "file",
+      "name": "20260228212345_CompanyCascadeDelete.Designer.cs",
+      "filePath": "DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.Designer.cs",
+      "summary": "Auto-generated EF Core designer snapshot for the CompanyCascadeDelete migration, reflecting the final cascade delete configuration for Company-related entities.",
+      "tags": [
+        "database",
+        "migration",
+        "auto-generated",
+        "infrastructure"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs",
+      "type": "file",
+      "name": "DeliveryDbContextModelSnapshot.cs",
+      "filePath": "DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs",
+      "summary": "EF Core model snapshot representing the current database schema state, automatically maintained by EF tooling and used to compute diffs when generating new migrations.",
+      "tags": [
+        "database",
+        "infrastructure",
+        "auto-generated",
+        "schema-definition"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Inherits from ModelSnapshot; BuildModel() encodes all entity configurations including columns, constraints, and relationships for the complete current schema."
+    },
+    {
+      "id": "class:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs:DeliveryDbContextModelSnapshot",
+      "type": "class",
+      "name": "DeliveryDbContextModelSnapshot",
+      "filePath": "DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs",
+      "lineRange": [
+        12,
+        322
+      ],
+      "summary": "Auto-generated EF Core model snapshot class encoding the full current database schema for all entities including Companies, Components, Items, Deliveries, and their relationships.",
+      "tags": [
+        "database",
+        "schema-definition",
+        "auto-generated"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:DeliveryManager/Models/Company.cs",
+      "type": "file",
+      "name": "Company.cs",
+      "filePath": "DeliveryManager/Models/Company.cs",
+      "summary": "EF Core entity model for a supplier or manufacturer company, holding identification and contact information including Name, ShortName, Address, and Email.",
+      "tags": [
+        "data-model",
+        "entity-framework",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/Company.cs:Company",
+      "type": "class",
+      "name": "Company",
+      "filePath": "DeliveryManager/Models/Company.cs",
+      "lineRange": [
+        3,
+        12
+      ],
+      "summary": "Domain entity representing a supplier or manufacturer, with properties for Id, Name, ShortName, Address, Email, and CreatedAt.",
+      "tags": [
+        "data-model",
+        "entity",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Models/Component.cs",
+      "type": "file",
+      "name": "Component.cs",
+      "filePath": "DeliveryManager/Models/Component.cs",
+      "summary": "EF Core entity model for a mechanical component or part, tracking PartNumber, DrawingNumber, stock levels, order package size, and an optional link to a supplier Company.",
+      "tags": [
+        "data-model",
+        "entity-framework",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/Component.cs:Component",
+      "type": "class",
+      "name": "Component",
+      "filePath": "DeliveryManager/Models/Component.cs",
+      "lineRange": [
+        3,
+        23
+      ],
+      "summary": "Domain entity for a mechanical part with PartNumber, DrawingNumber, Stock, OrderPackageSize, optional CompanyId FK, and a navigation collection to ItemComponents.",
+      "tags": [
+        "data-model",
+        "entity",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Models/Delivery.cs",
+      "type": "file",
+      "name": "Delivery.cs",
+      "filePath": "DeliveryManager/Models/Delivery.cs",
+      "summary": "EF Core entity model for a delivery record, storing customer name, address, delivery date, status, notes, and a navigation collection to its associated DeliveryItems.",
+      "tags": [
+        "data-model",
+        "entity-framework",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/Delivery.cs:Delivery",
+      "type": "class",
+      "name": "Delivery",
+      "filePath": "DeliveryManager/Models/Delivery.cs",
+      "lineRange": [
+        3,
+        19
+      ],
+      "summary": "Domain entity representing a delivery with CustomerName, CustomerAddress, DeliveryDate, Status, Notes, and a list of DeliveryItems.",
+      "tags": [
+        "data-model",
+        "entity",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Models/DeliveryItem.cs",
+      "type": "file",
+      "name": "DeliveryItem.cs",
+      "filePath": "DeliveryManager/Models/DeliveryItem.cs",
+      "summary": "EF Core entity model serving as the junction table between Delivery and Item, capturing the Quantity of a specific item included in a delivery.",
+      "tags": [
+        "data-model",
+        "entity-framework",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/DeliveryItem.cs:DeliveryItem",
+      "type": "class",
+      "name": "DeliveryItem",
+      "filePath": "DeliveryManager/Models/DeliveryItem.cs",
+      "lineRange": [
+        3,
+        13
+      ],
+      "summary": "Junction entity linking a Delivery to an Item with a Quantity, plus navigation properties to both parent entities.",
+      "tags": [
+        "data-model",
+        "entity",
+        "type-definition"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DeliveryManager/Models/dump.txt",
+      "type": "document",
+      "name": "dump.txt",
+      "filePath": "DeliveryManager/Models/dump.txt",
+      "summary": "Generated snapshot of all C# model source files in the Models directory, concatenated into a single text file for inspection or sharing. Contains Company, Component, Delivery, DeliveryItem, Item, and ItemComponent class listings.",
+      "tags": [
+        "documentation",
+        "data-model",
+        "snapshot"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Models/export.ps1",
+      "type": "file",
+      "name": "export.ps1",
+      "filePath": "DeliveryManager/Models/export.ps1",
+      "summary": "PowerShell utility script that recursively collects all .cs files from the current directory and concatenates their contents into a single dump file, used to generate Models/dump.txt.",
+      "tags": [
+        "utility",
+        "script",
+        "automation"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses PowerShell pipeline with Get-ChildItem, Sort-Object, and ForEach-Object to build the output file incrementally."
+    },
+    {
+      "id": "file:DeliveryManager/Models/Item.cs",
+      "type": "file",
+      "name": "Item.cs",
+      "filePath": "DeliveryManager/Models/Item.cs",
+      "summary": "Entity Framework Core data model representing a product (item) with part number, drawing number, company ownership, and navigation links to its component list and delivery records.",
+      "tags": [
+        "data-model",
+        "entity",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/Item.cs:Item",
+      "type": "class",
+      "name": "Item",
+      "filePath": "DeliveryManager/Models/Item.cs",
+      "lineRange": [
+        3,
+        24
+      ],
+      "summary": "EF Core entity class for a product/item with part number, drawing number, timestamps, company foreign key, and collection navigation properties for ItemComponents and DeliveryItems.",
+      "tags": [
+        "data-model",
+        "entity",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Models/ItemComponent.cs",
+      "type": "file",
+      "name": "ItemComponent.cs",
+      "filePath": "DeliveryManager/Models/ItemComponent.cs",
+      "summary": "Join-table entity that links an Item to a Component with a quantity, representing the bill-of-materials relationship between products and their constituent parts.",
+      "tags": [
+        "data-model",
+        "entity",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Models/ItemComponent.cs:ItemComponent",
+      "type": "class",
+      "name": "ItemComponent",
+      "filePath": "DeliveryManager/Models/ItemComponent.cs",
+      "lineRange": [
+        3,
+        13
+      ],
+      "summary": "EF Core join-entity for the many-to-many Item-to-Component relationship, storing quantity and navigation references to both sides.",
+      "tags": [
+        "data-model",
+        "entity",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/Android/AndroidManifest.xml",
+      "type": "config",
+      "name": "AndroidManifest.xml",
+      "filePath": "DeliveryManager/Platforms/Android/AndroidManifest.xml",
+      "summary": "Android application manifest declaring the package name and basic permissions for the .NET MAUI Android platform target.",
+      "tags": [
+        "configuration",
+        "infrastructure",
+        "android"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/Android/MainActivity.cs",
+      "type": "file",
+      "name": "MainActivity.cs",
+      "filePath": "DeliveryManager/Platforms/Android/MainActivity.cs",
+      "summary": "Android platform entry-point activity for the .NET MAUI application, inheriting from MauiAppCompatActivity to bootstrap the Blazor hybrid host.",
+      "tags": [
+        "entry-point",
+        "android",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Platforms/Android/MainActivity.cs:MainActivity",
+      "type": "class",
+      "name": "MainActivity",
+      "filePath": "DeliveryManager/Platforms/Android/MainActivity.cs",
+      "lineRange": [
+        7,
+        12
+      ],
+      "summary": "Minimal Android activity subclassing MauiAppCompatActivity; no additional logic is required beyond the base class for .NET MAUI startup.",
+      "tags": [
+        "entry-point",
+        "android",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/Android/MainApplication.cs",
+      "type": "file",
+      "name": "MainApplication.cs",
+      "filePath": "DeliveryManager/Platforms/Android/MainApplication.cs",
+      "summary": "Android application class that extends MauiApplication, wiring up the .NET MAUI startup pipeline by delegating to MauiProgram.CreateMauiApp.",
+      "tags": [
+        "entry-point",
+        "android",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Platforms/Android/MainApplication.cs:MainApplication",
+      "type": "class",
+      "name": "MainApplication",
+      "filePath": "DeliveryManager/Platforms/Android/MainApplication.cs",
+      "lineRange": [
+        6,
+        15
+      ],
+      "summary": "Android Application subclass implementing CreateMauiApp to delegate MAUI host creation to the shared MauiProgram.",
+      "tags": [
+        "entry-point",
+        "android",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/Android/Resources/values/colors.xml",
+      "type": "config",
+      "name": "colors.xml",
+      "filePath": "DeliveryManager/Platforms/Android/Resources/values/colors.xml",
+      "summary": "Android resource file defining color values used by the Material Design theme for the Android platform target.",
+      "tags": [
+        "configuration",
+        "android",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/iOS/AppDelegate.cs",
+      "type": "file",
+      "name": "AppDelegate.cs",
+      "filePath": "DeliveryManager/Platforms/iOS/AppDelegate.cs",
+      "summary": "iOS application delegate for the .NET MAUI app, implementing CreateMauiApp to delegate MAUI host creation to the shared MauiProgram.",
+      "tags": [
+        "entry-point",
+        "ios",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Platforms/iOS/AppDelegate.cs:AppDelegate",
+      "type": "class",
+      "name": "AppDelegate",
+      "filePath": "DeliveryManager/Platforms/iOS/AppDelegate.cs",
+      "lineRange": [
+        5,
+        9
+      ],
+      "summary": "iOS UIApplicationDelegate subclass that overrides CreateMauiApp to route MAUI initialization to the shared MauiProgram factory.",
+      "tags": [
+        "entry-point",
+        "ios",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/iOS/Info.plist",
+      "type": "config",
+      "name": "Info.plist",
+      "filePath": "DeliveryManager/Platforms/iOS/Info.plist",
+      "summary": "iOS application property list declaring bundle identifier, display name, supported interface orientations, and other required iOS metadata.",
+      "tags": [
+        "configuration",
+        "ios",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/iOS/Program.cs",
+      "type": "file",
+      "name": "Program.cs",
+      "filePath": "DeliveryManager/Platforms/iOS/Program.cs",
+      "summary": "iOS application entry point that calls UIApplication.Main with the AppDelegate to start the .NET MAUI iOS process.",
+      "tags": [
+        "entry-point",
+        "ios",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/iOS/Resources/PrivacyInfo.xcprivacy",
+      "type": "config",
+      "name": "PrivacyInfo.xcprivacy",
+      "filePath": "DeliveryManager/Platforms/iOS/Resources/PrivacyInfo.xcprivacy",
+      "summary": "Apple privacy manifest declaring API usage reasons and data collection practices, required by the App Store for iOS/macOS apps since 2024.",
+      "tags": [
+        "configuration",
+        "ios",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "The xcprivacy format is an Apple-proprietary plist variant introduced to comply with App Store privacy requirements; it lists NSPrivacyAccessedAPITypes with reason codes."
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+      "type": "file",
+      "name": "AppDelegate.cs",
+      "filePath": "DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+      "summary": "Mac Catalyst application delegate for the .NET MAUI app, implementing CreateMauiApp to delegate MAUI host creation to the shared MauiProgram.",
+      "tags": [
+        "entry-point",
+        "maccatalyst",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs:AppDelegate",
+      "type": "class",
+      "name": "AppDelegate",
+      "filePath": "DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+      "lineRange": [
+        5,
+        9
+      ],
+      "summary": "Mac Catalyst UIApplicationDelegate that overrides CreateMauiApp to route MAUI initialization to the shared MauiProgram factory.",
+      "tags": [
+        "entry-point",
+        "maccatalyst",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/MacCatalyst/Entitlements.plist",
+      "type": "config",
+      "name": "Entitlements.plist",
+      "filePath": "DeliveryManager/Platforms/MacCatalyst/Entitlements.plist",
+      "summary": "Mac Catalyst entitlements file granting application sandbox and other macOS capabilities required for distribution.",
+      "tags": [
+        "configuration",
+        "maccatalyst",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/MacCatalyst/Info.plist",
+      "type": "config",
+      "name": "Info.plist",
+      "filePath": "DeliveryManager/Platforms/MacCatalyst/Info.plist",
+      "summary": "Mac Catalyst application property list declaring bundle identifier, display name, minimum OS version, and other required macOS metadata.",
+      "tags": [
+        "configuration",
+        "maccatalyst",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/MacCatalyst/Program.cs",
+      "type": "file",
+      "name": "Program.cs",
+      "filePath": "DeliveryManager/Platforms/MacCatalyst/Program.cs",
+      "summary": "Mac Catalyst application entry point that calls UIApplication.Main with the AppDelegate to start the .NET MAUI Mac Catalyst process.",
+      "tags": [
+        "entry-point",
+        "maccatalyst",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/Tizen/Main.cs",
+      "type": "file",
+      "name": "Main.cs",
+      "filePath": "DeliveryManager/Platforms/Tizen/Main.cs",
+      "summary": "Tizen platform entry point that bootstraps the .NET MAUI application by creating a Program instance with MauiProgram.CreateMauiApp and calling Run.",
+      "tags": [
+        "entry-point",
+        "tizen",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/Tizen/tizen-manifest.xml",
+      "type": "config",
+      "name": "tizen-manifest.xml",
+      "filePath": "DeliveryManager/Platforms/Tizen/tizen-manifest.xml",
+      "summary": "Tizen application manifest declaring the application ID, package name, version, and required privileges for the Tizen platform target.",
+      "tags": [
+        "configuration",
+        "tizen",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/Windows/app.manifest",
+      "type": "config",
+      "name": "app.manifest",
+      "filePath": "DeliveryManager/Platforms/Windows/app.manifest",
+      "summary": "Windows application compatibility manifest declaring supported OS versions and DPI awareness settings for the WinUI3/MAUI Windows host.",
+      "tags": [
+        "configuration",
+        "windows",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/Windows/App.xaml",
+      "type": "file",
+      "name": "App.xaml",
+      "filePath": "DeliveryManager/Platforms/Windows/App.xaml",
+      "summary": "Windows XAML application root resource dictionary for the .NET MAUI WinUI3 target, referenced by App.xaml.cs as the code-behind.",
+      "tags": [
+        "entry-point",
+        "windows",
+        "platform"
+      ],
+      "complexity": "simple",
+      "languageNotes": "XAML file for a WinUI3 Application subclass; the code-behind is App.xaml.cs which provides the CreateMauiApp implementation."
+    },
+    {
+      "id": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "type": "file",
+      "name": "App.xaml.cs",
+      "filePath": "DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "summary": "Windows platform entry class (code-behind for App.xaml) that extends MauiWinUIApplication, initializes the component, and delegates MAUI host creation to MauiProgram.CreateMauiApp.",
+      "tags": [
+        "entry-point",
+        "windows",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Platforms/Windows/App.xaml.cs:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "lineRange": [
+        11,
+        23
+      ],
+      "summary": "MauiWinUIApplication subclass that calls InitializeComponent in its constructor and implements CreateMauiApp by delegating to the shared MauiProgram factory.",
+      "tags": [
+        "entry-point",
+        "windows",
+        "platform"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:DeliveryManager/Platforms/Windows/Package.appxmanifest",
+      "type": "config",
+      "name": "Package.appxmanifest",
+      "filePath": "DeliveryManager/Platforms/Windows/Package.appxmanifest",
+      "summary": "Windows MSIX packaging manifest declaring application identity, capabilities, visual assets, and entry-point executable for Store or sideload distribution.",
+      "tags": [
+        "configuration",
+        "windows",
+        "deployment"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:DeliveryManager/Properties/launchSettings.json",
+      "type": "config",
+      "name": "launchSettings.json",
+      "filePath": "DeliveryManager/Properties/launchSettings.json",
+      "summary": "Visual Studio launch settings defining the run profile for the MAUI application during local development and debugging.",
+      "tags": [
+        "configuration",
+        "development",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DeliveryManager/Resources/Raw/AboutAssets.txt",
+      "type": "document",
+      "name": "AboutAssets.txt",
+      "filePath": "DeliveryManager/Resources/Raw/AboutAssets.txt",
+      "summary": "Scaffolded placeholder document explaining how to use the Resources/Raw folder to include files that are accessible at runtime via FileSystem.OpenAppPackageFileAsync.",
+      "tags": [
+        "documentation",
+        "resources",
+        "maui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Services/CompanyContext.cs",
+      "type": "file",
+      "name": "CompanyContext.cs",
+      "filePath": "DeliveryManager/Services/CompanyContext.cs",
+      "summary": "Scoped state service that tracks the currently active company via ActiveCompanyId, injected into pages and dialogs to scope data queries to a single company.",
+      "tags": [
+        "service",
+        "singleton",
+        "state-management"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:DeliveryManager/Services/CompanyContext.cs:CompanyContext",
+      "type": "class",
+      "name": "CompanyContext",
+      "filePath": "DeliveryManager/Services/CompanyContext.cs",
+      "lineRange": [
+        3,
+        6
+      ],
+      "summary": "Simple POCO service holding the ActiveCompanyId integer, defaulting to 1; used as a DI-injected context object to filter company-specific data throughout the app.",
+      "tags": [
+        "service",
+        "state-management",
+        "dependency-injection"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Services/CompanyService.cs",
+      "type": "file",
+      "name": "CompanyService.cs",
+      "filePath": "DeliveryManager/Services/CompanyService.cs",
+      "summary": "Implements ICompanyService, providing full CRUD operations and existence checks for Company entities via Entity Framework Core, including a guard that prevents deleting the default company.",
+      "tags": [
+        "service",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DeliveryManager/Services/CompanyService.cs:CompanyService",
+      "type": "class",
+      "name": "CompanyService",
+      "filePath": "DeliveryManager/Services/CompanyService.cs",
+      "lineRange": [
+        8,
+        65
+      ],
+      "summary": "EF Core-backed service class that manages Company entity persistence with async CRUD methods and a DefaultCompanyId guard on deletion.",
+      "tags": [
+        "service",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Services/CompanyService.cs:UpdateAsync",
+      "type": "function",
+      "name": "UpdateAsync",
+      "filePath": "DeliveryManager/Services/CompanyService.cs",
+      "lineRange": [
+        31,
+        45
+      ],
+      "summary": "Loads an existing Company by id, applies property updates, and persists changes; throws InvalidOperationException when the entity is not found.",
+      "tags": [
+        "service",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Services/CompanyService.cs:DeleteAsync",
+      "type": "function",
+      "name": "DeleteAsync",
+      "filePath": "DeliveryManager/Services/CompanyService.cs",
+      "lineRange": [
+        47,
+        59
+      ],
+      "summary": "Removes a Company by id after guarding against deletion of the default company; throws InvalidOperationException when the guard fires or the entity is not found.",
+      "tags": [
+        "service",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Services/ComponentService.cs",
+      "type": "file",
+      "name": "ComponentService.cs",
+      "filePath": "DeliveryManager/Services/ComponentService.cs",
+      "summary": "Implements IComponentService with async CRUD, existence checks, company-scoped listing, and stock-level updating for Component entities backed by Entity Framework Core.",
+      "tags": [
+        "service",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:DeliveryManager/Services/ComponentService.cs:ComponentService",
+      "type": "class",
+      "name": "ComponentService",
+      "filePath": "DeliveryManager/Services/ComponentService.cs",
+      "lineRange": [
+        13,
+        83
+      ],
+      "summary": "EF Core service for Component entities that supports full CRUD, company-scoped filtering, stock deduction via CalculateRequiredOrderQuantity, and a company item count query.",
+      "tags": [
+        "service",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Services/ComponentService.cs:UpdateStockLevelsAsync",
+      "type": "function",
+      "name": "UpdateStockLevelsAsync",
+      "filePath": "DeliveryManager/Services/ComponentService.cs",
+      "lineRange": [
+        58,
+        77
+      ],
+      "summary": "Iterates a collection of required components, resolves each from the database, deducts the calculated order quantity from current stock, and saves all changes in a single transaction.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "type": "file",
+      "name": "DeliveryDocumentService.cs",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "summary": "Defines the IDeliveryDocumentService interface and its implementation, which uses QuestPDF to generate a structured A4 delivery PDF containing a company header, customer details, a multi-column item table, and a signature footer.",
+      "tags": [
+        "service",
+        "serialization",
+        "utility"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses QuestPDF's fluent document composition API; the interface and implementation are co-located in the same file."
+    },
+    {
+      "id": "class:DeliveryManager/Services/DeliveryDocumentService.cs:DeliveryDocumentService",
+      "type": "class",
+      "name": "DeliveryDocumentService",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "lineRange": [
+        13,
+        186
+      ],
+      "summary": "QuestPDF-based delivery document generator that composes a full-page PDF from planning session data, with dedicated private methods for header, content, table, and footer sections.",
+      "tags": [
+        "service",
+        "serialization"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Services/DeliveryDocumentService.cs:GenerateDeliveryDocument",
+      "type": "function",
+      "name": "GenerateDeliveryDocument",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "lineRange": [
+        15,
+        32
+      ],
+      "summary": "Entry point that creates a QuestPDF document, configures the A4 page with margins, delegates header/content/footer composition to private helpers, and returns the raw PDF bytes.",
+      "tags": [
+        "service",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeContent",
+      "type": "function",
+      "name": "ComposeContent",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "lineRange": [
+        69,
+        117
+      ],
+      "summary": "Renders customer name, address, and email fields conditionally, then adds a delivery date/number row and delegates item-table rendering to ComposeTable.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeTable",
+      "type": "function",
+      "name": "ComposeTable",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "lineRange": [
+        119,
+        170
+      ],
+      "summary": "Builds a bordered six-column QuestPDF table with column headers and iterates selected items to populate rows with name, part number, drawing number, quantity, unit, and delivery week.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeHeader",
+      "type": "function",
+      "name": "ComposeHeader",
+      "filePath": "DeliveryManager/Services/DeliveryDocumentService.cs",
+      "lineRange": [
+        34,
+        67
+      ],
+      "summary": "Lays out the company letterhead in the PDF header area, including company name, address, email, and phone number formatted with QuestPDF column/row primitives.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "file",
+      "name": "DeliveryPlanningService.cs",
+      "filePath": "DeliveryManager/Services/DeliveryPlanningService.cs",
+      "summary": "Lightweight stateful service that holds the current delivery planning session's selected items, required components, target company, delivery date, delivery number, and delivery week; provides a single ClearPlanning method to reset state.",
+      "tags": [
+        "service",
+        "singleton",
+        "event-handler"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Registered as a scoped or singleton DI service; acts as an in-memory session bag shared between Blazor pages and document-generation services."
+    },
+    {
+      "id": "class:DeliveryManager/Services/DeliveryPlanningService.cs:DeliveryPlanningService",
+      "type": "class",
+      "name": "DeliveryPlanningService",
+      "filePath": "DeliveryManager/Services/DeliveryPlanningService.cs",
+      "lineRange": [
+        6,
+        28
+      ],
+      "summary": "In-memory state container for one delivery planning session; exposes mutable lists for selected items and required components, plus scalar properties for company, date, number, and week.",
+      "tags": [
+        "service",
+        "singleton"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Services/ItemService.cs",
+      "type": "file",
+      "name": "ItemService.cs",
+      "filePath": "DeliveryManager/Services/ItemService.cs",
+      "summary": "Implements IItemService with async CRUD, company-scoped listing with eager-loaded ItemComponent associations, and three relationship-management methods for adding, removing, and updating component quantities on items.",
+      "tags": [
+        "service",
+        "data-model",
+        "utility"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:DeliveryManager/Services/ItemService.cs:ItemService",
+      "type": "class",
+      "name": "ItemService",
+      "filePath": "DeliveryManager/Services/ItemService.cs",
+      "lineRange": [
+        8,
+        113
+      ],
+      "summary": "EF Core service for Item entities that includes eager-loading of nested ItemComponent/Component relationships and dedicated methods to manage the Item-Component many-to-many join table.",
+      "tags": [
+        "service",
+        "data-model"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Services/ItemService.cs:AddComponentToItemAsync",
+      "type": "function",
+      "name": "AddComponentToItemAsync",
+      "filePath": "DeliveryManager/Services/ItemService.cs",
+      "lineRange": [
+        58,
+        83
+      ],
+      "summary": "Adds a component to an item with a specified quantity; increments quantity if the association already exists rather than creating a duplicate join record.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Services/ItemService.cs:RemoveComponentFromItemAsync",
+      "type": "function",
+      "name": "RemoveComponentFromItemAsync",
+      "filePath": "DeliveryManager/Services/ItemService.cs",
+      "lineRange": [
+        85,
+        95
+      ],
+      "summary": "Removes the ItemComponent join record linking a specific component to an item if it exists, then persists the deletion.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Services/ItemService.cs:UpdateComponentQuantityAsync",
+      "type": "function",
+      "name": "UpdateComponentQuantityAsync",
+      "filePath": "DeliveryManager/Services/ItemService.cs",
+      "lineRange": [
+        97,
+        107
+      ],
+      "summary": "Updates the required quantity for an existing Item-Component association, silently doing nothing when the join record is not found.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "type": "file",
+      "name": "PurchaseOrderDocumentService.cs",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "summary": "Implements IPurchaseOrderDocumentService using QuestPDF to generate a structured A4 purchase order PDF with company letterhead, supplier details, a component order table with drawing numbers and quantities, and a signature footer.",
+      "tags": [
+        "service",
+        "serialization",
+        "utility"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Structurally parallel to DeliveryDocumentService; generates a supplier-facing order instead of a customer-facing delivery note."
+    },
+    {
+      "id": "class:DeliveryManager/Services/PurchaseOrderDocumentService.cs:PurchaseOrderDocumentService",
+      "type": "class",
+      "name": "PurchaseOrderDocumentService",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "lineRange": [
+        9,
+        167
+      ],
+      "summary": "QuestPDF-based purchase order document generator that reads required component data from the planning service and produces a printable supplier order PDF.",
+      "tags": [
+        "service",
+        "serialization"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:GeneratePurchaseOrderDocument",
+      "type": "function",
+      "name": "GeneratePurchaseOrderDocument",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "lineRange": [
+        11,
+        29
+      ],
+      "summary": "Entry point for purchase order PDF generation: creates a QuestPDF document, configures A4 page layout, and delegates composition to ComposeHeader, ComposeContent, and ComposeFooter helpers before returning bytes.",
+      "tags": [
+        "service",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeTable",
+      "type": "function",
+      "name": "ComposeTable",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "lineRange": [
+        95,
+        150
+      ],
+      "summary": "Builds a bordered six-column table in the purchase order PDF, iterating required components to populate rows with component name, part number, drawing number, calculated order quantity, unit, and delivery week.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeContent",
+      "type": "function",
+      "name": "ComposeContent",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "lineRange": [
+        65,
+        93
+      ],
+      "summary": "Renders the supplier name, address, email, and a subject/date row into the document body, then delegates table generation to ComposeTable.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeHeader",
+      "type": "function",
+      "name": "ComposeHeader",
+      "filePath": "DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "lineRange": [
+        31,
+        63
+      ],
+      "summary": "Lays out the issuing company's letterhead in the PDF header, mirroring the delivery document header with company name, address, email, and phone.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:DeliveryManager/wwwroot/css/app.css",
+      "type": "file",
+      "name": "app.css",
+      "filePath": "DeliveryManager/wwwroot/css/app.css",
+      "summary": "Global stylesheet for the Blazor WebView host, providing base layout rules, typography defaults, and MAUI-specific CSS resets for the desktop application shell.",
+      "tags": [
+        "configuration",
+        "markup",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:DeliveryManager/wwwroot/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "DeliveryManager/wwwroot/index.html",
+      "summary": "Blazor WebView host page that bootstraps the Blazor application inside the .NET MAUI desktop shell, loading the framework script and linking the global stylesheet.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:dump.txt",
+      "type": "document",
+      "name": "dump.txt",
+      "filePath": "dump.txt",
+      "summary": "Large development dump file (10,514 lines) containing diagnostic or debugging output captured during development; not part of the production application.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:DeliveryManager/App.xaml.cs",
+      "target": "class:DeliveryManager/App.xaml.cs:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/App.xaml.cs",
+      "target": "class:DeliveryManager/App.xaml.cs:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/App.xaml",
+      "target": "file:DeliveryManager/App.xaml.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/CompanyDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/CompanyDialog.razor.cs:CompanyDialogBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/CompanyDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/CompanyDialog.razor.cs:CompanyDialogBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/CompanyDialog.razor.cs:CompanyDialogBase",
+      "target": "function:DeliveryManager/Components/CompanyDialog.razor.cs:Save",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/CompanyDialog.razor",
+      "target": "file:DeliveryManager/Components/CompanyDialog.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ComponentDialog.razor.cs:ComponentDialogBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ComponentDialog.razor.cs:ComponentDialogBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/ComponentDialog.razor.cs:ComponentDialogBase",
+      "target": "function:DeliveryManager/Components/ComponentDialog.razor.cs:Save",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentDialog.razor",
+      "target": "file:DeliveryManager/Components/ComponentDialog.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:ComponentSelectionDialogBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:ComponentSelectionDialogBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:ComponentSelectionDialogBase",
+      "target": "function:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:LoadAvailableComponents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:ComponentSelectionDialogBase",
+      "target": "function:DeliveryManager/Components/ComponentSelectionDialog.razor.cs:AddSelectedComponents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ComponentSelectionDialog.razor",
+      "target": "file:DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ItemDialog.razor.cs:ItemDialogBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ItemDialog.razor.cs:ItemDialogBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/ItemDialog.razor.cs:ItemDialogBase",
+      "target": "function:DeliveryManager/Components/ItemDialog.razor.cs:Save",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemDialog.razor",
+      "target": "file:DeliveryManager/Components/ItemDialog.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ItemSelectionDialog.razor.cs:ItemSelectionDialogBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "target": "class:DeliveryManager/Components/ItemSelectionDialog.razor.cs:ItemSelectionDialogBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/ItemSelectionDialog.razor.cs:ItemSelectionDialogBase",
+      "target": "function:DeliveryManager/Components/ItemSelectionDialog.razor.cs:LoadAvailableItems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:DeliveryManager/Components/ItemSelectionDialog.razor.cs:ItemSelectionDialogBase",
+      "target": "function:DeliveryManager/Components/ItemSelectionDialog.razor.cs:AddSelectedItems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/ItemSelectionDialog.razor",
+      "target": "file:DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/Layout/MainLayout.razor.css",
+      "target": "file:DeliveryManager/Components/Layout/MainLayout.razor",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/Layout/NavMenu.razor.css",
+      "target": "file:DeliveryManager/Components/Layout/NavMenu.razor",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Companies.razor.cs:Companies",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Companies.razor.cs:Companies",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/Companies.razor.cs:Companies",
+      "target": "function:DeliveryManager/Components/Pages/Companies.razor.cs:OpenDeleteDialog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Companies.razor",
+      "target": "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+      "target": "file:DeliveryManager/Components/CompanyDialog.razor",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Components.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Components.razor.cs:Components",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Components.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Components.razor.cs:Components",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/Components.razor.cs:Components",
+      "target": "function:DeliveryManager/Components/Pages/Components.razor.cs:LoadComponents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/Components.razor.cs:Components",
+      "target": "function:DeliveryManager/Components/Pages/Components.razor.cs:OpenDeleteDialog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Components.razor",
+      "target": "file:DeliveryManager/Components/Pages/Components.razor.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Components.razor.cs",
+      "target": "file:DeliveryManager/Components/ComponentDialog.razor",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager.sln",
+      "target": "file:DeliveryManager/App.xaml.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor",
+      "target": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "target": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:OpenAddItemDialog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "target": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:PrintDeliveryPlan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+      "target": "function:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:CalculateComponents",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "target": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "target": "file:DeliveryManager/Interfaces/IComponentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs:DeliveryPlannerBase",
+      "target": "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Items.razor",
+      "target": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Items.razor.cs:ItemsBase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "target": "class:DeliveryManager/Components/Pages/Items.razor.cs:ItemsBase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "target": "function:DeliveryManager/Components/Pages/Items.razor.cs:LoadItems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Components/Pages/Items.razor.cs",
+      "target": "function:DeliveryManager/Components/Pages/Items.razor.cs:RemoveComponentFromItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/Items.razor.cs:ItemsBase",
+      "target": "file:DeliveryManager/Interfaces/IItemService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:DeliveryManager/Components/Pages/Items.razor.cs:ItemsBase",
+      "target": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/CompanyConfiguration.cs:CompanyConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/CompanyConfiguration.cs:CompanyConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ComponentConfiguration.cs:ComponentConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ComponentConfiguration.cs:ComponentConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs:DeliveryConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs:DeliveryConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs:DeliveryItemConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs:DeliveryItemConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs:ItemComponentConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs:ItemComponentConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ItemConfiguration.cs:ItemConfiguration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "target": "class:DeliveryManager/Db/Configuration/ItemConfiguration.cs:ItemConfiguration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "class:DeliveryManager/Db/DeliveryDbContext.cs:DeliveryDbContext",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "class:DeliveryManager/Db/DeliveryDbContext.cs:DeliveryDbContext",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "function:DeliveryManager/Db/DeliveryDbContext.cs:UpdateTimestamps",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "target": "file:DeliveryManager/Db/Configuration/ItemConfiguration.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "target": "class:DeliveryManager/Db/DeliveryDbContextFactory.cs:DeliveryDbContextFactory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "target": "class:DeliveryManager/Db/DeliveryDbContextFactory.cs:DeliveryDbContextFactory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Db/DeliveryDbContextFactory.cs",
+      "target": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Db/export.ps1",
+      "target": "document:DeliveryManager/Db/dump.txt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/DeliveryManager.csproj",
+      "target": "file:DeliveryManager/MauiProgram.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/DeliveryManager.csproj",
+      "target": "file:DeliveryManager/MainPage.xaml",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "target": "class:DeliveryManager/Interfaces/ICompanyService.cs:ICompanyService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "target": "class:DeliveryManager/Interfaces/ICompanyService.cs:ICompanyService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IComponentService.cs",
+      "target": "class:DeliveryManager/Interfaces/IComponentService.cs:IComponentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IComponentService.cs",
+      "target": "class:DeliveryManager/Interfaces/IComponentService.cs:IComponentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IItemService.cs",
+      "target": "class:DeliveryManager/Interfaces/IItemService.cs:IItemService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IItemService.cs",
+      "target": "class:DeliveryManager/Interfaces/IItemService.cs:IItemService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "target": "class:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs:IPurchaseOrderDocumentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "target": "class:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs:IPurchaseOrderDocumentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/MainPage.xaml",
+      "target": "file:DeliveryManager/MainPage.xaml.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MainPage.xaml",
+      "target": "file:DeliveryManager/Components/Routes.razor",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "class:DeliveryManager/MauiProgram.cs:MauiProgram",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "class:DeliveryManager/MauiProgram.cs:MauiProgram",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "function:DeliveryManager/MauiProgram.cs:CreateMauiApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "function:DeliveryManager/MauiProgram.cs:CreateMauiApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Db/DeliveryDbContext.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Interfaces/ICompanyService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Interfaces/IComponentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Interfaces/IItemService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Components/Routes.razor",
+      "target": "file:DeliveryManager/MauiProgram.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "target": "class:DeliveryManager/Migrations/20250603203953_Initial.cs:Initial",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+      "target": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+      "target": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+      "target": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+      "target": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "target": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "target": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "target": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "target": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "target": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.Designer.cs",
+      "target": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs",
+      "target": "class:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs:DeliveryDbContextModelSnapshot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs",
+      "target": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Models/Company.cs",
+      "target": "class:DeliveryManager/Models/Company.cs:Company",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/Company.cs",
+      "target": "class:DeliveryManager/Models/Company.cs:Company",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Models/Component.cs",
+      "target": "class:DeliveryManager/Models/Component.cs:Component",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/Component.cs",
+      "target": "class:DeliveryManager/Models/Component.cs:Component",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Models/Delivery.cs",
+      "target": "class:DeliveryManager/Models/Delivery.cs:Delivery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/Delivery.cs",
+      "target": "class:DeliveryManager/Models/Delivery.cs:Delivery",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Models/DeliveryItem.cs",
+      "target": "class:DeliveryManager/Models/DeliveryItem.cs:DeliveryItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/DeliveryItem.cs",
+      "target": "class:DeliveryManager/Models/DeliveryItem.cs:DeliveryItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "target": "file:DeliveryManager/Models/Company.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "target": "file:DeliveryManager/Models/Component.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "target": "file:DeliveryManager/Models/Delivery.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+      "target": "file:DeliveryManager/Models/DeliveryItem.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+      "target": "file:DeliveryManager/Models/Company.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "target": "file:DeliveryManager/Models/Company.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+      "target": "file:DeliveryManager/Models/Component.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+      "target": "file:DeliveryManager/Models/Company.cs",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/Models/Item.cs",
+      "target": "class:DeliveryManager/Models/Item.cs:Item",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/Item.cs",
+      "target": "class:DeliveryManager/Models/Item.cs:Item",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Models/ItemComponent.cs",
+      "target": "class:DeliveryManager/Models/ItemComponent.cs:ItemComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Models/ItemComponent.cs",
+      "target": "class:DeliveryManager/Models/ItemComponent.cs:ItemComponent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Android/MainActivity.cs",
+      "target": "class:DeliveryManager/Platforms/Android/MainActivity.cs:MainActivity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Android/MainActivity.cs",
+      "target": "class:DeliveryManager/Platforms/Android/MainActivity.cs:MainActivity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Android/MainApplication.cs",
+      "target": "class:DeliveryManager/Platforms/Android/MainApplication.cs:MainApplication",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Android/MainApplication.cs",
+      "target": "class:DeliveryManager/Platforms/Android/MainApplication.cs:MainApplication",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/iOS/AppDelegate.cs",
+      "target": "class:DeliveryManager/Platforms/iOS/AppDelegate.cs:AppDelegate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/iOS/AppDelegate.cs",
+      "target": "class:DeliveryManager/Platforms/iOS/AppDelegate.cs:AppDelegate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+      "target": "class:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs:AppDelegate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+      "target": "class:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs:AppDelegate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "target": "class:DeliveryManager/Platforms/Windows/App.xaml.cs:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "target": "class:DeliveryManager/Platforms/Windows/App.xaml.cs:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyContext.cs",
+      "target": "class:DeliveryManager/Services/CompanyContext.cs:CompanyContext",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyContext.cs",
+      "target": "class:DeliveryManager/Services/CompanyContext.cs:CompanyContext",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Platforms/Windows/App.xaml",
+      "target": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/Android/AndroidManifest.xml",
+      "target": "file:DeliveryManager/Platforms/Android/MainActivity.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/Android/AndroidManifest.xml",
+      "target": "file:DeliveryManager/Platforms/Android/MainApplication.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/iOS/Info.plist",
+      "target": "file:DeliveryManager/Platforms/iOS/Program.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/MacCatalyst/Info.plist",
+      "target": "file:DeliveryManager/Platforms/MacCatalyst/Program.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/Windows/Package.appxmanifest",
+      "target": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Platforms/Windows/app.manifest",
+      "target": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:DeliveryManager/Properties/launchSettings.json",
+      "target": "file:DeliveryManager/Platforms/Windows/App.xaml.cs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:DeliveryManager/Models/dump.txt",
+      "target": "file:DeliveryManager/Models/Item.cs",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:DeliveryManager/Models/dump.txt",
+      "target": "file:DeliveryManager/Models/ItemComponent.cs",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Models/export.ps1",
+      "target": "document:DeliveryManager/Models/dump.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "class:DeliveryManager/Services/CompanyService.cs:CompanyService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "function:DeliveryManager/Services/CompanyService.cs:UpdateAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "function:DeliveryManager/Services/CompanyService.cs:DeleteAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "class:DeliveryManager/Services/CompanyService.cs:CompanyService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "function:DeliveryManager/Services/CompanyService.cs:UpdateAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/CompanyService.cs",
+      "target": "function:DeliveryManager/Services/CompanyService.cs:DeleteAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ComponentService.cs",
+      "target": "class:DeliveryManager/Services/ComponentService.cs:ComponentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ComponentService.cs",
+      "target": "function:DeliveryManager/Services/ComponentService.cs:UpdateStockLevelsAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ComponentService.cs",
+      "target": "class:DeliveryManager/Services/ComponentService.cs:ComponentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ComponentService.cs",
+      "target": "function:DeliveryManager/Services/ComponentService.cs:UpdateStockLevelsAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "class:DeliveryManager/Services/DeliveryDocumentService.cs:DeliveryDocumentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "function:DeliveryManager/Services/DeliveryDocumentService.cs:GenerateDeliveryDocument",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeContent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeTable",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "class:DeliveryManager/Services/DeliveryDocumentService.cs:DeliveryDocumentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "function:DeliveryManager/Services/DeliveryDocumentService.cs:GenerateDeliveryDocument",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DeliveryManager/Services/DeliveryDocumentService.cs:GenerateDeliveryDocument",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeContent",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:DeliveryManager/Services/DeliveryDocumentService.cs:ComposeTable",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "target": "class:DeliveryManager/Services/DeliveryPlanningService.cs:DeliveryPlanningService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "target": "class:DeliveryManager/Services/DeliveryPlanningService.cs:DeliveryPlanningService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "class:DeliveryManager/Services/ItemService.cs:ItemService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:AddComponentToItemAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:RemoveComponentFromItemAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:UpdateComponentQuantityAsync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "class:DeliveryManager/Services/ItemService.cs:ItemService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:AddComponentToItemAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:RemoveComponentFromItemAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/ItemService.cs",
+      "target": "function:DeliveryManager/Services/ItemService.cs:UpdateComponentQuantityAsync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "class:DeliveryManager/Services/PurchaseOrderDocumentService.cs:PurchaseOrderDocumentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:GeneratePurchaseOrderDocument",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeContent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeTable",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "class:DeliveryManager/Services/PurchaseOrderDocumentService.cs:PurchaseOrderDocumentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "target": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:GeneratePurchaseOrderDocument",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:GeneratePurchaseOrderDocument",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeContent",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:DeliveryManager/Services/PurchaseOrderDocumentService.cs:ComposeTable",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "target": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:DeliveryManager/wwwroot/index.html",
+      "target": "file:DeliveryManager/wwwroot/css/app.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:DeliveryManager/Services/CompanyService.cs:CompanyService",
+      "target": "class:DeliveryManager/Interfaces/ICompanyService.cs:ICompanyService",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DeliveryManager/Services/ComponentService.cs:ComponentService",
+      "target": "class:DeliveryManager/Interfaces/IComponentService.cs:IComponentService",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DeliveryManager/Services/ItemService.cs:ItemService",
+      "target": "class:DeliveryManager/Interfaces/IItemService.cs:IItemService",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:DeliveryManager/Services/PurchaseOrderDocumentService.cs:PurchaseOrderDocumentService",
+      "target": "class:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs:IPurchaseOrderDocumentService",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/CompanyService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/ComponentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/ItemService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:DeliveryManager/MauiProgram.cs",
+      "target": "file:DeliveryManager/Services/CompanyContext.cs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:ui",
+      "name": "UI Layer",
+      "description": "MudBlazor Razor pages, reusable dialog components, navigation layout, and Blazor WebView static assets that compose the desktop application's user interface.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/_Imports.razor",
+        "file:DeliveryManager/Components/CompanyDialog.razor",
+        "file:DeliveryManager/Components/CompanyDialog.razor.cs",
+        "file:DeliveryManager/Components/ComponentDialog.razor",
+        "file:DeliveryManager/Components/ComponentDialog.razor.cs",
+        "file:DeliveryManager/Components/ComponentSelectionDialog.razor",
+        "file:DeliveryManager/Components/ComponentSelectionDialog.razor.cs",
+        "file:DeliveryManager/Components/ItemDialog.razor",
+        "file:DeliveryManager/Components/ItemDialog.razor.cs",
+        "file:DeliveryManager/Components/ItemSelectionDialog.razor",
+        "file:DeliveryManager/Components/ItemSelectionDialog.razor.cs",
+        "file:DeliveryManager/Components/Layout/MainLayout.razor",
+        "file:DeliveryManager/Components/Layout/MainLayout.razor.css",
+        "file:DeliveryManager/Components/Layout/NavMenu.razor",
+        "file:DeliveryManager/Components/Layout/NavMenu.razor.css",
+        "file:DeliveryManager/Components/Pages/Companies.razor",
+        "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+        "file:DeliveryManager/Components/Pages/Components.razor",
+        "file:DeliveryManager/Components/Pages/Components.razor.cs",
+        "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor",
+        "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+        "file:DeliveryManager/Components/Pages/Home.razor",
+        "file:DeliveryManager/Components/Pages/Items.razor",
+        "file:DeliveryManager/Components/Pages/Items.razor.cs",
+        "file:DeliveryManager/Components/Routes.razor",
+        "file:DeliveryManager/wwwroot/css/app.css",
+        "file:DeliveryManager/wwwroot/index.html"
+      ]
+    },
+    {
+      "id": "layer:maui-shell",
+      "name": "MAUI Shell",
+      "description": "MAUI application entry point, DI composition root (MauiProgram), the BlazorWebView host page, and all per-platform bootstrapping classes for Windows, Android, iOS, Mac Catalyst, and Tizen.",
+      "nodeIds": [
+        "file:DeliveryManager/App.xaml",
+        "file:DeliveryManager/App.xaml.cs",
+        "file:DeliveryManager/MainPage.xaml",
+        "file:DeliveryManager/MainPage.xaml.cs",
+        "file:DeliveryManager/MauiProgram.cs",
+        "file:DeliveryManager/Platforms/Android/MainActivity.cs",
+        "file:DeliveryManager/Platforms/Android/MainApplication.cs",
+        "file:DeliveryManager/Platforms/iOS/AppDelegate.cs",
+        "file:DeliveryManager/Platforms/iOS/Program.cs",
+        "file:DeliveryManager/Platforms/MacCatalyst/AppDelegate.cs",
+        "file:DeliveryManager/Platforms/MacCatalyst/Program.cs",
+        "file:DeliveryManager/Platforms/Tizen/Main.cs",
+        "file:DeliveryManager/Platforms/Windows/App.xaml",
+        "file:DeliveryManager/Platforms/Windows/App.xaml.cs"
+      ]
+    },
+    {
+      "id": "layer:service",
+      "name": "Service Layer",
+      "description": "Service contracts (interfaces) and their implementations providing CRUD operations for companies, items, and components, plus QuestPDF document generators and stateful delivery planning logic.",
+      "nodeIds": [
+        "file:DeliveryManager/Interfaces/ICompanyService.cs",
+        "file:DeliveryManager/Interfaces/IComponentService.cs",
+        "file:DeliveryManager/Interfaces/IItemService.cs",
+        "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs",
+        "file:DeliveryManager/Services/CompanyContext.cs",
+        "file:DeliveryManager/Services/CompanyService.cs",
+        "file:DeliveryManager/Services/ComponentService.cs",
+        "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+        "file:DeliveryManager/Services/DeliveryPlanningService.cs",
+        "file:DeliveryManager/Services/ItemService.cs",
+        "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs"
+      ]
+    },
+    {
+      "id": "layer:domain-model",
+      "name": "Domain Model",
+      "description": "EF Core entity classes representing the core business objects (Company, Item, Component, Delivery), join entities, enums, and the EF Fluent API configurations that map them to the SQLite schema.",
+      "nodeIds": [
+        "file:DeliveryManager/Enums/DeliveryStatus.cs",
+        "file:DeliveryManager/Models/Company.cs",
+        "file:DeliveryManager/Models/Component.cs",
+        "file:DeliveryManager/Models/Delivery.cs",
+        "file:DeliveryManager/Models/DeliveryItem.cs",
+        "file:DeliveryManager/Models/Item.cs",
+        "file:DeliveryManager/Models/ItemComponent.cs",
+        "file:DeliveryManager/Db/Configuration/CompanyConfiguration.cs",
+        "file:DeliveryManager/Db/Configuration/ComponentConfiguration.cs",
+        "file:DeliveryManager/Db/Configuration/DeliveryConfiguration.cs",
+        "file:DeliveryManager/Db/Configuration/DeliveryItemConfiguration.cs",
+        "file:DeliveryManager/Db/Configuration/ItemComponentConfiguration.cs",
+        "file:DeliveryManager/Db/Configuration/ItemConfiguration.cs"
+      ]
+    },
+    {
+      "id": "layer:data-access",
+      "name": "Data Access Layer",
+      "description": "EF Core DbContext and design-time factory that provide SQLite persistence, together with the full EF Core migration history that tracks all incremental schema changes.",
+      "nodeIds": [
+        "file:DeliveryManager/Db/DeliveryDbContext.cs",
+        "file:DeliveryManager/Db/DeliveryDbContextFactory.cs",
+        "file:DeliveryManager/Migrations/20250603203953_Initial.cs",
+        "file:DeliveryManager/Migrations/20250603203953_Initial.Designer.cs",
+        "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.cs",
+        "file:DeliveryManager/Migrations/20250612162031_ItemCreatedAtOptional.Designer.cs",
+        "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.cs",
+        "file:DeliveryManager/Migrations/20250806151728_ComponentChanges.Designer.cs",
+        "file:DeliveryManager/Migrations/20250806153508_ItemChanges.cs",
+        "file:DeliveryManager/Migrations/20250806153508_ItemChanges.Designer.cs",
+        "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.cs",
+        "file:DeliveryManager/Migrations/20250806162331_ItemComponentSimplify.Designer.cs",
+        "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.cs",
+        "file:DeliveryManager/Migrations/20250806202720_ItemItemcomponentCascadeSetting.Designer.cs",
+        "file:DeliveryManager/Migrations/20260228141755_AddCompanies.cs",
+        "file:DeliveryManager/Migrations/20260228141755_AddCompanies.Designer.cs",
+        "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.cs",
+        "file:DeliveryManager/Migrations/20260228151644_ComponentDrawingandArtikelNumber.Designer.cs",
+        "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.cs",
+        "file:DeliveryManager/Migrations/20260228200444_AddCompanyToItemAndComponent.Designer.cs",
+        "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.cs",
+        "file:DeliveryManager/Migrations/20260228212345_CompanyCascadeDelete.Designer.cs",
+        "file:DeliveryManager/Migrations/DeliveryDbContextModelSnapshot.cs"
+      ]
+    },
+    {
+      "id": "layer:platform-config",
+      "name": "Platform Configuration",
+      "description": "MSBuild project and Visual Studio solution files, per-platform manifests and packaging descriptors (Windows MSIX, iOS plists, Android manifest, Tizen manifest), and development launch settings.",
+      "nodeIds": [
+        "config:DeliveryManager/DeliveryManager.csproj",
+        "config:DeliveryManager.sln",
+        "config:DeliveryManager.sln.DotSettings.user",
+        "config:DeliveryManager/Properties/launchSettings.json",
+        "config:DeliveryManager/Platforms/Android/AndroidManifest.xml",
+        "config:DeliveryManager/Platforms/Android/Resources/values/colors.xml",
+        "config:DeliveryManager/Platforms/iOS/Info.plist",
+        "config:DeliveryManager/Platforms/iOS/Resources/PrivacyInfo.xcprivacy",
+        "config:DeliveryManager/Platforms/MacCatalyst/Entitlements.plist",
+        "config:DeliveryManager/Platforms/MacCatalyst/Info.plist",
+        "config:DeliveryManager/Platforms/Tizen/tizen-manifest.xml",
+        "config:DeliveryManager/Platforms/Windows/app.manifest",
+        "config:DeliveryManager/Platforms/Windows/Package.appxmanifest"
+      ]
+    },
+    {
+      "id": "layer:dev-tooling",
+      "name": "Development Tooling",
+      "description": "Developer utility scripts for exporting source snapshots, auto-generated dump files, the MAUI raw-assets placeholder, Claude Code and understand-anything tooling configuration files.",
+      "nodeIds": [
+        "config:.claude/settings.local.json",
+        "config:.understand-anything/.understandignore",
+        "file:DeliveryManager/Db/export.ps1",
+        "document:DeliveryManager/Db/dump.txt",
+        "file:DeliveryManager/Models/export.ps1",
+        "document:DeliveryManager/Models/dump.txt",
+        "document:DeliveryManager/Resources/Raw/AboutAssets.txt",
+        "document:dump.txt"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Composition Root & DI Setup",
+      "description": "MauiProgram.cs is the application's composition root — the single place where every service, the database context, and the MAUI builder are wired together. Reading it first gives you an inventory of every moving part in the system: you can see all registered services, the SQLite database, and the MudBlazor UI framework being configured before a single page loads. Because its fan-out of 7 is the highest in the codebase, understanding what it references sets the map for everything that follows.",
+      "nodeIds": [
+        "file:DeliveryManager/MauiProgram.cs"
+      ],
+      "languageLesson": "In .NET MAUI, MauiProgram.cs calls CreateMauiApp() and returns a MauiApp. The builder.Services collection is the standard Microsoft.Extensions.DependencyInjection container — the same pattern used in ASP.NET Core, so services registered here are injectable throughout all Blazor components via constructor injection or @inject."
+    },
+    {
+      "order": 2,
+      "title": "Project Dependencies & NuGet Stack",
+      "description": "DeliveryManager.csproj declares the entire technology stack in one place: .NET MAUI, Blazor hybrid, MudBlazor, Entity Framework Core with SQLite, and QuestPDF. Reviewing it directly after the entry point gives you the 'why' behind each framework choice you will encounter in subsequent steps. Pay attention to the TargetFramework and the WindowsAppSDK version — this app is a Windows-only desktop application, not a cross-platform mobile app.",
+      "nodeIds": [
+        "config:DeliveryManager/DeliveryManager.csproj"
+      ],
+      "languageLesson": "The <UseMaui>true</UseMaui> MSBuild property activates the MAUI SDK, which automatically sets up the BlazorWebView NuGet package, platform-specific build outputs, and the single-project structure that replaces the multi-head projects of Xamarin."
+    },
+    {
+      "order": 3,
+      "title": "MAUI Shell & BlazorWebView Bridge",
+      "description": "App.xaml.cs and MainPage.xaml form the thin native MAUI shell that hosts the entire Blazor application. App.xaml.cs creates the application window, while MainPage.xaml places a BlazorWebView control that loads the Blazor component tree rooted at Routes.razor. This is the architectural seam between the native Windows layer and the web-based UI — everything from this point on is Blazor running inside a Chromium-based WebView.",
+      "nodeIds": [
+        "file:DeliveryManager/App.xaml.cs",
+        "file:DeliveryManager/MainPage.xaml"
+      ],
+      "languageLesson": "BlazorWebView is the core MAUI Blazor hybrid primitive. It renders Blazor components using the system's WebView2 runtime on Windows and injects a JavaScript interop bridge so C# code can manipulate the DOM. Unlike Blazor Server, all logic runs locally in the process — there is no network round-trip to a server."
+    },
+    {
+      "order": 4,
+      "title": "Blazor Routing & Layout Shell",
+      "description": "Routes.razor is the root Blazor component embedded in the BlazorWebView — it activates the Blazor router and maps URL paths to page components. MainLayout.razor wraps every page with the application shell: MudBlazor's theme provider, the snackbar host, and the persistent sidebar NavMenu. NavMenu.razor renders the drawer links that let users navigate between Companies, Items, Components, and the Delivery Planner. Together these three files define the chrome that surrounds every page in the application.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/Routes.razor",
+        "file:DeliveryManager/Components/Layout/MainLayout.razor",
+        "file:DeliveryManager/Components/Layout/NavMenu.razor"
+      ],
+      "languageLesson": "In Blazor, the @page directive on a component registers it with the router as a navigable page. The Router component in Routes.razor uses reflection to find all @page-decorated components in the assembly. MainLayout inherits from LayoutComponentBase, and the @Body render fragment is where the matched page component is inserted."
+    },
+    {
+      "order": 5,
+      "title": "Static Web Assets Host Page",
+      "description": "wwwroot/index.html is the HTML shell that the BlazorWebView loads as its initial document. It references the MudBlazor CSS, the Blazor WebAssembly/hybrid bootstrap script, and any custom stylesheets. While it looks like a standard HTML file, it is not served by a web server — the BlazorWebView reads it from the app bundle on disk. Any global CSS, font imports, or third-party JavaScript libraries that need to be available to all Blazor components are linked here.",
+      "nodeIds": [
+        "file:DeliveryManager/wwwroot/index.html"
+      ],
+      "languageLesson": "The <script src='_framework/blazor.webview.js'></script> tag in index.html loads the Blazor hybrid runtime. Unlike Blazor WebAssembly, this script does not download .NET — the runtime is already native in the process. It only establishes the JS interop bridge between the WebView DOM and the .NET component tree."
+    },
+    {
+      "order": 6,
+      "title": "Core Domain Entities",
+      "description": "The Models folder contains the five EF Core entity classes that represent the entire business domain. Company is the top-level aggregate — a supplier. Item (product) belongs to a company and has a bill-of-materials list of Components via the ItemComponent join entity. Delivery groups multiple Items into a shipment via the DeliveryItem join entity. DeliveryStatus is the enum that tracks a delivery through its lifecycle states. Understanding these five classes and how they relate is essential before reading any service or UI code.",
+      "nodeIds": [
+        "file:DeliveryManager/Models/Company.cs",
+        "file:DeliveryManager/Models/Item.cs",
+        "file:DeliveryManager/Models/Component.cs",
+        "file:DeliveryManager/Models/Delivery.cs",
+        "file:DeliveryManager/Models/DeliveryItem.cs"
+      ],
+      "languageLesson": "EF Core uses navigation properties (e.g., public ICollection<ItemComponent> ItemComponents) to represent relationships. When you call Include() in a query, EF Core uses these navigation properties to generate a JOIN. The entity classes themselves hold no query logic — they are plain C# classes (POCOs) that EF Core maps to SQLite tables."
+    },
+    {
+      "order": 7,
+      "title": "Bill-of-Materials Join Entity",
+      "description": "ItemComponent is the join table that implements the many-to-many relationship between Items and Components, with a Quantity column that makes this a proper bill-of-materials (BOM) rather than a simple many-to-many link. This is a key design decision in the domain model: each Item records exactly how many of each Component it requires. The DeliveryPlanner uses these quantities to calculate total component stock requirements when planning a delivery batch.",
+      "nodeIds": [
+        "file:DeliveryManager/Models/ItemComponent.cs",
+        "file:DeliveryManager/Enums/DeliveryStatus.cs"
+      ],
+      "languageLesson": "A many-to-many relationship with a payload column (like Quantity) cannot be represented as a simple collection in EF Core 6+. Instead, you must expose the join entity (ItemComponent) explicitly as a DbSet and configure it with a composite primary key using HasKey(ic => new { ic.ItemId, ic.ComponentId }) in the Fluent API."
+    },
+    {
+      "order": 8,
+      "title": "Data Access Layer: DbContext",
+      "description": "DeliveryDbContext is the EF Core unit of work — it exposes DbSet properties for every entity and applies all Fluent API relationship configurations in OnModelCreating. It also overrides SaveChangesAsync to automatically populate CreatedAt and UpdatedAt timestamps on any entity that implements a timestamp interface, removing that boilerplate from every service. DeliveryDbContextFactory exists alongside it to enable the dotnet-ef migration tooling to instantiate the context at design time without booting the full MAUI host.",
+      "nodeIds": [
+        "file:DeliveryManager/Db/DeliveryDbContext.cs",
+        "file:DeliveryManager/Db/DeliveryDbContextFactory.cs"
+      ],
+      "languageLesson": "IDesignTimeDbContextFactory<T> is an EF Core hook that migration commands (dotnet ef migrations add, dotnet ef database update) call when they cannot find a running host. In a MAUI app there is no ASP.NET host to discover the DbContext, so this factory is required to make the CLI tools work."
+    },
+    {
+      "order": 9,
+      "title": "Service Contracts (Interfaces)",
+      "description": "The Interfaces folder defines the contracts that decouple the UI layer from the service implementations. ICompanyService, IItemService, and IComponentService each specify the async CRUD operations and any domain-specific operations (such as linking components to items or updating stock levels). IPurchaseOrderDocumentService is the contract for the PDF generation pipeline. Programming against these interfaces means that pages and dialogs never import concrete service classes, which keeps the dependency graph clean and enables future testing with mock implementations.",
+      "nodeIds": [
+        "file:DeliveryManager/Interfaces/ICompanyService.cs",
+        "file:DeliveryManager/Interfaces/IItemService.cs",
+        "file:DeliveryManager/Interfaces/IComponentService.cs",
+        "file:DeliveryManager/Interfaces/IPurchaseOrderDocumentService.cs"
+      ],
+      "languageLesson": "In C#, interface-based dependency injection is the standard abstraction pattern. The interface is registered in the DI container with AddScoped<IItemService, ItemService>(), so any component that declares @inject IItemService ItemService receives the concrete ItemService instance without importing it directly. This is why the interfaces and implementations live in separate folders."
+    },
+    {
+      "order": 10,
+      "title": "CRUD Service Implementations",
+      "description": "CompanyService, ItemService, and ComponentService each implement their respective interface using Entity Framework Core against DeliveryDbContext. Each service receives the DbContext via constructor injection and exposes async methods (GetAllAsync, AddAsync, UpdateAsync, DeleteAsync) that the Blazor pages call directly. CompanyContext is a scoped state service that tracks which company is currently active in the UI session — it acts as a lightweight in-memory filter shared across pages, letting Components and Items automatically scope their queries to the selected company.",
+      "nodeIds": [
+        "file:DeliveryManager/Services/CompanyService.cs",
+        "file:DeliveryManager/Services/ItemService.cs",
+        "file:DeliveryManager/Services/ComponentService.cs",
+        "file:DeliveryManager/Services/CompanyContext.cs"
+      ],
+      "languageLesson": "Blazor hybrid apps use Scoped lifetime for services that hold per-session state (like CompanyContext), not Singleton. Because a desktop app has only one user session, Scoped effectively behaves like Singleton here — but using Scoped correctly aligns with the DI semantics and would remain correct if the app were ported to a multi-user Blazor Server scenario."
+    },
+    {
+      "order": 11,
+      "title": "Companies Page",
+      "description": "Companies.razor is the first page a user encounters after launch and a good reference implementation of the page pattern used throughout the app. The .razor file contains the MudDataGrid markup and button toolbar, while Companies.razor.cs holds the code-behind partial class with @inject directives, the items list, and methods for opening the CompanyDialog for create/edit and calling CompanyService.DeleteAsync on confirmation. CompanyDialog.razor and its code-behind show how MudBlazor dialogs receive parameters and return results via MudDialogInstance, keeping dialog logic isolated from the page.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/Pages/Companies.razor",
+        "file:DeliveryManager/Components/Pages/Companies.razor.cs",
+        "file:DeliveryManager/Components/CompanyDialog.razor",
+        "file:DeliveryManager/Components/CompanyDialog.razor.cs"
+      ],
+      "languageLesson": "In Blazor, partial classes split a component's logic across a .razor file (markup + directives) and a .razor.cs file (C# class body). The compiler merges them at build time. This is a style choice — all logic could live in @code blocks in the .razor file — but the code-behind pattern is preferred in larger projects because it improves IDE tooling and enables easier unit testing of the logic class."
+    },
+    {
+      "order": 12,
+      "title": "Items & Component-Linking UI",
+      "description": "Items.razor and its code-behind implement the most complex CRUD page: in addition to standard create/edit/delete for product records, it lets users open a ComponentSelectionDialog to add Components to an Item's bill-of-materials. ItemDialog.razor handles the item form fields, while ComponentSelectionDialog.razor renders a searchable list of all Components so the user can pick which parts the item requires. This page is the primary way the Item-to-Component relationships in the domain model get populated.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/Pages/Items.razor",
+        "file:DeliveryManager/Components/Pages/Items.razor.cs",
+        "file:DeliveryManager/Components/ItemDialog.razor",
+        "file:DeliveryManager/Components/ComponentSelectionDialog.razor"
+      ]
+    },
+    {
+      "order": 13,
+      "title": "Components Page",
+      "description": "Components.razor manages the catalog of mechanical parts (components/pieces) available in stock. Its distinguishing feature is the company filter — it uses CompanyContext from Step 10 to scope the displayed components to the active supplier, so operators see only the parts from the company they are currently working with. ComponentDialog.razor provides the form for creating and editing component records including stock quantity.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/Pages/Components.razor",
+        "file:DeliveryManager/Components/Pages/Components.razor.cs",
+        "file:DeliveryManager/Components/ComponentDialog.razor"
+      ]
+    },
+    {
+      "order": 14,
+      "title": "Delivery Planner Page",
+      "description": "DeliveryPlanner.razor is the application's primary workflow page and the most complex component in the codebase. Its code-behind injects ICompanyService, DeliveryPlanningService, DeliveryDocumentService, and PurchaseOrderDocumentService, orchestrating the full planning session: the user selects items via ItemSelectionDialog, the service calculates required component quantities against current stock, and the page triggers PDF generation for both the delivery document and the purchase order. DeliveryPlanningService is a stateful service that holds the in-progress planning session across navigation events.",
+      "nodeIds": [
+        "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor",
+        "file:DeliveryManager/Components/Pages/DeliveryPlanner.razor.cs",
+        "file:DeliveryManager/Components/ItemSelectionDialog.razor",
+        "file:DeliveryManager/Services/DeliveryPlanningService.cs"
+      ]
+    },
+    {
+      "order": 15,
+      "title": "PDF Document Generation",
+      "description": "DeliveryDocumentService and PurchaseOrderDocumentService are the application's output layer — they take the completed delivery plan data and produce professionally formatted PDF documents using the QuestPDF library. DeliveryDocumentService generates the delivery note for the recipient, while PurchaseOrderDocumentService generates the supplier purchase order. Both services receive entity data (companies, items, quantities) and use QuestPDF's fluent document API to compose tables, headers, and signatures into a byte-stream PDF that is saved to disk.",
+      "nodeIds": [
+        "file:DeliveryManager/Services/DeliveryDocumentService.cs",
+        "file:DeliveryManager/Services/PurchaseOrderDocumentService.cs"
+      ],
+      "languageLesson": "QuestPDF uses a fluent builder pattern: document.Page(page => { page.Header().Text(\"...\"); page.Content().Table(table => { ... }); }). Unlike iTextSharp or RDLC, there is no XML/RDLC template file — the entire document layout is defined in C# code. This makes the PDF structure refactorable with standard IDE tooling and keeps the output logic co-located with the data that drives it."
+    }
+  ]
+}

@@ -16,6 +16,8 @@ public class ComponentService(DeliveryDbContext context) : IComponentService
 	{
 		return await context.Components
 		                    .Where(c => c.CompanyId == companyId)
+		                    .Include(c => c.ItemComponents)
+		                        .ThenInclude(ic => ic.Item)
 		                    .OrderBy(c => c.Name)
 		                    .ToListAsync();
 	}
@@ -34,6 +36,7 @@ public class ComponentService(DeliveryDbContext context) : IComponentService
 
 	public async Task<Component> UpdateAsync(Component component)
 	{
+		component.UpdatedAt = DateTime.UtcNow;
 		context.Components.Update(component);
 		await context.SaveChangesAsync();
 		return component;
@@ -55,7 +58,7 @@ public class ComponentService(DeliveryDbContext context) : IComponentService
 		return await context.Components.AnyAsync(c => c.Id == id);
 	}
 
-	public async Task UpdateStockLevelsAsync(List<DeliveryPlannerBase.RequiredComponent> requiredComponents)
+	public async Task UpdateStockLevelsAsync(List<OrderPlannerBase.RequiredComponent> requiredComponents)
 	{
 		foreach (var requiredComponent in requiredComponents)
 		{

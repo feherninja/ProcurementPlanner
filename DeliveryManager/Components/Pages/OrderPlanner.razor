@@ -1,8 +1,8 @@
-﻿@page "/"
-@page "/delivery-planner"
-@inherits DeliveryPlannerBase
+@page "/"
+@page "/order-planner"
+@inherits OrderPlannerBase
 
-<PageTitle>Delivery Planner</PageTitle>
+<PageTitle>Order Planner</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
     <MudText Typo="Typo.h4" Class="mb-4">Rendelés készítés</MudText>
@@ -135,6 +135,7 @@
                     <th>Jelenlegi raktármennyiség</th>
                     <th>Rendelési kötegszám</th>
                     <th>Rendelendő egység</th>
+                    <th>Darabár</th>
                     <th>Új raktármennyiség</th>
                 </tr>
                 </thead>
@@ -147,7 +148,8 @@
                         <td><strong>@component.TotalQuantity</strong></td>
                         <td>@component.Component.Stock</td>
                         <td>@component.Component.OrderPackageSize</td>
-                        <td>@component.CalculateRequiredOrderQuantity()</td>
+                        <td>@(Math.Max(0, component.TotalQuantity - component.Component.Stock))</td>
+                        <td>@component.Component.Price</td>
                         <td>@component.CalculateNewStock()</td>
 
                     </tr>
@@ -157,9 +159,12 @@
 
             <MudDivider Class="my-4"/>
 
-            <MudText Typo="Typo.h6">
-                Összegzés: @requiredComponents.Count különboző komponensre lesz szükség
-            </MudText>
+            <MudStack Row Spacing="6" Class="flex-wrap">
+                <MudText Typo="Typo.body1"><em>Különböző komponens:</em> <strong>@requiredComponents.Count db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Össz mennyiség:</em> <strong>@requiredComponents.Sum(c => c.TotalQuantity) db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Rendelendő:</em> <strong>@requiredComponents.Sum(c => Math.Max(0, c.TotalQuantity - c.Component.Stock)) db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => Math.Max(0, c.TotalQuantity - c.Component.Stock) * c.Component.Price)</strong></MudText>
+            </MudStack>
         }
         else
         {

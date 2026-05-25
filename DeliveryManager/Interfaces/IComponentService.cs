@@ -11,6 +11,6 @@ public interface IComponentService
 	Task<Component> UpdateAsync(Component component);
 	Task DeleteAsync(int id);
 	Task<bool> ExistsAsync(int id);
-	Task UpdateStockLevelsAsync(List<DeliveryPlannerBase.RequiredComponent> requiredComponents);
+	Task UpdateStockLevelsAsync(List<OrderPlannerBase.RequiredComponent> requiredComponents);
 	Task<int> CountByCompanyAsync(int companyId);
 }

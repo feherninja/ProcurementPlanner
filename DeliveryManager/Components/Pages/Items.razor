@@ -48,8 +48,9 @@
                 <HierarchyColumn T="Item"/>
                 <PropertyColumn Property="x => x.Name" Title="Név"/>
                 <PropertyColumn Property="x => x.Description" Title="Leírás"/>
-                <PropertyColumn Property="x => x.PartNumber" Title="Cikkszám"/>
+                <PropertyColumn Property="x => x.PartNumber" Title="Termékszám"/>
                 <PropertyColumn Property="x => x.DrawingNumber" Title="Rajzszám"/>
+                <PropertyColumn Property="x => x.Price" Title="Ár"/>
                 <TemplateColumn Title="Komponensek" Sortable="false" Filterable="false">
                     <CellTemplate>
                         <MudText Typo="Typo.body2">
@@ -57,6 +58,9 @@
                         </MudText>
                     </CellTemplate>
                 </TemplateColumn>
+
+                <PropertyColumn Property="x => x.CreatedAt" Title="Létrehozva" Format="yyyy-MM-dd"/>
+                <PropertyColumn Property="x => x.UpdatedAt" Title="Módosítva" Format="yyyy-MM-dd"/>
 
                 <TemplateColumn Title="Funkciók" Sortable="false" Filterable="false">
                     <CellTemplate>
