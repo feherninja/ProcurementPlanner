@@ -2,12 +2,12 @@
 @using DeliveryManager.Models
 @inherits ItemsBase
 
-<PageTitle>Cikkek</PageTitle>
+<PageTitle>Termékek</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
     <MudPaper Class="pa-4">
         <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
-            <MudText Typo="Typo.h4">Cikkek</MudText>
+            <MudText Typo="Typo.h4">Termékek</MudText>
 
             <MudStack Row Spacing="2" AlignItems="AlignItems.Center">
                 <MudSelect T="int"
@@ -28,7 +28,7 @@
                            Variant="Variant.Filled"
                            StartIcon="@Icons.Material.Filled.Add"
                            OnClick="OpenCreateDialog">
-                    Cikk hozzáadása
+                    Termék hozzáadása
                 </MudButton>
             </MudStack>
         </MudStack>
@@ -132,7 +132,7 @@
 
             <NoRecordsContent>
                 <MudText Typo="Typo.body1" Align="Align.Center">
-                    Nem található cikk. Kattints a "Cikk hozzáadása" gombra.
+                    Nem található termék. Kattints a "Termék hozzáadása" gombra.
                 </MudText>
             </NoRecordsContent>
         </MudDataGrid>

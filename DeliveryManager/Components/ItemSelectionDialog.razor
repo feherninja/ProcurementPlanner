@@ -4,7 +4,7 @@
 <MudDialog>
     <DialogContent>
         <MudStack Spacing="4">
-            <MudText Typo="Typo.h6">Válassza ki a cikkeket a rendeléshez</MudText>
+            <MudText Typo="Typo.h6">Válassza ki a terméket a rendeléshez</MudText>
             
             @if (availableItems.Any())
             {
@@ -41,10 +41,10 @@
                                 }
                             </CellTemplate>
                         </TemplateColumn>
-                        <PropertyColumn Property="x => x.Name" Title="Cikk" />
+                        <PropertyColumn Property="x => x.Name" Title="Termék" />
                         <PropertyColumn Property="x => x.Description" Title="Leírás" />
                         
-                        <TemplateColumn Title="Cikkek" Sortable="false" Filterable="false">
+                        <TemplateColumn Title="Termékek" Sortable="false" Filterable="false">
                             <CellTemplate>
                                 <MudText Typo="Typo.body2">
                                     @context.Item.ItemComponents.Count komponens
@@ -59,14 +59,14 @@
                 @if (selectedItems.Any())
                 {
                     <MudAlert Severity="Severity.Info" Dense="true">
-                        @selectedItems.Count cikk kiválasztva.
+                        @selectedItems.Count termék kiválasztva.
                     </MudAlert>
                 }
             }
             else
             {
                 <MudAlert Severity="Severity.Warning">
-                    Nincs rendelkezésre álló cikk, hozz létre egyet a hozzáadáshoz.
+                    Nincs rendelkezésre álló termék, hozz létre egyet a hozzáadáshoz.
                 </MudAlert>
             }
         </MudStack>
@@ -78,7 +78,7 @@
                    Variant="Variant.Filled" 
                    OnClick="AddSelectedItems"
                    Disabled="@(!selectedItems.Any() || loading)">
-            @selectedItems.Count cikk hozzáadása
+            @selectedItems.Count termék hozzáadása
         </MudButton>
     </DialogActions>
 </MudDialog>

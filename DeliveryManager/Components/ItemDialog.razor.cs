@@ -71,7 +71,7 @@ public partial class ItemDialogBase : ComponentBase
 				Item.CompanyId = CompanyContext.ActiveCompanyId;
 
 				await ItemService.UpdateAsync(Item);
-				Snackbar.Add("Cikk sikeresen mentve", Severity.Success);
+				Snackbar.Add("Termék sikeresen mentve", Severity.Success);
 			}
 			else
 			{
@@ -86,7 +86,7 @@ public partial class ItemDialogBase : ComponentBase
 				};
 
 				await ItemService.CreateAsync(newItem);
-				Snackbar.Add("Cikk sikeresen létrehozva", Severity.Success);
+				Snackbar.Add("Termék sikeresen létrehozva", Severity.Success);
 			}
 
 			MudDialog.Close(DialogResult.Ok(true));

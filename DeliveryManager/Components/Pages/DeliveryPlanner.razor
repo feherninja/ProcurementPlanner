@@ -58,12 +58,12 @@
         </MudSelect>
 
         <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
-            <MudText Typo="Typo.h5">Kiválasztott cikkek</MudText>
+            <MudText Typo="Typo.h5">Kiválasztott termékek</MudText>
             <MudButton Color="Color.Primary"
                        Variant="Variant.Filled"
                        StartIcon="@Icons.Material.Filled.Add"
                        OnClick="OpenAddItemDialog">
-                Cikk hozzáadása
+                Termék hozzáadása
             </MudButton>
 
         </MudStack>
@@ -73,7 +73,7 @@
             <MudSimpleTable Dense="true" Hover="true">
                 <thead>
                 <tr>
-                    <th>Cikk</th>
+                    <th>Termék</th>
                     <th>Leírás</th>
                     <th>Mennyiség</th>
                     <th>Funkciók</th>
@@ -115,7 +115,7 @@
         else
         {
             <MudAlert Severity="Severity.Info">
-                Nincs kiválasztott Cikk, kattints a "Cikk hozzáadása" gombra.
+                Nincs kiválasztott Termék, kattints a "Termék hozzáadása" gombra.
             </MudAlert>
         }
     </MudPaper>
@@ -164,7 +164,7 @@
         else
         {
             <MudAlert Severity="Severity.Info">
-                Itt jelennek meg a szükséges komponensek, amint a cikkek hozzáadásra kerültek.
+                Itt jelennek meg a szükséges komponensek, amint a termékek hozzáadásra kerültek.
             </MudAlert>
         }
     </MudPaper>

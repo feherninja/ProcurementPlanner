@@ -66,7 +66,7 @@ public partial class Companies : ComponentBase
 			                                                   "Cég törlése",
 			                                                   $"Biztosan törölni szeretnéd ezt a céget: '{company.Name}'?\n\n" +
 			                                                   $"Ez a művelet törölni fog mindent ami ehhez tartozik:\n"        +
-			                                                   $"- Cikkek: {items}\n"                                           +
+			                                                   $"- Termékek: {items}\n"                                           +
 			                                                   $"- Komponensek: {components}\n\n"                               +
 			                                                   "A művelet nem visszavonható.",
 			                                                   yesText: "Törlés",

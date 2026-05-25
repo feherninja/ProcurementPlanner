@@ -85,7 +85,7 @@ public partial class DeliveryPlannerBase : ComponentBase
 			FullWidth = true
 		};
 
-		var dialog = await DialogService.ShowAsync<ItemSelectionDialog>("Kiválasztott cikkek", parameters, options);
+		var dialog = await DialogService.ShowAsync<ItemSelectionDialog>("Kiválasztott termékek", parameters, options);
 		var result = await dialog.Result;
 
 		if (!result.Canceled && result.Data != null)

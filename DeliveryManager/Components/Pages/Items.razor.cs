@@ -74,7 +74,7 @@ public partial class ItemsBase : ComponentBase
 			FullWidth = true
 		};
 
-		var dialog = await DialogService.ShowAsync<ItemDialog>("Cikk létrehozása", parameters, options);
+		var dialog = await DialogService.ShowAsync<ItemDialog>("Termék létrehozása", parameters, options);
 		var result = await dialog.Result;
 
 		if (!result.Canceled)
@@ -106,7 +106,7 @@ public partial class ItemsBase : ComponentBase
 	{
 		var confirmed = await DialogService.ShowMessageBox(
 		                                                   "Komponens eltávolítása",
-		                                                   $"'{component.Name}' komponens eltávolítása '{item.Name}' cikkből?",
+		                                                   $"'{component.Name}' komponens eltávolítása '{item.Name}' termékből?",
 		                                                   yesText: "Törlés",
 		                                                   cancelText: "Mégse");
 
@@ -115,7 +115,7 @@ public partial class ItemsBase : ComponentBase
 			try
 			{
 				await ItemService.RemoveComponentFromItemAsync(item.Id, component.Id);
-				Snackbar.Add($"'{component.Name}' komponens eltávolítva '{item.Name}' cikkből", Severity.Success);
+				Snackbar.Add($"'{component.Name}' komponens eltávolítva '{item.Name}' termékből", Severity.Success);
 				await LoadItems(); // Refresh to show updated component list
 			}
 			catch (Exception ex)
@@ -139,7 +139,7 @@ public partial class ItemsBase : ComponentBase
 			FullWidth = true
 		};
 
-		var dialog = await DialogService.ShowAsync<ItemDialog>("Cikk szerkesztése", parameters, options);
+		var dialog = await DialogService.ShowAsync<ItemDialog>("Termék szerkesztése", parameters, options);
 		var result = await dialog.Result;
 
 		if (!result.Canceled)
@@ -149,8 +149,8 @@ public partial class ItemsBase : ComponentBase
 	public async Task OpenDeleteDialog(Item item)
 	{
 		var confirmed = await DialogService.ShowMessageBox(
-		                                                   "Cikk törlése",
-		                                                   $"Biztosan törölni szeretnéd ezt a cikket: '{item.Name}'?",
+		                                                   "Termék törlése",
+		                                                   $"Biztosan törölni szeretnéd ezt a termék: '{item.Name}'?",
 		                                                   yesText: "Törlés",
 		                                                   cancelText: "Mégse");
 
@@ -159,7 +159,7 @@ public partial class ItemsBase : ComponentBase
 			try
 			{
 				await ItemService.DeleteAsync(item.Id);
-				Snackbar.Add($"Cikk '{item.Name}' sikeresen törölve", Severity.Success);
+				Snackbar.Add($"Termék '{item.Name}' sikeresen törölve", Severity.Success);
 				await LoadItems();
 			}
 			catch (Exception ex)

@@ -32,7 +32,7 @@ public partial class ComponentSelectionDialogBase : ComponentBase
 	public Dictionary<int, int> componentQuantities = new();
 	public bool loading = false;
 
-	protected string ItemName => Item?.Name ?? "Cikk";
+	protected string ItemName => Item?.Name ?? "Termék";
 
 	protected override async Task OnInitializedAsync()
 	{

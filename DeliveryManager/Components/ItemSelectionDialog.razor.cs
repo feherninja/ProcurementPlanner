@@ -85,7 +85,7 @@ public partial class ItemSelectionDialogBase : ComponentBase
 	{
 		if (!selectedItems.Any())
 		{
-			Snackbar.Add("Válasszon ki legalább egy cikket", Severity.Warning);
+			Snackbar.Add("Válasszon ki legalább egy terméket", Severity.Warning);
 			return;
 		}
 
