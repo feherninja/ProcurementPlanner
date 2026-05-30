@@ -19,9 +19,8 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
                 page.Size(PageSizes.A4);
                 page.Margin(2, Unit.Centimetre);
 
-                page.Header().Element(ComposeHeader); // keep as-is
+                page.Header().Element(ComposeHeader);
                 page.Content().Element(content => ComposeContent(content, planningService));
-                page.Footer().Element(ComposeFooter); // keep as-is
             });
         });
 
@@ -89,6 +88,10 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
                   .FontSize(10);
 
             column.Item().PaddingTop(20).Element(content => ComposeTable(content, planningService));
+
+            column.Item().PaddingTop(15).Text("Mit freundlichen Grüßen:").FontSize(10);
+            column.Item().PaddingTop(10).Text("Schultz Gábor").FontSize(10);
+            column.Item().PaddingTop(10).Text("Lieferadresse: Ungarn 2310 Szigetszentmiklós Határ út 12-14.").FontSize(10).Bold();
         });
     }
 
@@ -122,10 +125,10 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
                 header.Cell().Border(1).Padding(3).Text("Bezeichnung")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("Artikel-Nr.")
+                header.Cell().Border(1).Padding(3).Text("Materialnummer 1")
                       .FontSize(9).Bold().AlignCenter();
 
-                header.Cell().Border(1).Padding(3).Text("Schwarzmüller-Nr.")
+                header.Cell().Border(1).Padding(3).Text("Materialnummer 2")
                       .FontSize(9).Bold().AlignCenter();
 
                 header.Cell().Border(1).Padding(3).Text("Menge")
@@ -147,26 +150,11 @@ public class PurchaseOrderDocumentService : IPurchaseOrderDocumentService
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(c.Name).FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(c.PartNumber ?? "").FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(c.ExternalNumber ?? "").FontSize(8);
-                table.Cell().Border(1).Padding(3).AlignCenter().Text(Math.Max(0, rc.TotalQuantity - rc.Component.Stock).ToString()).FontSize(8);
+                table.Cell().Border(1).Padding(3).AlignCenter().Text((rc.CalculateRequiredOrderQuantity() * rc.Component.OrderPackageSize).ToString()).FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text("St.").FontSize(8);
                 table.Cell().Border(1).Padding(3).AlignCenter().Text(lieferdatum).FontSize(8);
             }
         });
     }
 
-    private void ComposeFooter(QuestPDFContainer container)
-    {
-        // unchanged from your DeliveryDocumentService
-        container.AlignBottom().Column(column =>
-        {
-            column.Item().PaddingTop(15).Text("Mit freundlichen Grüßen:")
-                  .FontSize(10);
-
-            column.Item().PaddingTop(10).Text("Schultz Gábor")
-                  .FontSize(10);
-
-            column.Item().PaddingTop(10).Text("Lieferadresse: Ungarn 2310 Szigetszentmiklós Határ Út 12-14.")
-                  .FontSize(10).Bold();
-        });
-    }
 }

@@ -31,11 +31,7 @@
                           Variant="Variant.Outlined"
                           Margin="Margin.Dense"
             />
-            <MudTextField Label="Szállítási hét"
-                          @bind-Value="PlanningService.WeekOfDelivery"
-                          Variant="Variant.Outlined"
-                          Margin="Margin.Dense"
-            />
+
 
             <MudDatePicker Label="Dátum"
                            @bind-Date="PlanningService.DateOfDelivery"
@@ -134,7 +130,7 @@
                     <th>Össz mennyiség</th>
                     <th>Jelenlegi raktármennyiség</th>
                     <th>Rendelési kötegszám</th>
-                    <th>Rendelendő egység</th>
+                    <th>Rendelendő mennyiség</th>
                     <th>Darabár</th>
                     <th>Új raktármennyiség</th>
                 </tr>
@@ -148,7 +144,7 @@
                         <td><strong>@component.TotalQuantity</strong></td>
                         <td>@component.Component.Stock</td>
                         <td>@component.Component.OrderPackageSize</td>
-                        <td>@(Math.Max(0, component.TotalQuantity - component.Component.Stock))</td>
+                        <td>@(component.CalculateRequiredOrderQuantity() * component.Component.OrderPackageSize)</td>
                         <td>@component.Component.Price</td>
                         <td>@component.CalculateNewStock()</td>
 
@@ -162,8 +158,8 @@
             <MudStack Row Spacing="6" Class="flex-wrap">
                 <MudText Typo="Typo.body1"><em>Különböző komponens:</em> <strong>@requiredComponents.Count db</strong></MudText>
                 <MudText Typo="Typo.body1"><em>Össz mennyiség:</em> <strong>@requiredComponents.Sum(c => c.TotalQuantity) db</strong></MudText>
-                <MudText Typo="Typo.body1"><em>Rendelendő:</em> <strong>@requiredComponents.Sum(c => Math.Max(0, c.TotalQuantity - c.Component.Stock)) db</strong></MudText>
-                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => Math.Max(0, c.TotalQuantity - c.Component.Stock) * c.Component.Price)</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Rendelendő:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize) db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize * c.Component.Price)</strong></MudText>
             </MudStack>
         }
         else

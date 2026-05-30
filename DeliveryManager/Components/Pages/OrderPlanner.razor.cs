@@ -119,7 +119,7 @@ public partial class OrderPlannerBase : ComponentBase
 		try
 		{
 			var pdfBytes = PurchaseOrderDocumentService.GeneratePurchaseOrderDocument(PlanningService);
-			var fileName = $@"Order_{DateTime.Now:yyyyMMdd-HH:mm:ss}.pdf";
+			var fileName = $@"Order-{PlanningService.DeliveryNumber}-{DateTime.Now:yyyyMMdd-HHmmss}.pdf";
 
 			using var stream = new MemoryStream(pdfBytes);
 			var fileSaverResult = await FileSaver.Default.SaveAsync(fileName, stream, CancellationToken.None);

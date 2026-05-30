@@ -8,11 +8,9 @@ public class DeliveryDbContextFactory : IDesignTimeDbContextFactory<DeliveryDbCo
 	public DeliveryDbContext CreateDbContext(string[] args)
 	{
 		var optionsBuilder = new DbContextOptionsBuilder<DeliveryDbContext>();
-		var appFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+		var appFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+			?? Directory.GetCurrentDirectory();
 		var dbPath = Path.Combine(appFolder, "delivery.db");
-		
-		//TODO remove static path
-		dbPath = @"f:\_databases\DeliveryManager\delivery.db";
 		optionsBuilder.UseSqlite($"Data Source={dbPath}");
 		return new DeliveryDbContext(optionsBuilder.Options);
 	}
