@@ -16,9 +16,14 @@ public partial class CompanyDialogBase : ComponentBase
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     public MudForm form = null!;
+    public bool isValid;
+    public bool isTouched;
     public CompanyModel model = new();
 
     protected bool IsEditMode => Company != null;
+
+    // MudForm reports a form with required fields as invalid until it is touched, so unchanged existing data stays saveable
+    protected bool CanSave => isValid || (IsEditMode && !isTouched);
 
     protected override void OnInitialized()
     {

@@ -2,7 +2,7 @@
 
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="form" Model="@model" ValidationDelay="0">
+        <MudForm @ref="form" Model="@model" ValidationDelay="0" @bind-IsValid="isValid" @bind-IsTouched="isTouched">
             <MudStack Spacing="4">
                 <MudTextField @bind-Value="model.Name"
                               Label="Név"
@@ -31,7 +31,7 @@
         <MudButton Color="Color.Primary"
                    Variant="Variant.Filled"
                    OnClick="Save"
-                   Disabled="@(!form?.IsValid ?? true)">
+                   Disabled="@(!CanSave)">
             @(IsEditMode ? "Mentés" : "Létrehozás")
         </MudButton>
     </DialogActions>
