@@ -1,0 +1,153 @@
+﻿using ProcurementPlanner.Interfaces;
+using ProcurementPlanner.Models;
+using ProcurementPlanner.Services;
+using Microsoft.AspNetCore.Components;
+using MudBlazor;
+
+namespace ProcurementPlanner.Components;
+
+public partial class ComponentSelectionDialogBase : ComponentBase
+{
+	[CascadingParameter]
+	public IMudDialogInstance MudDialog { get; set; } = null!;
+
+	[Parameter]
+	public Item Item { get; set; } = null!;
+
+	[Inject]
+	private IComponentService ComponentService { get; set; } = null!;
+
+	[Inject]
+	private IItemService ItemService { get; set; } = null!;
+
+	[Inject]
+	private ISnackbar Snackbar { get; set; } = null!;
+
+	[Inject]
+	private CompanyContext CompanyContext { get; set; } = null!;
+
+	public MudDataGrid<Component> dataGrid = null!;
+	public List<Component> availableComponents = new();
+	public HashSet<Component> selectedComponents = new();
+	public Dictionary<int, int> componentQuantities = new();
+	public bool loading = false;
+
+	public string searchString = string.Empty;
+
+	// Item names repeat, so the header also shows the part and drawing numbers when present
+	protected string ItemLabel
+	{
+		get
+		{
+			if (Item == null)
+				return "Termék";
+
+			var ids = new List<string>();
+			if (!string.IsNullOrWhiteSpace(Item.PartNumber))
+				ids.Add($"Cikkszám: {Item.PartNumber}");
+			if (!string.IsNullOrWhiteSpace(Item.DrawingNumber))
+				ids.Add($"Rajzszám: {Item.DrawingNumber}");
+
+			return ids.Count == 0 ? Item.Name : $"{Item.Name} ({string.Join(", ", ids)})";
+		}
+	}
+
+	protected bool QuickFilter(Component c)
+	{
+		if (string.IsNullOrWhiteSpace(searchString))
+			return true;
+
+		return Matches(c.PartNumber) || Matches(c.ExternalNumber) || Matches(c.Name) || Matches(c.Description);
+
+		bool Matches(string? value) => value?.Contains(searchString, StringComparison.OrdinalIgnoreCase) == true;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadAvailableComponents();
+	}
+
+	private async Task LoadAvailableComponents()
+	{
+		loading = true;
+
+		try
+		{
+			// Get all components
+			var allComponents = await ComponentService.GetAllAsync(CompanyContext.ActiveCompanyId);
+
+			// Get IDs of components already in this item
+			var existingComponentIds = Item.ItemComponents.Select(ic => ic.ComponentId).ToHashSet();
+
+			// Filter out components already in the item
+			availableComponents = allComponents
+			                      .Where(c => !existingComponentIds.Contains(c.Id))
+			                      .ToList();
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Betöltési hiba: {ex.Message}", Severity.Error);
+		}
+		finally
+		{
+			loading = false;
+		}
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			// Initialize quantities for all components (default to 1)
+			foreach (var component in availableComponents)
+			{
+				componentQuantities[component.Id] = 1;
+			}
+
+			StateHasChanged();
+		}
+	}
+
+	public void Cancel()
+	{
+		MudDialog.Cancel();
+	}
+
+	public async Task AddSelectedComponents()
+	{
+		if (!selectedComponents.Any())
+		{
+			Snackbar.Add("Válassz ki legalább egy komponenst", Severity.Warning);
+			return;
+		}
+
+		loading = true;
+
+		try
+		{
+			var addedCount = 0;
+
+			foreach (var component in selectedComponents)
+			{
+				var quantity = componentQuantities.GetValueOrDefault(component.Id, 1);
+
+				if (quantity > 0)
+				{
+					await ItemService.AddComponentToItemAsync(Item.Id, component.Id, quantity);
+					addedCount++;
+				}
+			}
+
+			Snackbar.Add($"{addedCount} komponens hozzáadva ehhez {Item.Name}", Severity.Success);
+			MudDialog.Close(DialogResult.Ok(true));
+		}
+		catch (Exception ex)
+		{
+			Snackbar.Add($"Hozzáadás közbeni hiba: {ex.Message}", Severity.Error);
+		}
+		finally
+		{
+			loading = false;
+		}
+	}
+}

@@ -1,0 +1,35 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Beszerzéstervező</a>
+    </div>
+</div>
+<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="companies">
+                <MudIcon Icon="@Icons.Material.Filled.Business" Class="me-2" /> Cégek
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="components">
+                <MudIcon Icon="@Icons.Material.Filled.Settings" Class="me-2"/> Komponensek
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="items">
+                <MudIcon Icon="@Icons.Material.Filled.Inventory" Class="me-2"/> Termékek
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="order-planner">
+                <MudIcon Icon="@Icons.Material.Filled.LocalShipping" Class="me-2"/> Rendelés
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="settings">
+                <MudIcon Icon="@Icons.Material.Filled.Tune" Class="me-2"/> Beállítások
+            </NavLink>
+        </div>
+    </nav>
+</div>

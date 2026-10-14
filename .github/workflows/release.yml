@@ -1,0 +1,82 @@
+# Builds a release when a version tag is pushed (git tag v1.2.3 && git push origin v1.2.3)
+# and publishes it as a GitHub release of this repo, where installed apps pick it up on their next start.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+env:
+  RELEASES_REPO: ${{ github.repository }}
+  VPK_VERSION: 1.2.161
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version from tag
+        run: |
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Tag must look like v1.2.3, got ${{ github.ref_name }}" }
+          "VERSION=$version" >> $env:GITHUB_ENV
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      # SDK 10 rejects the project's win10-x64 RuntimeIdentifier, so pin the build to SDK 9
+      - name: Pin .NET 9 SDK
+        run: Set-Content global.json '{ "sdk": { "version": "9.0.100", "rollForward": "latestFeature" } }'
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui-windows
+
+      - name: Publish
+        run: >
+          dotnet publish ProcurementPlanner/ProcurementPlanner.csproj -c Release -f net9.0-windows10.0.19041.0
+          -p:SelfContained=true -p:WindowsAppSDKSelfContained=true -p:ApplicationDisplayVersion=$env:VERSION
+          -o publish
+
+      - name: Install Velopack CLI
+        run: dotnet tool install -g vpk --version $env:VPK_VERSION
+
+      # The previous full package lets vpk build a small delta update
+      - name: Download previous release
+        run: vpk download github --repoUrl "https://github.com/$env:RELEASES_REPO" --token "${{ secrets.GITHUB_TOKEN }}" -o releases
+        continue-on-error: true
+
+      # packTitle also names the launcher exe the installer's shortcuts point to, so keep it ASCII
+      - name: Pack
+        run: vpk pack --packId ProcurementPlanner --packVersion $env:VERSION --packDir publish --mainExe ProcurementPlanner.exe --packTitle ProcurementPlanner -o releases
+
+      - name: Build installer
+        run: |
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
+          Expand-Archive releases/ProcurementPlanner-win-Portable.zip portable
+          & $iscc /Q "/DAppVersion=$env:VERSION" "/DSourceDir=$pwd\portable" "/DOutputDir=$pwd\installer" installer/ProcurementPlanner.iss
+          if ($LASTEXITCODE -ne 0) { throw "Installer build failed" }
+
+      # Velopack's own Setup.exe and Portable.zip are left out: users install with Beszerzestervezo-Setup.exe
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $files = @(
+            'installer/Beszerzestervezo-Setup.exe',
+            'releases/releases.win.json',
+            'releases/RELEASES',
+            "releases/ProcurementPlanner-$env:VERSION-full.nupkg"
+          )
+          $files += Get-ChildItem "releases/ProcurementPlanner-$env:VERSION-delta.nupkg" -ErrorAction SilentlyContinue | ForEach-Object FullName
+          gh release create "v$env:VERSION" $files --repo $env:RELEASES_REPO --title "Beszerzéstervező $env:VERSION" --notes "Telepítés: töltsd le és futtasd a Beszerzestervezo-Setup.exe fájlt. A telepített program magától frissül."
