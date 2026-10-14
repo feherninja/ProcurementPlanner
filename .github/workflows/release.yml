@@ -36,7 +36,8 @@ jobs:
 
       # SDK 10 rejects the project's win10-x64 RuntimeIdentifier, so pin the build to SDK 9
       - name: Pin .NET 9 SDK
-        run: Set-Content global.json '{ "sdk": { "version": "9.0.100", "rollForward": "latestFeature" } }'
+        run: |
+          Set-Content global.json '{ "sdk": { "version": "9.0.100", "rollForward": "latestFeature" } }'
 
       - name: Install MAUI workload
         run: dotnet workload install maui-windows
