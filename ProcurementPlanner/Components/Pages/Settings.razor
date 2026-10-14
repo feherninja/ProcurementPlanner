@@ -1,0 +1,39 @@
+@page "/settings"
+@inherits SettingsBase
+
+<PageTitle>Beállítások</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h4" Class="mb-4">Beállítások</MudText>
+
+        <MudSimpleTable Dense="true" Class="mb-6">
+            <tbody>
+            <tr>
+                <td style="width: 220px;"><strong>Programverzió</strong></td>
+                <td>@(AppUpdateService.CurrentVersion ?? "fejlesztői verzió")</td>
+            </tr>
+            <tr>
+                <td><strong>Adatbázis</strong></td>
+                <td>@AppUpdateService.DatabasePath</td>
+            </tr>
+            <tr>
+                <td><strong>Biztonsági mentések</strong></td>
+                <td>@DatabaseImportService.BackupFolder</td>
+            </tr>
+            </tbody>
+        </MudSimpleTable>
+
+        <MudText Typo="Typo.h6" Class="mb-2">Adatbázis betöltése</MudText>
+        <MudText Typo="Typo.body2" Class="mb-3">
+            Egy másik adatbázis (például a program korábbi verziójának delivery.db fájlja) betöltése.
+            A betöltés lecseréli a jelenlegi összes adatot, de előtte automatikus biztonsági mentés készül.
+        </MudText>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Upload"
+                   OnClick="DatabaseImportFlow.ReplaceAsync">
+            Adatbázis betöltése
+        </MudButton>
+    </MudPaper>
+</MudContainer>

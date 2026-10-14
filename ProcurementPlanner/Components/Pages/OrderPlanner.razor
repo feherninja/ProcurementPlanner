@@ -1,0 +1,180 @@
+@page "/"
+@page "/order-planner"
+@inherits OrderPlannerBase
+
+<PageTitle>Rendelés készítés</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Rendelés készítés</MudText>
+
+    <!-- Selected Items List -->
+    <MudButton Color="Color.Success"
+               Variant="Variant.Filled"
+               StartIcon="@Icons.Material.Filled.Check"
+               Disabled="@(!selectedItems.Any())"
+               OnClick="@(async () => await PrintDeliveryPlan())">
+        Befejezés és Nyomtatás
+    </MudButton>
+
+    <MudButton Color="Color.Error"
+               Variant="Variant.Filled"
+               StartIcon="@Icons.Material.Filled.DeleteSweep"
+               OnClick="ResetDelivery">
+        Rendelés törlése
+    </MudButton>
+
+
+    <MudPaper Class="pa-4 mb-4">
+        <MudStack Row Spacing="3" Class="mb-4">
+            <MudTextField Label="Rendelési száma"
+                          @bind-Value="PlanningService.DeliveryNumber"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"
+            />
+
+
+            <MudDatePicker Label="Dátum"
+                           @bind-Date="PlanningService.DateOfDelivery"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+            />
+        </MudStack>
+
+        <MudSelect T="int?" Label="Cég"
+                   Value="CompanyContext.ActiveCompanyId"
+                   ValueChanged="OnCompanyChanged"
+                   Variant="Variant.Outlined"
+                   Margin="Margin.Dense">
+            @foreach (var c in companies)
+            {
+                <MudSelectItem T="int?" Value="@c.Id">
+                    @c.Name
+                </MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+            <MudText Typo="Typo.h5">Kiválasztott termékek</MudText>
+            <MudButton Color="Color.Primary"
+                       Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.Add"
+                       OnClick="OpenAddItemDialog">
+                Termék hozzáadása
+            </MudButton>
+
+        </MudStack>
+
+        @if (selectedItems.Any())
+        {
+            <MudSimpleTable Dense="true" Hover="true">
+                <thead>
+                <tr>
+                    <th>Cikkszám</th>
+                    <th>Rajzszám</th>
+                    <th>Termék</th>
+                    <th>Leírás</th>
+                    <th>Mennyiség</th>
+                    <th>Funkciók</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var selectedItem in selectedItems)
+                {
+                    <tr>
+                        <td>@selectedItem.Item.PartNumber</td>
+                        <td>@selectedItem.Item.DrawingNumber</td>
+                        <td>@selectedItem.Item.Name</td>
+                        <td>@selectedItem.Item.Description</td>
+                        <td>
+                            <MudNumericField Value="@selectedItem.Quantity"
+                                             ValueChanged="@((int value) =>
+                                                           {
+                                                               selectedItem.Quantity = value;
+                                                               CalculateComponents();
+                                                               StateHasChanged();
+                                                           })"
+                                             Min="1"
+                                             Step="1"
+                                             Variant="Variant.Outlined"
+                                             Margin="Margin.Dense"
+                                             HideSpinButtons="true"
+                                             Style="max-width: 100px;"/>
+                        </td>
+                        <td>
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                           Color="Color.Error"
+                                           Size="Size.Small"
+                                           OnClick="@(() => RemoveItem(selectedItem))"
+                                           Title="Eltávolítás"/>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </MudSimpleTable>
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">
+                Nincs kiválasztott Termék, kattints a "Termék hozzáadása" gombra.
+            </MudAlert>
+        }
+    </MudPaper>
+
+    <!-- Required Components List -->
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h5" Class="mb-4">Szükséges komponensek</MudText>
+
+        @if (requiredComponents.Any())
+        {
+            <MudSimpleTable Dense="true" Hover="true">
+                <thead>
+                <tr>
+                    <th>Céges termékszám</th>
+                    <th>Schwarzmüller termékszám</th>
+                    <th>Komponens</th>
+                    <th>Leírás</th>
+                    <th>Össz mennyiség</th>
+                    <th>Jelenlegi raktármennyiség</th>
+                    <th>Rendelési kötegszám</th>
+                    <th>Rendelendő mennyiség</th>
+                    <th>Darabár</th>
+                    <th>Új raktármennyiség</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var component in requiredComponents.OrderBy(c => c.Component.Name))
+                {
+                    <tr>
+                        <td>@component.Component.PartNumber</td>
+                        <td>@component.Component.ExternalNumber</td>
+                        <td><strong>@component.Component.Name</strong></td>
+                        <td>@component.Component.Description</td>
+                        <td><strong>@component.TotalQuantity</strong></td>
+                        <td>@component.Component.Stock</td>
+                        <td>@component.Component.OrderPackageSize</td>
+                        <td>@(component.CalculateRequiredOrderQuantity() * component.Component.OrderPackageSize)</td>
+                        <td>@component.Component.Price.ToString("N2")</td>
+                        <td>@component.CalculateNewStock()</td>
+
+                    </tr>
+                }
+                </tbody>
+            </MudSimpleTable>
+
+            <MudDivider Class="my-4"/>
+
+            <MudStack Row Spacing="6" Class="flex-wrap">
+                <MudText Typo="Typo.body1"><em>Különböző komponens:</em> <strong>@requiredComponents.Count db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Össz mennyiség:</em> <strong>@requiredComponents.Sum(c => c.TotalQuantity) db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Rendelendő:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize) db</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize * c.Component.Price).ToString("N2")</strong></MudText>
+            </MudStack>
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info">
+                Itt jelennek meg a szükséges komponensek, amint a termékek hozzáadásra kerültek.
+            </MudAlert>
+        }
+    </MudPaper>
+</MudContainer>

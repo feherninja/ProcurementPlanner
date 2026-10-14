@@ -8,28 +8,41 @@ This is a **.NET MAUI Blazor Hybrid** app targeting **Windows only** (`net9.0-wi
 
 ```bash
 # Build
-dotnet build DeliveryManager/DeliveryManager.csproj
+dotnet build ProcurementPlanner/ProcurementPlanner.csproj
 
 # Run
-dotnet run --project DeliveryManager/DeliveryManager.csproj
+dotnet run --project ProcurementPlanner/ProcurementPlanner.csproj
 
-# Add a new EF Core migration (run from the DeliveryManager/ project directory)
-dotnet ef migrations add <MigrationName> --project DeliveryManager.csproj
+# Add a new EF Core migration (run from the ProcurementPlanner/ project directory)
+dotnet ef migrations add <MigrationName> --project ProcurementPlanner.csproj
 
 # Apply pending migrations manually (also happens automatically on startup)
-dotnet ef database update --project DeliveryManager.csproj
+dotnet ef database update --project ProcurementPlanner.csproj
 ```
 
 ### Machine setup
-- Needs the **.NET 9 SDK** plus the MAUI Windows workload (`dotnet workload install maui-windows`, admin). The .NET 10 SDK rejects the legacy `win10-x64` RuntimeIdentifier (NETSDK1083), so a machine with SDK 10 also needs a `global.json` pinning SDK 9. On the dev machine it lives one folder above the repo (`F:\DeliveryManager\global.json`, `{ "sdk": { "version": "9.0.319", "rollForward": "latestFeature" } }`) so the repo stays untouched. Changing the csproj RID to `win-x64` would also fix it.
+- Needs the **.NET 9 SDK** plus the MAUI Windows workload (`dotnet workload install maui-windows`, admin). The .NET 10 SDK rejects the legacy `win10-x64` RuntimeIdentifier (NETSDK1083), so a machine with SDK 10 also needs a `global.json` pinning SDK 9. On the dev machine it lives one folder above the repo checkout (`<parent>\global.json`, `{ "sdk": { "version": "9.0.319", "rollForward": "latestFeature" } }`) so the repo stays untouched. Changing the csproj RID to `win-x64` would also fix it.
 - A stale `obj/` restored on another machine can fail with "Unable to find fallback package folder"; a fresh `dotnet restore` fixes it.
 
 ### Verifying the UI
 The app is a native window, so browser tooling cannot reach it directly. Start it with `WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS=--remote-debugging-port=9222` and drive it over the Chrome DevTools protocol (`http://127.0.0.1:9222/json` lists the page; `Runtime.evaluate` and `Page.captureScreenshot` cover most checks). For Blazor inputs, set `value` and dispatch `input` and `change` events.
 
-The dev database is in WAL mode: back up `delivery.db` before a test run, and when restoring, stop the app and delete `delivery.db-wal` / `delivery.db-shm` first, or SQLite replays the test session onto the restored file.
+The dev database is in WAL mode: back up `procurement.db` before a test run, and when restoring, stop the app and delete `procurement.db-wal` / `procurement.db-shm` first, or SQLite replays the test session onto the restored file.
 
-The SQLite database file (`delivery.db`) is placed next to the executable at runtime. Migrations are applied automatically on startup via `context.Database.Migrate()` in `MauiProgram.cs`.
+### Releases and self-update
+- Pushing a tag `vX.Y.Z` runs `.github/workflows/release.yml`: publish self-contained, `vpk pack` (Velopack), wrap the portable build in an Inno Setup installer (`installer/ProcurementPlanner.iss`), and publish it as a GitHub release of this (public) repo with the built-in `GITHUB_TOKEN`. Only the installer and Velopack's update files are attached, not Velopack's own Setup.exe.
+- Users install once with `Beszerzestervezo-Setup.exe` (default `C:\Beszerzestervezo`, no admin, Program Files is refused because updates must not need admin). Install layout: `ProcurementPlanner.exe` (Velopack launcher stub), `Update.exe`, `current\` (the app, replaced by every update), `data\` (database, never touched by updates or uninstall).
+- On app start `AppUpdateService` checks GitHub, downloads in the background and offers a restart; an ignored update is applied on the next start (`VelopackApp` auto-apply). `Platforms/Windows/Program.cs` replaces the XAML generated `Main` (`DISABLE_XAML_GENERATED_MAIN`) so `VelopackApp.Build().Run()` runs first.
+- Test a release locally before tagging: build it with `vpk pack` into a folder and start an installed copy with `PROCUREMENTPLANNER_UPDATE_SOURCE=<that folder>`.
+- Keep the Velopack NuGet version and the workflow's `VPK_VERSION` in sync.
+
+### Naming
+Code, project, repo and package ID are English (`ProcurementPlanner`); every text the user sees is Hungarian, including the product name (**Beszerzéstervező**), page titles and tooltips. The app was called DeliveryManager until October 2026; domain names like `Delivery` / `DeliveryItem` refer to delivery notes and keep their names.
+
+### Database import
+`DatabaseImportService` replaces the current database with another one (typically an older app version's `delivery.db`): it copies the file and its WAL side files to a temp folder, rejects files that are not this app's database or that carry migrations this version does not know, migrates the copy, backs up the current database to `data\backups`, then swaps the content in with SQLite's backup API. `DatabaseImportFlow` holds the UI steps; it is offered on the first start (no database yet) and from the Settings page (`/settings`).
+
+The SQLite database file (`procurement.db`) lives in `<install dir>\data` for installed builds and next to the executable for dev builds (`AppUpdateService.DatabasePath`). If it does not exist, an empty one is created and the first start offers to import an existing database. Migrations are applied automatically on startup via `context.Database.Migrate()` in `MauiProgram.cs`.
 
 ## Architecture
 
@@ -40,7 +53,7 @@ The SQLite database file (`delivery.db`) is placed next to the executable at run
 | **UI** | Razor pages, dialog components, layout, `wwwroot/` |
 | **Service** | Interfaces + implementations, document generators, `DeliveryPlanningService` |
 | **Domain Model** | Entity classes (`Models/`), EF Fluent configs (`Db/Configuration/`) |
-| **Data Access** | `DeliveryDbContext`, `DeliveryDbContextFactory`, `Migrations/` |
+| **Data Access** | `ProcurementDbContext`, `ProcurementDbContextFactory`, `Migrations/` |
 | **Platform Config** | `.csproj`, manifests, per-platform packaging descriptors |
 
 ### Stack
@@ -69,7 +82,7 @@ Key fields to know:
 - `Component.Stock` is `int`; `Item.Price` / `Component.Price` are `decimal` (stored as TEXT in SQLite, so never sort or sum prices in a DB query, do it in memory; display with `N2`)
 - Item and component names repeat, so every list or picker that identifies them shows the part numbers too (`Item.PartNumber`/`DrawingNumber`, `Component.PartNumber`/`ExternalNumber`)
 
-`DeliveryDbContext.UpdateTimestamps()` auto-sets `CreatedAt` on insert and `UpdatedAt` on update for any entity that has those properties — no manual assignment needed except in services that call `UpdateAsync`.
+`ProcurementDbContext.UpdateTimestamps()` auto-sets `CreatedAt` on insert and `UpdatedAt` on update for any entity that has those properties — no manual assignment needed except in services that call `UpdateAsync`.
 
 ### Company scoping
 All data is scoped to a `Company`. `CompanyContext` (scoped DI singleton) holds `ActiveCompanyId` and is shared across pages so switching companies on one page propagates everywhere. Default company is id=1.
@@ -112,7 +125,7 @@ All dialogs: Razor markup file + code-behind `.razor.cs`, opened via `IDialogSer
 ### EF Configuration
 Entity configurations live in `Db/Configuration/` (one file per entity, implementing `IEntityTypeConfiguration<T>`), applied via `modelBuilder.ApplyConfigurationsFromAssembly(...)`.
 
-`DeliveryDbContextFactory` (`Db/DeliveryDbContextFactory.cs`) implements `IDesignTimeDbContextFactory` so `dotnet ef` CLI can create a context without the MAUI host. It has a **hardcoded dev path** (`f:\_databases\DeliveryManager\delivery.db`) that must be updated when switching machines.
+`ProcurementDbContextFactory` (`Db/ProcurementDbContextFactory.cs`) implements `IDesignTimeDbContextFactory` so `dotnet ef` CLI can create a context without the MAUI host. It points at `procurement.db` next to the design-time build output.
 
 ### Dev tooling
 `Db/export.ps1` and `Models/export.ps1` are PowerShell scripts that concatenate all `.cs` files in their respective folders into a single `dump.txt` — useful for pasting context into AI tools. Run from the folder containing the script:
