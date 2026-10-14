@@ -20,6 +20,15 @@ dotnet ef migrations add <MigrationName> --project DeliveryManager.csproj
 dotnet ef database update --project DeliveryManager.csproj
 ```
 
+### Machine setup
+- Needs the **.NET 9 SDK** plus the MAUI Windows workload (`dotnet workload install maui-windows`, admin). The .NET 10 SDK rejects the legacy `win10-x64` RuntimeIdentifier (NETSDK1083), so a machine with SDK 10 also needs a `global.json` pinning SDK 9. On the dev machine it lives one folder above the repo (`F:\DeliveryManager\global.json`, `{ "sdk": { "version": "9.0.319", "rollForward": "latestFeature" } }`) so the repo stays untouched. Changing the csproj RID to `win-x64` would also fix it.
+- A stale `obj/` restored on another machine can fail with "Unable to find fallback package folder"; a fresh `dotnet restore` fixes it.
+
+### Verifying the UI
+The app is a native window, so browser tooling cannot reach it directly. Start it with `WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS=--remote-debugging-port=9222` and drive it over the Chrome DevTools protocol (`http://127.0.0.1:9222/json` lists the page; `Runtime.evaluate` and `Page.captureScreenshot` cover most checks). For Blazor inputs, set `value` and dispatch `input` and `change` events.
+
+The dev database is in WAL mode: back up `delivery.db` before a test run, and when restoring, stop the app and delete `delivery.db-wal` / `delivery.db-shm` first, or SQLite replays the test session onto the restored file.
+
 The SQLite database file (`delivery.db`) is placed next to the executable at runtime. Migrations are applied automatically on startup via `context.Database.Migrate()` in `MauiProgram.cs`.
 
 ## Architecture
