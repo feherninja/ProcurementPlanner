@@ -29,6 +29,17 @@ public partial class ItemSelectionDialogBase : ComponentBase
 	public HashSet<Item> selectedItems = new();
 	public Dictionary<int, int> itemQuantities = new();
 	public bool loading = false;
+	public string searchString = string.Empty;
+
+	protected bool QuickFilter(Item item)
+	{
+		if (string.IsNullOrWhiteSpace(searchString))
+			return true;
+
+		return Matches(item.PartNumber) || Matches(item.DrawingNumber) || Matches(item.Name) || Matches(item.Description);
+
+		bool Matches(string? value) => value?.Contains(searchString, StringComparison.OrdinalIgnoreCase) == true;
+	}
 
 	protected override async Task OnInitializedAsync()
 	{

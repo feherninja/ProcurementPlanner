@@ -56,7 +56,7 @@
                 <PropertyColumn Property="x => x.ExternalNumber" Title="Schwarzmüller termékszám"/>
                 <PropertyColumn Property="x => x.Stock" Title="Raktármennyiség"/>
                 <PropertyColumn Property="x => x.OrderPackageSize" Title="Rendelési kötegszám"/>
-                <PropertyColumn Property="x => x.Price" Title="Ár"/>
+                <PropertyColumn Property="x => x.Price" Title="Ár" Format="N2"/>
                 <PropertyColumn Property="x => x.CreatedAt" Title="Létrehozva" Format="yyyy-MM-dd"/>
                 <PropertyColumn Property="x => x.UpdatedAt" Title="Módosítva" Format="yyyy-MM-dd"/>
 
@@ -88,6 +88,8 @@
                             <MudSimpleTable Style="overflow-x: auto;" Dense="true">
                                 <thead>
                                 <tr>
+                                    <th>Cikkszám</th>
+                                    <th>Rajzszám</th>
                                     <th>Termék neve</th>
                                     <th>Leírás</th>
                                     <th>Mennyiség</th>
@@ -97,6 +99,8 @@
                                 @foreach (var itemComponent in context.Item.ItemComponents)
                                 {
                                     <tr>
+                                        <td>@itemComponent.Item.PartNumber</td>
+                                        <td>@itemComponent.Item.DrawingNumber</td>
                                         <td>@itemComponent.Item.Name</td>
                                         <td>@itemComponent.Item.Description</td>
                                         <td>@itemComponent.Quantity</td>

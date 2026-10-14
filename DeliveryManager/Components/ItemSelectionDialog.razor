@@ -8,9 +8,19 @@
             
             @if (availableItems.Any())
             {
+                <MudTextField @bind-Value="searchString"
+                              Placeholder="Keresés cikkszám, rajzszám, név vagy leírás alapján"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              Immediate="true"
+                              Clearable="true"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense" />
+
                 <MudDataGrid @ref="dataGrid"
                              T="Item"
                              Items="@availableItems"
+                             QuickFilter="QuickFilter"
                              MultiSelection="true"
                              @bind-SelectedItems="selectedItems"
                              Filterable="true"
@@ -21,7 +31,7 @@
                     
                     <Columns>
                         <SelectColumn T="Item" />
-                        <TemplateColumn Title="Quantity" Sortable="false" Filterable="false">
+                        <TemplateColumn Title="Mennyiség" Sortable="false" Filterable="false">
                             <CellTemplate>
                                 @if (selectedItems.Contains(context.Item))
                                 {
@@ -41,10 +51,12 @@
                                 }
                             </CellTemplate>
                         </TemplateColumn>
+                        <PropertyColumn Property="x => x.PartNumber" Title="Cikkszám" />
+                        <PropertyColumn Property="x => x.DrawingNumber" Title="Rajzszám" />
                         <PropertyColumn Property="x => x.Name" Title="Termék" />
                         <PropertyColumn Property="x => x.Description" Title="Leírás" />
                         
-                        <TemplateColumn Title="Termékek" Sortable="false" Filterable="false">
+                        <TemplateColumn Title="Komponensek" Sortable="false" Filterable="false">
                             <CellTemplate>
                                 <MudText Typo="Typo.body2">
                                     @context.Item.ItemComponents.Count komponens

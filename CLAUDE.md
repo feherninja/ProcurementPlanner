@@ -57,7 +57,8 @@ Key fields to know:
 - `Component.PartNumber` = internal company part number (Céges termékszám)
 - `Component.ExternalNumber` = supplier part number (Schwarzmüller-Nr.)
 - `Component.OrderPackageSize` = minimum order increment (ceiling-division used for order qty)
-- `Component.Stock` / `Item.Price` / `Component.Price` are `int`
+- `Component.Stock` is `int`; `Item.Price` / `Component.Price` are `decimal` (stored as TEXT in SQLite, so never sort or sum prices in a DB query, do it in memory; display with `N2`)
+- Item and component names repeat, so every list or picker that identifies them shows the part numbers too (`Item.PartNumber`/`DrawingNumber`, `Component.PartNumber`/`ExternalNumber`)
 
 `DeliveryDbContext.UpdateTimestamps()` auto-sets `CreatedAt` on insert and `UpdatedAt` on update for any entity that has those properties — no manual assignment needed except in services that call `UpdateAsync`.
 

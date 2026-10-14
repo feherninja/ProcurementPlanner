@@ -1,0 +1,8 @@
+@inherits PriceFieldBase
+
+<MudTextField T="string"
+              Value="@text"
+              ValueChanged="OnTextChanged"
+              Label="@Label"
+              Validation="@(new Func<string, string?>(Validate))"
+              Immediate="true"/>

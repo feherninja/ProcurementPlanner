@@ -25,9 +25,14 @@ public partial class ItemDialogBase : ComponentBase
 	private CompanyContext CompanyContext { get; set; } = null!;
 
 	public MudForm form = null!;
+	public bool isValid;
+	public bool isTouched;
 	public ItemModel model = new();
 
 	protected bool IsEditMode => Item != null;
+
+	// MudForm reports a form with required fields as invalid until it is touched, so unchanged existing data stays saveable
+	protected bool CanSave => isValid || (IsEditMode && !isTouched);
 
 	protected override void OnInitialized()
 	{
@@ -114,6 +119,6 @@ public partial class ItemDialogBase : ComponentBase
 
 		public string? DrawingNumber { get; set; }
 
-		public int Price { get; set; }
+		public decimal Price { get; set; }
 	}
 }

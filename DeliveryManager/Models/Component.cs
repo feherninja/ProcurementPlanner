@@ -14,7 +14,7 @@ public class Component
 	
 	public int Stock { get; set; }
 	public int OrderPackageSize { get; set; }
-	public int Price { get; set; }
+	public decimal Price { get; set; }
 	
 	public int CompanyId { get; set; }
 	public Company Company { get; set; } = null!;

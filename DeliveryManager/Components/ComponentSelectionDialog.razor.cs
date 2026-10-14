@@ -32,7 +32,35 @@ public partial class ComponentSelectionDialogBase : ComponentBase
 	public Dictionary<int, int> componentQuantities = new();
 	public bool loading = false;
 
-	protected string ItemName => Item?.Name ?? "Termék";
+	public string searchString = string.Empty;
+
+	// Item names repeat, so the header also shows the part and drawing numbers when present
+	protected string ItemLabel
+	{
+		get
+		{
+			if (Item == null)
+				return "Termék";
+
+			var ids = new List<string>();
+			if (!string.IsNullOrWhiteSpace(Item.PartNumber))
+				ids.Add($"Cikkszám: {Item.PartNumber}");
+			if (!string.IsNullOrWhiteSpace(Item.DrawingNumber))
+				ids.Add($"Rajzszám: {Item.DrawingNumber}");
+
+			return ids.Count == 0 ? Item.Name : $"{Item.Name} ({string.Join(", ", ids)})";
+		}
+	}
+
+	protected bool QuickFilter(Component c)
+	{
+		if (string.IsNullOrWhiteSpace(searchString))
+			return true;
+
+		return Matches(c.PartNumber) || Matches(c.ExternalNumber) || Matches(c.Name) || Matches(c.Description);
+
+		bool Matches(string? value) => value?.Contains(searchString, StringComparison.OrdinalIgnoreCase) == true;
+	}
 
 	protected override async Task OnInitializedAsync()
 	{

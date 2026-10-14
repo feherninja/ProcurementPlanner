@@ -69,6 +69,8 @@
             <MudSimpleTable Dense="true" Hover="true">
                 <thead>
                 <tr>
+                    <th>Cikkszám</th>
+                    <th>Rajzszám</th>
                     <th>Termék</th>
                     <th>Leírás</th>
                     <th>Mennyiség</th>
@@ -79,6 +81,8 @@
                 @foreach (var selectedItem in selectedItems)
                 {
                     <tr>
+                        <td>@selectedItem.Item.PartNumber</td>
+                        <td>@selectedItem.Item.DrawingNumber</td>
                         <td>@selectedItem.Item.Name</td>
                         <td>@selectedItem.Item.Description</td>
                         <td>
@@ -125,6 +129,8 @@
             <MudSimpleTable Dense="true" Hover="true">
                 <thead>
                 <tr>
+                    <th>Céges termékszám</th>
+                    <th>Schwarzmüller termékszám</th>
                     <th>Komponens</th>
                     <th>Leírás</th>
                     <th>Össz mennyiség</th>
@@ -139,13 +145,15 @@
                 @foreach (var component in requiredComponents.OrderBy(c => c.Component.Name))
                 {
                     <tr>
+                        <td>@component.Component.PartNumber</td>
+                        <td>@component.Component.ExternalNumber</td>
                         <td><strong>@component.Component.Name</strong></td>
                         <td>@component.Component.Description</td>
                         <td><strong>@component.TotalQuantity</strong></td>
                         <td>@component.Component.Stock</td>
                         <td>@component.Component.OrderPackageSize</td>
                         <td>@(component.CalculateRequiredOrderQuantity() * component.Component.OrderPackageSize)</td>
-                        <td>@component.Component.Price</td>
+                        <td>@component.Component.Price.ToString("N2")</td>
                         <td>@component.CalculateNewStock()</td>
 
                     </tr>
@@ -159,7 +167,7 @@
                 <MudText Typo="Typo.body1"><em>Különböző komponens:</em> <strong>@requiredComponents.Count db</strong></MudText>
                 <MudText Typo="Typo.body1"><em>Össz mennyiség:</em> <strong>@requiredComponents.Sum(c => c.TotalQuantity) db</strong></MudText>
                 <MudText Typo="Typo.body1"><em>Rendelendő:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize) db</strong></MudText>
-                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize * c.Component.Price)</strong></MudText>
+                <MudText Typo="Typo.body1"><em>Komponensek összára:</em> <strong>@requiredComponents.Sum(c => c.CalculateRequiredOrderQuantity() * c.Component.OrderPackageSize * c.Component.Price).ToString("N2")</strong></MudText>
             </MudStack>
         }
         else

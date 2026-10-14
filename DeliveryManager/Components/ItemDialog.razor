@@ -2,7 +2,7 @@
 
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="form" Model="@model" ValidationDelay="0">
+        <MudForm @ref="form" Model="@model" ValidationDelay="0" @bind-IsValid="isValid" @bind-IsTouched="isTouched">
             <MudStack Spacing="4">
                 <MudTextField @bind-Value="model.Name"
                               Label="Név"
@@ -22,14 +22,12 @@
                               Label="Rajzszám"
                               For="@(() => model.DrawingNumber)"/>
 
-                <MudNumericField @bind-Value="model.Price"
-                                 Label="Ár"
-                                 For="@(() => model.Price)"/>
+                <PriceField @bind-Value="model.Price" Label="Ár"/>
 
                 @if (IsEditMode && Item != null && Item.ItemComponents.Any())
                 {
                     <MudText Typo="Typo.body2" Color="Color.Secondary">
-                        Komponensek összértéke: @Item.ItemComponents.Sum(ic => ic.Component.Price * ic.Quantity)
+                        Komponensek összértéke: @Item.ItemComponents.Sum(ic => ic.Component.Price * ic.Quantity).ToString("N2")
                     </MudText>
                 }
             </MudStack>
@@ -41,7 +39,7 @@
         <MudButton Color="Color.Primary"
                    Variant="Variant.Filled"
                    OnClick="Save"
-                   Disabled="@(!form?.IsValid ?? true)">
+                   Disabled="@(!CanSave)">
             @(IsEditMode ? "Mentés" : "Létrehozás")
         </MudButton>
     </DialogActions>

@@ -12,7 +12,7 @@ public class Item
 	// rajzszám
 	public string DrawingNumber { get; set; } = string.Empty;
 
-	public int Price { get; set; }
+	public decimal Price { get; set; }
 
 	public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 	public DateTime? UpdatedAt { get; set; }

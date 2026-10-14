@@ -91,7 +91,7 @@ public partial class ItemsBase : ComponentBase
 		var options = new DialogOptions
 		{
 			CloseOnEscapeKey = true,
-			MaxWidth = MaxWidth.Medium,
+			MaxWidth = MaxWidth.ExtraLarge,
 			FullWidth = true
 		};
 
